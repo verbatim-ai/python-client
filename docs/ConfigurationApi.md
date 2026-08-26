@@ -4,11 +4,11 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**list4**](ConfigurationApi.md#list4) | **GET** /v1/config/model | List supported LLM models
+[**list5**](ConfigurationApi.md#list5) | **GET** /v1/config/model | List supported LLM models
 
 
-# **list4**
-> ModelListResponse list4()
+# **list5**
+> ModelListResponse list5()
 
 List supported LLM models
 
@@ -54,11 +54,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List supported LLM models
-        api_response = api_instance.list4()
-        print("The response of ConfigurationApi->list4:\n")
+        api_response = api_instance.list5()
+        print("The response of ConfigurationApi->list5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ConfigurationApi->list4: %s\n" % e)
+        print("Exception when calling ConfigurationApi->list5: %s\n" % e)
 ```
 
 
@@ -84,12 +84,12 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**500** | Internal error. Check body to get more info |  -  |
 **200** | Supported models. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -37,7 +37,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list4(
+    def list5(
         self,
         _request_timeout: Union[
             None,
@@ -78,7 +78,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -86,12 +86,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -106,7 +106,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list4_with_http_info(
+    def list5_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -147,7 +147,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -155,12 +155,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -175,7 +175,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list4_without_preload_content(
+    def list5_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -216,7 +216,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -224,12 +224,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -239,7 +239,7 @@ class ConfigurationApi:
         return response_data.response
 
 
-    def _list4_serialize(
+    def _list5_serialize(
         self,
         _request_auth,
         _content_type,

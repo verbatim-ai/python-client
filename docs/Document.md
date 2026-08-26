@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **provider** | **str** | Free-form label identifying the source of the document. | [optional] 
 **lang** | **str** | ISO-639 language code used during ingestion. | [optional] 
 **metadata** | **Dict[str, Optional[object]]** | Arbitrary JSON metadata attached to the document. Stored as JSONB. | [optional] 
+**tags** | **List[str]** | Free-form labels used to classify the document. Filter on them with &#x60;GET /v1/doc/?tags&#x3D;…&#x60;. Null when the document carries no tag. | [optional] 
+**chunk** | **Dict[str, Optional[object]]** | Chunking configuration used when ingesting this document — an Unstructured chunking option set (&#x60;strategy&#x60;, &#x60;max_characters&#x60;, &#x60;overlap&#x60;, …). Null means the platform default was used (&#x60;by_title&#x60;, &#x60;max_characters: 10000&#x60;, &#x60;combine_text_under_n_chars: 1000&#x60;). See &#x60;DocumentInitRequest.chunk&#x60; for the full key reference. | [optional] 
 **doc_create** | **datetime** | Original creation date of the source document (ISO-8601, UTC). Falls back to upload time when unknown. | [optional] 
 **doc_update** | **datetime** | Original last-modified date of the source document (ISO-8601, UTC). Falls back to upload time when unknown. | [optional] 
 **created_at** | **datetime** | Date the document was uploaded to the platform (ISO-8601, UTC). | 
@@ -23,6 +25,7 @@ Name | Type | Description | Notes
 **size** | **int** | Size of the source file in bytes. Set after ingestion. | [optional] 
 **tokens** | **int** | Number of LLM tokens consumed to produce the summary. Set after ingestion. | [optional] 
 **nb_words** | **int** | Number of words in the source document. Set after ingestion. | [optional] 
+**nb_pages** | **int** | Number of pages of the source document. &#x60;0&#x60; means *not counted yet* — the rendering pipeline reports it during ingestion, so it stays &#x60;0&#x60; until then (and for formats that have no pages). Use it to bound the &#x60;pages&#x60; indices of &#x60;GET /v1/doc/{id}/preview-urls&#x60;, whose valid range is &#x60;0..nbPages-1&#x60;. | [optional] 
 
 ## Example
 

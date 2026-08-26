@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -37,6 +37,21 @@ def is_socks_proxy_url(url):
     else:
         return split_section[0].lower() in SUPPORTED_SOCKS_PROXIES
 
+def contenttype_matches(contenttype, maintype, subtype):
+    """Matches the given contenttype against the given type and subtype
+
+    :param contenttype: the content type to match
+    :param maintype: the expected maintype
+    :param subtype: the expected subtype
+    :return: `true` when the given content type matches the given type and subtype,
+        regardless of the presence of mime type parameters, otherwise returns `false`.
+    :rtype: bool
+    """
+    pattern = '{type}/(?:[^+;]+\\+)?{subtype}(?:[ \t]*;.*)?'.format(
+        type = re.escape(maintype),
+        subtype = re.escape(subtype),
+    )
+    return re.fullmatch(pattern, contenttype, re.IGNORECASE) is not None
 
 def should_bypass_proxies(url: str, no_proxy: str) -> bool:
     """Return whether ``url`` matches the comma-separated ``no_proxy`` rules."""
@@ -156,6 +171,8 @@ class RESTClientObject:
             else:
                 pool_args["proxy_url"] = configuration.proxy
                 pool_args["proxy_headers"] = configuration.proxy_headers
+                if configuration.proxy_ssl_context is not None:
+                    pool_args["proxy_ssl_context"] = configuration.proxy_ssl_context
                 self.pool_manager = urllib3.ProxyManager(**pool_args)
         else:
             self.pool_manager = urllib3.PoolManager(**pool_args)
@@ -222,14 +239,18 @@ class RESTClientObject:
                 content_type = headers.get('Content-Type')
                 is_json = (
                     not content_type
-                    or re.search('json', content_type, re.IGNORECASE)
+                    or contenttype_matches(content_type, 'application', 'json')
                 )
                 # JSON is valid YAML 1.2, so structured YAML bodies can use
                 # the existing JSON serializer:
                 # https://yaml.org/spec/1.2.2/#13-relation-to-json
                 is_structured_yaml = (
                     content_type
-                    and re.search('yaml', content_type, re.IGNORECASE)
+                    and (
+                        contenttype_matches(content_type, 'application', 'yaml')
+                        or contenttype_matches(content_type, 'text', 'yaml')
+                        or contenttype_matches(content_type, 'text', 'x-yaml')
+                    )
                     and not isinstance(body, (str, bytes))
                 )
                 if is_json or is_structured_yaml:
@@ -244,7 +265,7 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False
                     )
-                elif content_type == 'application/x-www-form-urlencoded':
+                elif contenttype_matches(content_type, 'application', 'x-www-form-urlencoded'):
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -254,7 +275,7 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False
                     )
-                elif content_type == 'multipart/form-data':
+                elif contenttype_matches(content_type, 'multipart', 'form-data'):
                     # must del headers['Content-Type'], or the correct
                     # Content-Type which generated by urllib3 will be
                     # overwritten.
@@ -282,7 +303,7 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False
                     )
-                elif headers['Content-Type'].startswith('text/') and isinstance(body, bool):
+                elif content_type.startswith('text/') and isinstance(body, bool):
                     request_body = "true" if body else "false"
                     r = self.pool_manager.request(
                         method,

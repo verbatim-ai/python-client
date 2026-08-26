@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -16,6 +16,7 @@ import http.client as httplib
 import logging
 from logging import FileHandler
 import multiprocessing
+import ssl
 import sys
 from typing import Any, ClassVar, Dict, List, Literal, Optional, TypedDict, Union
 from urllib.parse import urlparse
@@ -175,6 +176,7 @@ class Configuration:
     :param proxy: Proxy URL.
     :param no_proxy: Comma-separated hosts that bypass the proxy.
     :param proxy_headers: Proxy headers.
+    :param proxy_ssl_context: SSL context used only for the TLS handshake with the proxy itself, independent of the destination TLS settings.
     :param safe_chars_for_path_param: Safe characters for path parameter encoding.
     :param client_side_validation: Enable client-side validation. Default True.
     :param socket_options: Options to pass down to the underlying urllib3 socket.
@@ -230,6 +232,7 @@ conf = verbatim_client.Configuration(
         proxy: Optional[str]=None,
         no_proxy: Optional[str]=None,
         proxy_headers: Optional[Any]=None,
+        proxy_ssl_context: Optional[ssl.SSLContext]=None,
         safe_chars_for_path_param: str='',
         client_side_validation: bool=True,
         socket_options: Optional[Any]=None,
@@ -337,21 +340,26 @@ conf = verbatim_client.Configuration(
 
         # urllib3 does not read proxy environment variables itself:
         # https://github.com/urllib3/urllib3/issues/1785
+        # A proxy taken from the environment is re-resolved when the host is
+        # assigned; see the host setter.
+        self._proxy_from_env = proxy is None
         if proxy is None or no_proxy is None:
             proxies = getproxies()
             if proxy is None:
-                scheme = urlparse(self.host).scheme
-                proxy = proxies.get(scheme) or proxies.get("all")
+                proxy = self._env_proxy(proxies, self.host)
             if no_proxy is None:
                 no_proxy = proxies.get("no")
-        self.proxy = proxy
-        """Proxy URL
-        """
+        self._proxy = proxy
         self.no_proxy = no_proxy
         """Hosts that bypass the proxy
         """
         self.proxy_headers = proxy_headers
         """Proxy headers
+        """
+        self.proxy_ssl_context = proxy_ssl_context
+        """SSL context used only for the TLS handshake with the proxy itself
+        (e.g. an HTTPS CONNECT tunnel), independent of the destination TLS
+        settings above.
         """
         self.safe_chars_for_path_param = safe_chars_for_path_param
         """Safe chars for path_param
@@ -379,6 +387,10 @@ conf = verbatim_client.Configuration(
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
+            if k == 'proxy_ssl_context':
+                # ssl.SSLContext holds unpicklable C state and can't be deepcopied.
+                setattr(result, k, v)
+                continue
             if k not in ('logger', 'logger_file_handler'):
                 setattr(result, k, copy.deepcopy(v, memo))
         # shallow copy of loggers
@@ -655,3 +667,23 @@ conf = verbatim_client.Configuration(
         """Fix base path."""
         self._base_path = value
         self.server_index = None
+        if self._proxy_from_env:
+            # the scheme-specific proxy depends on the host, which is
+            # commonly assigned after construction
+            self._proxy = self._env_proxy(getproxies(), value)
+
+    @staticmethod
+    def _env_proxy(proxies: Dict[str, str], host: str) -> Optional[str]:
+        """Pick the environment proxy that applies to `host`."""
+        return proxies.get(urlparse(host).scheme) or proxies.get("all")
+
+    @property
+    def proxy(self) -> Optional[str]:
+        """Proxy URL
+        """
+        return self._proxy
+
+    @proxy.setter
+    def proxy(self, value: Optional[str]) -> None:
+        self._proxy = value
+        self._proxy_from_env = False

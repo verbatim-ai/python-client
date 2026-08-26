@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -16,6 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from datetime import datetime
 from pydantic import Field, StrictInt, StrictStr, field_validator
 from typing import List, Optional
 from typing_extensions import Annotated
@@ -27,6 +28,7 @@ from verbatim_client.models.document_init import DocumentInit
 from verbatim_client.models.document_init_request import DocumentInitRequest
 from verbatim_client.models.document_list_response import DocumentListResponse
 from verbatim_client.models.document_preview_urls import DocumentPreviewUrls
+from verbatim_client.models.document_search_response import DocumentSearchResponse
 from verbatim_client.models.document_status import DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest
 
@@ -102,12 +104,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -175,12 +177,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -248,12 +250,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -382,12 +384,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -455,12 +457,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -528,12 +530,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -662,12 +664,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -735,12 +737,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -808,12 +810,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -942,12 +944,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1015,12 +1017,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1088,12 +1090,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1187,7 +1189,7 @@ class DocumentApi:
     ) -> DocumentInit:
         """Initialize a direct-to-storage upload
 
-        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`. 
+        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`.  Two optional fields shape what happens later: `tags` classifies the document so `GET /v1/doc/?tags=…` can find it, and `chunk` overrides how ingestion splits it into embeddable pieces. `chunk` accepts the Unstructured chunking options (`strategy`, `max_characters`, `overlap`, …) — see the request schema for the full key reference, and the *Chunking* examples below for the three shapes that cover most documents. Omit `chunk` and the platform default applies (`by_title`, `max_characters: 10000`, `combine_text_under_n_chars: 1000`). 
 
         :param document_init_request: (required)
         :type document_init_request: DocumentInitRequest
@@ -1222,12 +1224,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1260,7 +1262,7 @@ class DocumentApi:
     ) -> ApiResponse[DocumentInit]:
         """Initialize a direct-to-storage upload
 
-        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`. 
+        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`.  Two optional fields shape what happens later: `tags` classifies the document so `GET /v1/doc/?tags=…` can find it, and `chunk` overrides how ingestion splits it into embeddable pieces. `chunk` accepts the Unstructured chunking options (`strategy`, `max_characters`, `overlap`, …) — see the request schema for the full key reference, and the *Chunking* examples below for the three shapes that cover most documents. Omit `chunk` and the platform default applies (`by_title`, `max_characters: 10000`, `combine_text_under_n_chars: 1000`). 
 
         :param document_init_request: (required)
         :type document_init_request: DocumentInitRequest
@@ -1295,12 +1297,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1333,7 +1335,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Initialize a direct-to-storage upload
 
-        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`. 
+        Step 1 of the upload flow. Validates inputs, creates a document in `AWAITING_UPLOAD` status, and returns a single-use presigned PUT URL the client must use to push the file bytes directly to S3 — no content flows through this server.  The returned `uploadUrl` is bound to the requested `contentType`: the client MUST send a matching `Content-Type` header in the PUT request, or S3 will reject it.  After the PUT succeeds, call `POST /v1/doc/{id}/commit` to trigger ingestion.  Accepted content types are listed by `GET /v1/doc/accept`.  Two optional fields shape what happens later: `tags` classifies the document so `GET /v1/doc/?tags=…` can find it, and `chunk` overrides how ingestion splits it into embeddable pieces. `chunk` accepts the Unstructured chunking options (`strategy`, `max_characters`, `overlap`, …) — see the request schema for the full key reference, and the *Chunking* examples below for the three shapes that cover most documents. Omit `chunk` and the platform default applies (`by_title`, `max_characters: 10000`, `combine_text_under_n_chars: 1000`). 
 
         :param document_init_request: (required)
         :type document_init_request: DocumentInitRequest
@@ -1368,12 +1370,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1462,12 +1464,13 @@ class DocumentApi:
 
 
     @validate_call
-    def list3(
+    def list4(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1483,13 +1486,15 @@ class DocumentApi:
     ) -> DocumentListResponse:
         """List documents
 
-        Paginate documents stored in a corpus, newest first. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.
+        Paginate documents stored in a corpus. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.  Pass `tags` to keep only documents carrying **at least one** of the given tags (repeat the parameter for several: `tags=legal&tags=2026`). Combining `status` and `tags` narrows on both. 
 
         :param corpus_id: ID of the corpus. (required)
         :type corpus_id: UUID
         :param status: Optional lifecycle filter. When omitted, documents of all statuses are returned.
         :type status: str
-        :param page_size: Number of items per page.
+        :param tags: Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1515,9 +1520,10 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
+            tags=tags,
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1527,12 +1533,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1547,12 +1553,13 @@ class DocumentApi:
 
 
     @validate_call
-    def list3_with_http_info(
+    def list4_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1568,13 +1575,15 @@ class DocumentApi:
     ) -> ApiResponse[DocumentListResponse]:
         """List documents
 
-        Paginate documents stored in a corpus, newest first. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.
+        Paginate documents stored in a corpus. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.  Pass `tags` to keep only documents carrying **at least one** of the given tags (repeat the parameter for several: `tags=legal&tags=2026`). Combining `status` and `tags` narrows on both. 
 
         :param corpus_id: ID of the corpus. (required)
         :type corpus_id: UUID
         :param status: Optional lifecycle filter. When omitted, documents of all statuses are returned.
         :type status: str
-        :param page_size: Number of items per page.
+        :param tags: Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1600,9 +1609,10 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
+            tags=tags,
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1612,12 +1622,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1632,12 +1642,13 @@ class DocumentApi:
 
 
     @validate_call
-    def list3_without_preload_content(
+    def list4_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1653,13 +1664,15 @@ class DocumentApi:
     ) -> RESTResponseType:
         """List documents
 
-        Paginate documents stored in a corpus, newest first. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.
+        Paginate documents stored in a corpus. Pass the optional `status` filter to narrow down by lifecycle state — e.g. `status=PENDING` returns the ingestion backlog, `status=FAILED` returns documents that need attention.  Pass `tags` to keep only documents carrying **at least one** of the given tags (repeat the parameter for several: `tags=legal&tags=2026`). Combining `status` and `tags` narrows on both. 
 
         :param corpus_id: ID of the corpus. (required)
         :type corpus_id: UUID
         :param status: Optional lifecycle filter. When omitted, documents of all statuses are returned.
         :type status: str
-        :param page_size: Number of items per page.
+        :param tags: Optional tag filter. Returns documents carrying at least one of the given tags. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1685,9 +1698,10 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
+            tags=tags,
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1697,12 +1711,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1712,10 +1726,11 @@ class DocumentApi:
         return response_data.response
 
 
-    def _list3_serialize(
+    def _list4_serialize(
         self,
         corpus_id,
         status,
+        tags,
         page_size,
         page_index,
         _request_auth,
@@ -1727,6 +1742,7 @@ class DocumentApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'tags': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1747,6 +1763,10 @@ class DocumentApi:
         if status is not None:
             
             _query_params.append(('status', status))
+            
+        if tags is not None:
+            
+            _query_params.append(('tags', tags))
             
         if page_size is not None:
             
@@ -1844,12 +1864,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -1913,12 +1933,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -1982,12 +2002,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -2063,7 +2083,7 @@ class DocumentApi:
     def preview_urls1(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2079,11 +2099,11 @@ class DocumentApi:
     ) -> DocumentPreviewUrls:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param id: ID of the document. (required)
         :type id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2117,12 +2137,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2140,7 +2160,7 @@ class DocumentApi:
     def preview_urls1_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2156,11 +2176,11 @@ class DocumentApi:
     ) -> ApiResponse[DocumentPreviewUrls]:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param id: ID of the document. (required)
         :type id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2194,12 +2214,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2217,7 +2237,7 @@ class DocumentApi:
     def preview_urls1_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2233,11 +2253,11 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param id: ID of the document. (required)
         :type id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2271,12 +2291,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2376,7 +2396,7 @@ class DocumentApi:
     ) -> DocumentInit:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID
@@ -2411,12 +2431,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': None,
             '400': "Error",
             '409': None,
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2449,7 +2469,7 @@ class DocumentApi:
     ) -> ApiResponse[DocumentInit]:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID
@@ -2484,12 +2504,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': None,
             '400': "Error",
             '409': None,
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2522,7 +2542,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID
@@ -2557,12 +2577,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': None,
             '400': "Error",
             '409': None,
+            '500': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2638,6 +2658,564 @@ class DocumentApi:
 
 
     @validate_call
+    def search(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
+        q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
+        content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
+        lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
+        provider: Annotated[Optional[StrictStr], Field(description="Exact provider identifier, as supplied at upload time.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Keep documents ingested at or after this instant (ISO-8601, inclusive).")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Keep documents ingested strictly before this instant (ISO-8601, exclusive).")] = None,
+        min_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.")] = None,
+        max_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at most this many bytes (inclusive).")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Column to sort on. Defaults to `CREATED_AT`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> DocumentSearchResponse:
+        """Search documents
+
+        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+
+        :param corpus_id: ID of the corpus to search. (required)
+        :type corpus_id: UUID
+        :param q: Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.
+        :type q: str
+        :param tags: Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
+        :type tags_match: str
+        :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
+        :type status: List[str]
+        :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
+        :type content_type: List[str]
+        :param lang: Exact ISO-639 language code of the document.
+        :type lang: str
+        :param provider: Exact provider identifier, as supplied at upload time.
+        :type provider: str
+        :param created_after: Keep documents ingested at or after this instant (ISO-8601, inclusive).
+        :type created_after: datetime
+        :param created_before: Keep documents ingested strictly before this instant (ISO-8601, exclusive).
+        :type created_before: datetime
+        :param min_size: Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.
+        :type min_size: int
+        :param max_size: Keep documents of at most this many bytes (inclusive).
+        :type max_size: int
+        :param sort: Column to sort on. Defaults to `CREATED_AT`.
+        :type sort: str
+        :param order: Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.
+        :type order: str
+        :param page_size: Number of items per page, 1-100.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_serialize(
+            corpus_id=corpus_id,
+            q=q,
+            tags=tags,
+            tags_match=tags_match,
+            status=status,
+            content_type=content_type,
+            lang=lang,
+            provider=provider,
+            created_after=created_after,
+            created_before=created_before,
+            min_size=min_size,
+            max_size=max_size,
+            sort=sort,
+            order=order,
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '500': "Error",
+            '200': "DocumentSearchResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_with_http_info(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
+        q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
+        content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
+        lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
+        provider: Annotated[Optional[StrictStr], Field(description="Exact provider identifier, as supplied at upload time.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Keep documents ingested at or after this instant (ISO-8601, inclusive).")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Keep documents ingested strictly before this instant (ISO-8601, exclusive).")] = None,
+        min_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.")] = None,
+        max_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at most this many bytes (inclusive).")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Column to sort on. Defaults to `CREATED_AT`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[DocumentSearchResponse]:
+        """Search documents
+
+        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+
+        :param corpus_id: ID of the corpus to search. (required)
+        :type corpus_id: UUID
+        :param q: Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.
+        :type q: str
+        :param tags: Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
+        :type tags_match: str
+        :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
+        :type status: List[str]
+        :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
+        :type content_type: List[str]
+        :param lang: Exact ISO-639 language code of the document.
+        :type lang: str
+        :param provider: Exact provider identifier, as supplied at upload time.
+        :type provider: str
+        :param created_after: Keep documents ingested at or after this instant (ISO-8601, inclusive).
+        :type created_after: datetime
+        :param created_before: Keep documents ingested strictly before this instant (ISO-8601, exclusive).
+        :type created_before: datetime
+        :param min_size: Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.
+        :type min_size: int
+        :param max_size: Keep documents of at most this many bytes (inclusive).
+        :type max_size: int
+        :param sort: Column to sort on. Defaults to `CREATED_AT`.
+        :type sort: str
+        :param order: Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.
+        :type order: str
+        :param page_size: Number of items per page, 1-100.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_serialize(
+            corpus_id=corpus_id,
+            q=q,
+            tags=tags,
+            tags_match=tags_match,
+            status=status,
+            content_type=content_type,
+            lang=lang,
+            provider=provider,
+            created_after=created_after,
+            created_before=created_before,
+            min_size=min_size,
+            max_size=max_size,
+            sort=sort,
+            order=order,
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '500': "Error",
+            '200': "DocumentSearchResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def search_without_preload_content(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
+        q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
+        tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
+        tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
+        content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
+        lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
+        provider: Annotated[Optional[StrictStr], Field(description="Exact provider identifier, as supplied at upload time.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Keep documents ingested at or after this instant (ISO-8601, inclusive).")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Keep documents ingested strictly before this instant (ISO-8601, exclusive).")] = None,
+        min_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.")] = None,
+        max_size: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Keep documents of at most this many bytes (inclusive).")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Column to sort on. Defaults to `CREATED_AT`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Search documents
+
+        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+
+        :param corpus_id: ID of the corpus to search. (required)
+        :type corpus_id: UUID
+        :param q: Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.
+        :type q: str
+        :param tags: Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.
+        :type tags: List[str]
+        :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
+        :type tags_match: str
+        :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
+        :type status: List[str]
+        :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
+        :type content_type: List[str]
+        :param lang: Exact ISO-639 language code of the document.
+        :type lang: str
+        :param provider: Exact provider identifier, as supplied at upload time.
+        :type provider: str
+        :param created_after: Keep documents ingested at or after this instant (ISO-8601, inclusive).
+        :type created_after: datetime
+        :param created_before: Keep documents ingested strictly before this instant (ISO-8601, exclusive).
+        :type created_before: datetime
+        :param min_size: Keep documents of at least this many bytes (inclusive). Documents still awaiting upload have no size and drop out.
+        :type min_size: int
+        :param max_size: Keep documents of at most this many bytes (inclusive).
+        :type max_size: int
+        :param sort: Column to sort on. Defaults to `CREATED_AT`.
+        :type sort: str
+        :param order: Sort direction. Defaults to `DESC` — newest, largest or alphabetically last first.
+        :type order: str
+        :param page_size: Number of items per page, 1-100.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_serialize(
+            corpus_id=corpus_id,
+            q=q,
+            tags=tags,
+            tags_match=tags_match,
+            status=status,
+            content_type=content_type,
+            lang=lang,
+            provider=provider,
+            created_after=created_after,
+            created_before=created_before,
+            min_size=min_size,
+            max_size=max_size,
+            sort=sort,
+            order=order,
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '500': "Error",
+            '200': "DocumentSearchResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _search_serialize(
+        self,
+        corpus_id,
+        q,
+        tags,
+        tags_match,
+        status,
+        content_type,
+        lang,
+        provider,
+        created_after,
+        created_before,
+        min_size,
+        max_size,
+        sort,
+        order,
+        page_size,
+        page_index,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'tags': 'multi',
+            'status': 'multi',
+            'contentType': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if corpus_id is not None:
+            
+            _query_params.append(('corpusId', corpus_id))
+            
+        if q is not None:
+            
+            _query_params.append(('q', q))
+            
+        if tags is not None:
+            
+            _query_params.append(('tags', tags))
+            
+        if tags_match is not None:
+            
+            _query_params.append(('tagsMatch', tags_match))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
+            
+        if content_type is not None:
+            
+            _query_params.append(('contentType', content_type))
+            
+        if lang is not None:
+            
+            _query_params.append(('lang', lang))
+            
+        if provider is not None:
+            
+            _query_params.append(('provider', provider))
+            
+        if created_after is not None:
+            if isinstance(created_after, datetime):
+                _query_params.append(
+                    (
+                        'createdAfter',
+                        created_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('createdAfter', created_after))
+            
+        if created_before is not None:
+            if isinstance(created_before, datetime):
+                _query_params.append(
+                    (
+                        'createdBefore',
+                        created_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('createdBefore', created_before))
+            
+        if min_size is not None:
+            
+            _query_params.append(('minSize', min_size))
+            
+        if max_size is not None:
+            
+            _query_params.append(('maxSize', max_size))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page_index is not None:
+            
+            _query_params.append(('pageIndex', page_index))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT', 
+            'AccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/doc/q',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def status(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
@@ -2691,12 +3269,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -2764,12 +3342,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -2837,12 +3415,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -2971,12 +3549,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3044,12 +3622,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3117,12 +3695,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3218,7 +3796,7 @@ class DocumentApi:
     ) -> Document:
         """Update a document
 
-        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate` and `metadata`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata` **replaces** the stored map when provided — merge client-side if you want to preserve existing keys.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Available in any lifecycle status. 
+        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate`, `metadata`, `tags` and `chunk`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata`, `tags` and `chunk` **replace** the stored value when provided — merge client-side if you want to preserve existing entries. Send `\"tags\": []` to clear every tag, and `\"chunk\": {}` to drop the chunking override and fall back to the platform default.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Changing `chunk` likewise applies to the **next** ingestion — it does not re-chunk an already ingested document. Available in any lifecycle status. 
 
         :param id: ID of the document to update. (required)
         :type id: UUID
@@ -3256,12 +3834,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': None,
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3295,7 +3873,7 @@ class DocumentApi:
     ) -> ApiResponse[Document]:
         """Update a document
 
-        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate` and `metadata`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata` **replaces** the stored map when provided — merge client-side if you want to preserve existing keys.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Available in any lifecycle status. 
+        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate`, `metadata`, `tags` and `chunk`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata`, `tags` and `chunk` **replace** the stored value when provided — merge client-side if you want to preserve existing entries. Send `\"tags\": []` to clear every tag, and `\"chunk\": {}` to drop the chunking override and fall back to the platform default.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Changing `chunk` likewise applies to the **next** ingestion — it does not re-chunk an already ingested document. Available in any lifecycle status. 
 
         :param id: ID of the document to update. (required)
         :type id: UUID
@@ -3333,12 +3911,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': None,
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3372,7 +3950,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Update a document
 
-        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate` and `metadata`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata` **replaces** the stored map when provided — merge client-side if you want to preserve existing keys.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Available in any lifecycle status. 
+        Patch the editable attributes of a document — `filename`, `docCreate`, `docUpdate`, `metadata`, `tags` and `chunk`. Only the fields present in the request body are updated; omitted fields keep their current value.  `metadata`, `tags` and `chunk` **replace** the stored value when provided — merge client-side if you want to preserve existing entries. Send `\"tags\": []` to clear every tag, and `\"chunk\": {}` to drop the chunking override and fall back to the platform default.  `docCreate` and `docUpdate` describe the **source** document, not the platform row: they are yours to correct, while `createdAt` and `updatedAt` remain server-managed and cannot be set here.  Every attribute is descriptive: renaming a document does not move the stored file nor re-trigger ingestion, so embeddings and previews are left untouched. Changing `chunk` likewise applies to the **next** ingestion — it does not re-chunk an already ingested document. Available in any lifecycle status. 
 
         :param id: ID of the document to update. (required)
         :type id: UUID
@@ -3410,12 +3988,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': None,
             '409': "Error",
+            '500': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(

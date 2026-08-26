@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -43,7 +43,7 @@ class UsageApi:
     @validate_call
     def usage(
         self,
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -59,9 +59,9 @@ class UsageApi:
     ) -> Usage:
         """Organization usage
 
-        Return the aggregated usage report for the caller's organization over a rolling timeframe.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (window). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` (in window), `removed` (in window). - **storage** values are bytes.  The `timeframe` parameter selects a rolling window ending at `timestamp`:  - `Day` — last 24 hours - `Week` — last 7 days - `Month` — last 30 days - `Year` — last 365 days  The window is half-open: `from` inclusive, `to` exclusive. 
+        Return the aggregated usage report for the caller's organization, as headline totals and as a per-bucket time series.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (over the reported range). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` and `removed` over the range. - **storage** values are bytes. - **series** — the same `created`/`removed` deltas and a `tokens` count, bucket by bucket.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -94,12 +94,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -116,7 +116,7 @@ class UsageApi:
     @validate_call
     def usage_with_http_info(
         self,
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -132,9 +132,9 @@ class UsageApi:
     ) -> ApiResponse[Usage]:
         """Organization usage
 
-        Return the aggregated usage report for the caller's organization over a rolling timeframe.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (window). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` (in window), `removed` (in window). - **storage** values are bytes.  The `timeframe` parameter selects a rolling window ending at `timestamp`:  - `Day` — last 24 hours - `Week` — last 7 days - `Month` — last 30 days - `Year` — last 365 days  The window is half-open: `from` inclusive, `to` exclusive. 
+        Return the aggregated usage report for the caller's organization, as headline totals and as a per-bucket time series.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (over the reported range). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` and `removed` over the range. - **storage** values are bytes. - **series** — the same `created`/`removed` deltas and a `tokens` count, bucket by bucket.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -167,12 +167,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -189,7 +189,7 @@ class UsageApi:
     @validate_call
     def usage_without_preload_content(
         self,
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -205,9 +205,9 @@ class UsageApi:
     ) -> RESTResponseType:
         """Organization usage
 
-        Return the aggregated usage report for the caller's organization over a rolling timeframe.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (window). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` (in window), `removed` (in window). - **storage** values are bytes.  The `timeframe` parameter selects a rolling window ending at `timestamp`:  - `Day` — last 24 hours - `Week` — last 7 days - `Month` — last 30 days - `Year` — last 365 days  The window is half-open: `from` inclusive, `to` exclusive. 
+        Return the aggregated usage report for the caller's organization, as headline totals and as a per-bucket time series.  Each dimension is reported as: - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (over the reported range). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level). - **corpora / sessions / posts / storage** — `total`, `created` and `removed` over the range. - **storage** values are bytes. - **series** — the same `created`/`removed` deltas and a `tokens` count, bucket by bucket.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -240,12 +240,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -326,7 +326,7 @@ class UsageApi:
     def usage_by_corpus(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to compute usage for.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -342,11 +342,11 @@ class UsageApi:
     ) -> Usage:
         """Corpus usage
 
-        Return the aggregated usage report for a single corpus over a rolling timeframe.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope.  Sessions, posts and storage are restricted to the requested corpus. 
+        Return the aggregated usage report for a single corpus, as headline totals and as a per-bucket time series.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope. It is absent from the `series` entries too.  Sessions, posts and storage are restricted to the requested corpus.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param corpus_id: ID of the corpus to compute usage for. (required)
         :type corpus_id: UUID
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -380,12 +380,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -403,7 +403,7 @@ class UsageApi:
     def usage_by_corpus_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to compute usage for.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -419,11 +419,11 @@ class UsageApi:
     ) -> ApiResponse[Usage]:
         """Corpus usage
 
-        Return the aggregated usage report for a single corpus over a rolling timeframe.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope.  Sessions, posts and storage are restricted to the requested corpus. 
+        Return the aggregated usage report for a single corpus, as headline totals and as a per-bucket time series.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope. It is absent from the `series` entries too.  Sessions, posts and storage are restricted to the requested corpus.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param corpus_id: ID of the corpus to compute usage for. (required)
         :type corpus_id: UUID
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -457,12 +457,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -480,7 +480,7 @@ class UsageApi:
     def usage_by_corpus_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to compute usage for.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -496,11 +496,11 @@ class UsageApi:
     ) -> RESTResponseType:
         """Corpus usage
 
-        Return the aggregated usage report for a single corpus over a rolling timeframe.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope.  Sessions, posts and storage are restricted to the requested corpus. 
+        Return the aggregated usage report for a single corpus, as headline totals and as a per-bucket time series.  Differences with the organization-scope report: - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org. - **corpora** is `null` — cardinality is always 1 at corpus scope. It is absent from the `series` entries too.  Sessions, posts and storage are restricted to the requested corpus.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param corpus_id: ID of the corpus to compute usage for. (required)
         :type corpus_id: UUID
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -534,12 +534,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -623,7 +623,7 @@ class UsageApi:
     def usage_by_user(
         self,
         user_id: Annotated[StrictStr, Field(description="ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -639,11 +639,11 @@ class UsageApi:
     ) -> Usage:
         """User usage
 
-        Return the aggregated usage report for a single user within the caller's organization over a rolling timeframe.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of `orgId`. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup. 
+        Return the aggregated usage report for a single user within the caller's organization, as headline totals and as a per-bucket time series.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of the caller's organization. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope. It is absent from the `series` entries too.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param user_id: ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`. (required)
         :type user_id: str
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -677,12 +677,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -700,7 +700,7 @@ class UsageApi:
     def usage_by_user_with_http_info(
         self,
         user_id: Annotated[StrictStr, Field(description="ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -716,11 +716,11 @@ class UsageApi:
     ) -> ApiResponse[Usage]:
         """User usage
 
-        Return the aggregated usage report for a single user within the caller's organization over a rolling timeframe.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of `orgId`. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup. 
+        Return the aggregated usage report for a single user within the caller's organization, as headline totals and as a per-bucket time series.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of the caller's organization. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope. It is absent from the `series` entries too.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param user_id: ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`. (required)
         :type user_id: str
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -754,12 +754,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -777,7 +777,7 @@ class UsageApi:
     def usage_by_user_without_preload_content(
         self,
         user_id: Annotated[StrictStr, Field(description="ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`.")],
-        timeframe: Annotated[Optional[StrictStr], Field(description="Rolling window to aggregate over. Defaults to `Day`.")] = None,
+        timeframe: Annotated[Optional[StrictStr], Field(description="Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -793,11 +793,11 @@ class UsageApi:
     ) -> RESTResponseType:
         """User usage
 
-        Return the aggregated usage report for a single user within the caller's organization over a rolling timeframe.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of `orgId`. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup. 
+        Return the aggregated usage report for a single user within the caller's organization, as headline totals and as a per-bucket time series.  Scope: - **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of the caller's organization. - **sessions** counts distinct sessions owned by `userId` in the organization. - **posts** counts posts in those sessions. - **storage** sums `document.size` of documents uploaded by `userId` in the organization. - **corpora** is `null` — cardinality is not meaningful at user scope. It is absent from the `series` entries too.  Soft-deleted rows count toward lifetime totals; the `removed` deltas detect cleanup.  `timeframe` selects the **bucket size**, and with it how far back the report reaches:  | `timeframe` | bucket    | buckets | history      | |-------------|-----------|---------|--------------| | `Day`       | one day   | 30      | ~1 month     | | `Week`      | ISO week  | 12      | ~3 months    | | `Month`     | one month | 12      | 1 year       | | `Year`      | one year  | 5       | 5 years      |  Buckets are aligned to **UTC calendar boundaries** — midnight, Monday, the 1st of the month, the 1st of January — not measured backwards from the current instant, so two calls minutes apart return the same boundaries and two reports line up on a chart.  The report covers **completed buckets only**: the bucket in progress (today, this week, this month, this year) is left out, so `to` is the instant that bucket starts at and is never in the future, while `timestamp` is the real server time the report was computed at and is later than `to`. Activity from the current bucket counts toward the lifetime `total`s, but reaches `created`, `removed`, `inPeriod` and `series` only once that bucket closes.  `series` is contiguous and gapless — a bucket in which nothing happened is present with zeros rather than omitted — and its entries sum exactly to the top-level `created`, `removed` and `inPeriod`. Every window is half-open: `from` inclusive, `to` exclusive. 
 
         :param user_id: ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`. (required)
         :type user_id: str
-        :param timeframe: Rolling window to aggregate over. Defaults to `Day`.
+        :param timeframe: Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets).
         :type timeframe: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -831,12 +831,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(

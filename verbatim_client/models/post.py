@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -40,7 +40,8 @@ class Post(BaseModel):
     created_at: datetime = Field(description="Creation timestamp of the post (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
     attachments: Optional[List[Attachment]] = Field(default=None, description="DEPRECATED. Use /post/attachment to get accurate list. Legacy info :Document chunks used as context for this post. Only populated on system answers.")
     attachment: Optional[StrictInt] = Field(default=None, description="Number of attachment used in the post. Used /post/attachment to get details. Filled only when post have more than one attachment. Zero when no attachment.")
-    __properties: ClassVar[List[str]] = ["id", "sessionId", "body", "owner", "token", "lang", "metadata", "createdAt", "attachments", "attachment"]
+    agent_id: Optional[StrictStr] = Field(default=None, description="Agent this answer was produced under, when the query named one explicitly (`GET /v1/post/q?agentId=…`). Absent when the query ran on the platform default agent, which is the usual case — so a missing `agentId` means \"default\", not \"unknown\". Only system answers carry it; the user's question never does. Deleting an agent does not rewrite the answers it produced, so this still identifies an agent you have since deleted — resolving it through `GET /v1/agent/{agentId}` then answers `404`.", alias="agentId", json_schema_extra={"examples": ["1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61"]})
+    __properties: ClassVar[List[str]] = ["id", "sessionId", "body", "owner", "token", "lang", "metadata", "createdAt", "attachments", "attachment", "agentId"]
 
     @field_validator('owner')
     def owner_validate_enum(cls, value):
@@ -92,8 +93,7 @@ class Post(BaseModel):
         _items = []
         if self.attachments:
             for _item_attachments in self.attachments:
-                if _item_attachments:
-                    _items.append(_item_attachments.to_dict())
+                _items.append(_item_attachments.to_dict() if _item_attachments is not None else None)
             _dict['attachments'] = _items
         return _dict
 
@@ -116,7 +116,8 @@ class Post(BaseModel):
             "metadata": obj.get("metadata"),
             "createdAt": obj.get("createdAt"),
             "attachments": [Attachment.from_dict(_item) for _item in obj["attachments"]] if obj.get("attachments") is not None else None,
-            "attachment": obj.get("attachment")
+            "attachment": obj.get("attachment"),
+            "agentId": obj.get("agentId")
         })
         return _obj
 

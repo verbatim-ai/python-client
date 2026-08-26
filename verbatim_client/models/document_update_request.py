@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -34,7 +34,9 @@ class DocumentUpdateRequest(BaseModel):
     doc_create: Optional[datetime] = Field(default=None, description="New creation date of the **source** document (ISO-8601, UTC). Describes the original file, not the platform row — `createdAt` is not affected. Omit to keep the current value.", alias="docCreate", json_schema_extra={"examples": ["2026-01-15T10:30:00Z"]})
     doc_update: Optional[datetime] = Field(default=None, description="New last-modified date of the **source** document (ISO-8601, UTC). Describes the original file, not the platform row — `updatedAt` is not affected. Omit to keep the current value.", alias="docUpdate", json_schema_extra={"examples": ["2026-04-01T08:00:00Z"]})
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="New JSON metadata. When provided, **replaces** the existing metadata map; omit to keep it unchanged.", json_schema_extra={"examples": [{"source": "user", "team": "legal", "review": "2026-Q3"}]})
-    __properties: ClassVar[List[str]] = ["filename", "docCreate", "docUpdate", "metadata"]
+    tags: Optional[List[StrictStr]] = Field(default=None, description="New tag list. When provided, **replaces** the existing tags; omit to keep them unchanged. Send `[]` to clear every tag. Blanks are dropped and duplicates collapsed; at most 32 tags of 64 characters each.", json_schema_extra={"examples": [["legal", "2026", "reviewed"]]})
+    chunk: Optional[Dict[str, Any]] = Field(default=None, description="New chunking configuration — an Unstructured chunking option set (`strategy`, `max_characters`, `new_after_n_chars`, `overlap`, `overlap_all`, `combine_text_under_n_chars`, `multipage_sections`). See `DocumentInitRequest.chunk` for the full key reference.  When provided it **replaces** the stored object wholesale — there is no per-key merge, so resend every key you want to keep. Omit the field to leave the configuration untouched, or send `{}` to drop it and fall back to the platform default.  Applies to the **next** ingestion. Changing it does not re-chunk an already ingested document: call `PUT /v1/doc/{id}/init` and re-commit to rebuild the embeddings with the new configuration. ", json_schema_extra={"examples": [{"strategy": "basic", "max_characters": 4000, "overlap": 200, "overlap_all": True}]})
+    __properties: ClassVar[List[str]] = ["filename", "docCreate", "docUpdate", "metadata", "tags", "chunk"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,7 +92,9 @@ class DocumentUpdateRequest(BaseModel):
             "filename": obj.get("filename"),
             "docCreate": obj.get("docCreate"),
             "docUpdate": obj.get("docUpdate"),
-            "metadata": obj.get("metadata")
+            "metadata": obj.get("metadata"),
+            "tags": obj.get("tags"),
+            "chunk": obj.get("chunk")
         })
         return _obj
 

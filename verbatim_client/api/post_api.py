@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -100,12 +100,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -173,12 +173,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -246,12 +246,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -327,7 +327,7 @@ class PostApi:
 
 
     @validate_call
-    def delete3(
+    def delete4(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -371,7 +371,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -380,12 +380,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -400,7 +400,7 @@ class PostApi:
 
 
     @validate_call
-    def delete3_with_http_info(
+    def delete4_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -444,7 +444,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -453,12 +453,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -473,7 +473,7 @@ class PostApi:
 
 
     @validate_call
-    def delete3_without_preload_content(
+    def delete4_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -517,7 +517,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -526,12 +526,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -541,7 +541,7 @@ class PostApi:
         return response_data.response
 
 
-    def _delete3_serialize(
+    def _delete4_serialize(
         self,
         post_id,
         _request_auth,
@@ -660,12 +660,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -733,12 +733,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -806,12 +806,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -887,7 +887,7 @@ class PostApi:
 
 
     @validate_call
-    def get3(
+    def get4(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -931,7 +931,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -940,12 +940,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -960,7 +960,7 @@ class PostApi:
 
 
     @validate_call
-    def get3_with_http_info(
+    def get4_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1004,7 +1004,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1013,12 +1013,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1033,7 +1033,7 @@ class PostApi:
 
 
     @validate_call
-    def get3_without_preload_content(
+    def get4_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1077,7 +1077,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1086,12 +1086,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1101,7 +1101,7 @@ class PostApi:
         return response_data.response
 
 
-    def _get3_serialize(
+    def _get4_serialize(
         self,
         post_id,
         _request_auth,
@@ -1167,7 +1167,7 @@ class PostApi:
 
 
     @validate_call
-    def list2(
+    def list3(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1217,7 +1217,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1228,12 +1228,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1248,7 +1248,7 @@ class PostApi:
 
 
     @validate_call
-    def list2_with_http_info(
+    def list3_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1298,7 +1298,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1309,12 +1309,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1329,7 +1329,7 @@ class PostApi:
 
 
     @validate_call
-    def list2_without_preload_content(
+    def list3_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1379,7 +1379,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1390,12 +1390,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1405,7 +1405,7 @@ class PostApi:
         return response_data.response
 
 
-    def _list2_serialize(
+    def _list3_serialize(
         self,
         session_id,
         page_size,
@@ -1486,7 +1486,7 @@ class PostApi:
     def preview_urls(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1502,11 +1502,11 @@ class PostApi:
     ) -> DocumentPreviewUrls:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1540,12 +1540,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1563,7 +1563,7 @@ class PostApi:
     def preview_urls_with_http_info(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1579,11 +1579,11 @@ class PostApi:
     ) -> ApiResponse[DocumentPreviewUrls]:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1617,12 +1617,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1640,7 +1640,7 @@ class PostApi:
     def preview_urls_without_preload_content(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[Optional[List[StrictInt]], Field(description="Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.")] = None,
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1656,11 +1656,11 @@ class PostApi:
     ) -> RESTResponseType:
         """Get presigned preview URLs
 
-        Return time-limited presigned URLs for the rendered preview images of the document. One entry is issued per (page, size): by default the first 4 pages × {SMALL, MEDIUM}, so up to 8 entries per call.  Pass `pages` to restrict the response to specific page indices (e.g. `pages=0&pages=2`). When omitted, pages 0–3 are used. Duplicate values are preserved as supplied.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
+        Return time-limited presigned URLs for the rendered preview images of the document.  `pages` is **required** and selects the zero-based page indices to issue URLs for: at least one, at most 10 per request — `400` otherwise. Repeat the parameter for several values (`pages=0&pages=2`) or send them comma-separated (`pages=0,2`). Duplicates are preserved as supplied and count towards the limit. Paginate over a long document with several calls rather than asking for every page at once.  Every index must address a page of *that* document: negatives are rejected, and so is anything at or past its page count once that count is known (`nbPages` from `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).  One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns `2 × pages` entries — at most 20.  The URLs point at preview images produced asynchronously by the rendering pipeline. No existence check is performed — individual URLs MAY return 404 when fetched if the corresponding (page, size) hasn't been generated yet; clients SHOULD fall back per-tile. 
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Page indices to include. When omitted, pages 0–3 are returned. Repeat for multiple values: `pages=0&pages=2`.
+        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1694,12 +1694,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1786,6 +1786,7 @@ class PostApi:
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1801,7 +1802,7 @@ class PostApi:
     ) -> PostItemResponse:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
         :param session_id: ID of the session to post the query into. (required)
         :type session_id: UUID
@@ -1809,6 +1810,8 @@ class PostApi:
         :type body: str
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1835,6 +1838,7 @@ class PostApi:
             session_id=session_id,
             body=body,
             lang=lang,
+            agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1842,12 +1846,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -1867,6 +1871,7 @@ class PostApi:
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1882,7 +1887,7 @@ class PostApi:
     ) -> ApiResponse[PostItemResponse]:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
         :param session_id: ID of the session to post the query into. (required)
         :type session_id: UUID
@@ -1890,6 +1895,8 @@ class PostApi:
         :type body: str
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1916,6 +1923,7 @@ class PostApi:
             session_id=session_id,
             body=body,
             lang=lang,
+            agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1923,12 +1931,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -1948,6 +1956,7 @@ class PostApi:
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1963,7 +1972,7 @@ class PostApi:
     ) -> RESTResponseType:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
         :param session_id: ID of the session to post the query into. (required)
         :type session_id: UUID
@@ -1971,6 +1980,8 @@ class PostApi:
         :type body: str
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1997,6 +2008,7 @@ class PostApi:
             session_id=session_id,
             body=body,
             lang=lang,
+            agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2004,12 +2016,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '500': "Error",
             '403': "Error",
             '404': "Error",
             '415': "Error",
             '400': "Error",
             '409': "Error",
+            '500': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -2024,6 +2036,7 @@ class PostApi:
         session_id,
         body,
         lang,
+        agent_id,
         _request_auth,
         _content_type,
         _headers,
@@ -2057,6 +2070,10 @@ class PostApi:
         if lang is not None:
             
             _query_params.append(('lang', lang))
+            
+        if agent_id is not None:
+            
+            _query_params.append(('agentId', agent_id))
             
         # process the header parameters
         # process the form parameters
