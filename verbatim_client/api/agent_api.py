@@ -98,12 +98,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -171,12 +171,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -244,12 +244,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -338,7 +338,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4(
+    def delete3(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -382,7 +382,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -391,12 +391,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -411,7 +411,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4_with_http_info(
+    def delete3_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -455,7 +455,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -464,12 +464,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -484,7 +484,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4_without_preload_content(
+    def delete3_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -528,7 +528,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -537,12 +537,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -552,7 +552,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _delete4_serialize(
+    def _delete3_serialize(
         self,
         agent_id,
         _request_auth,
@@ -618,7 +618,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4(
+    def get3(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -662,7 +662,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -671,12 +671,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -691,7 +691,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4_with_http_info(
+    def get3_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -735,7 +735,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -744,12 +744,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -764,7 +764,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4_without_preload_content(
+    def get3_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -808,7 +808,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get3_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -817,12 +817,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -832,7 +832,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _get4_serialize(
+    def _get3_serialize(
         self,
         agent_id,
         _request_auth,
@@ -898,7 +898,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2(
+    def list1(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -945,7 +945,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -955,12 +955,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -975,7 +975,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2_with_http_info(
+    def list1_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1022,7 +1022,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1032,12 +1032,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1052,7 +1052,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2_without_preload_content(
+    def list1_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1099,7 +1099,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1109,12 +1109,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1124,7 +1124,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _list2_serialize(
+    def _list1_serialize(
         self,
         page_size,
         page_index,
@@ -1197,7 +1197,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4(
+    def update3(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1244,7 +1244,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update3_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1254,12 +1254,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -1274,7 +1274,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4_with_http_info(
+    def update3_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1321,7 +1321,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update3_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1331,12 +1331,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -1351,7 +1351,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4_without_preload_content(
+    def update3_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1398,7 +1398,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update3_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1408,12 +1408,12 @@ class AgentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': None,
             '400': None,
             '409': None,
-            '415': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -1423,7 +1423,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _update4_serialize(
+    def _update3_serialize(
         self,
         agent_id,
         agent_update_request,

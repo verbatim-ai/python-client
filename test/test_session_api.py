@@ -34,22 +34,22 @@ class TestSessionApi(unittest.TestCase):
         """
         pass
 
-    def test_delete2(self) -> None:
-        """Test case for delete2
+    def test_delete(self) -> None:
+        """Test case for delete
 
         Delete a session
         """
         pass
 
-    def test_get2(self) -> None:
-        """Test case for get2
+    def test_get(self) -> None:
+        """Test case for get
 
         Get a session
         """
         pass
 
-    def test_list4(self) -> None:
-        """Test case for list4
+    def test_list2(self) -> None:
+        """Test case for list2
 
         List sessions attached to a corpus
         """
@@ -76,8 +76,8 @@ class TestSessionApi(unittest.TestCase):
         """
         pass
 
-    def test_update2(self) -> None:
-        """Test case for update2
+    def test_update(self) -> None:
+        """Test case for update
 
         Update a session
         """

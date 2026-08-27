@@ -34,29 +34,29 @@ class TestAgentApi(unittest.TestCase):
         """
         pass
 
-    def test_delete4(self) -> None:
-        """Test case for delete4
+    def test_delete3(self) -> None:
+        """Test case for delete3
 
         Delete an agent
         """
         pass
 
-    def test_get4(self) -> None:
-        """Test case for get4
+    def test_get3(self) -> None:
+        """Test case for get3
 
         Get an agent
         """
         pass
 
-    def test_list2(self) -> None:
-        """Test case for list2
+    def test_list1(self) -> None:
+        """Test case for list1
 
         List agents
         """
         pass
 
-    def test_update4(self) -> None:
-        """Test case for update4
+    def test_update3(self) -> None:
+        """Test case for update3
 
         Update an agent
         """

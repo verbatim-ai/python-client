@@ -34,38 +34,31 @@ class TestCorpusApi(unittest.TestCase):
         """
         pass
 
-    def test_delete(self) -> None:
-        """Test case for delete
+    def test_delete2(self) -> None:
+        """Test case for delete2
 
         Delete a corpus
         """
         pass
 
-    def test_get(self) -> None:
-        """Test case for get
+    def test_get2(self) -> None:
+        """Test case for get2
 
         Get a corpus
         """
         pass
 
-    def test_list1(self) -> None:
-        """Test case for list1
+    def test_list(self) -> None:
+        """Test case for list
 
         List corpora
         """
         pass
 
-    def test_update(self) -> None:
-        """Test case for update
+    def test_update2(self) -> None:
+        """Test case for update2
 
         Update a corpus
-        """
-        pass
-
-    def test_update_legacy(self) -> None:
-        """Test case for update_legacy
-
-        Update a corpus (deprecated)
         """
         pass
 

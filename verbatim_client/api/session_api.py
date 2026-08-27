@@ -99,12 +99,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -172,12 +172,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -245,12 +245,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -339,7 +339,7 @@ class SessionApi:
 
 
     @validate_call
-    def delete2(
+    def delete(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to delete.")],
         _request_timeout: Union[
@@ -383,7 +383,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -392,12 +392,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -412,7 +412,7 @@ class SessionApi:
 
 
     @validate_call
-    def delete2_with_http_info(
+    def delete_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to delete.")],
         _request_timeout: Union[
@@ -456,7 +456,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -465,12 +465,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -485,7 +485,7 @@ class SessionApi:
 
 
     @validate_call
-    def delete2_without_preload_content(
+    def delete_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to delete.")],
         _request_timeout: Union[
@@ -529,7 +529,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -538,12 +538,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -553,7 +553,7 @@ class SessionApi:
         return response_data.response
 
 
-    def _delete2_serialize(
+    def _delete_serialize(
         self,
         session_id,
         _request_auth,
@@ -619,7 +619,7 @@ class SessionApi:
 
 
     @validate_call
-    def get2(
+    def get(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         _request_timeout: Union[
@@ -663,7 +663,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -672,12 +672,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -692,7 +692,7 @@ class SessionApi:
 
 
     @validate_call
-    def get2_with_http_info(
+    def get_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         _request_timeout: Union[
@@ -736,7 +736,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -745,12 +745,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -765,7 +765,7 @@ class SessionApi:
 
 
     @validate_call
-    def get2_without_preload_content(
+    def get_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         _request_timeout: Union[
@@ -809,7 +809,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             session_id=session_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -818,12 +818,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -833,7 +833,7 @@ class SessionApi:
         return response_data.response
 
 
-    def _get2_serialize(
+    def _get_serialize(
         self,
         session_id,
         _request_auth,
@@ -899,7 +899,7 @@ class SessionApi:
 
 
     @validate_call
-    def list4(
+    def list2(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -949,7 +949,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list2_serialize(
             corpus_id=corpus_id,
             page_size=page_size,
             page_index=page_index,
@@ -960,12 +960,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -980,7 +980,7 @@ class SessionApi:
 
 
     @validate_call
-    def list4_with_http_info(
+    def list2_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1030,7 +1030,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list2_serialize(
             corpus_id=corpus_id,
             page_size=page_size,
             page_index=page_index,
@@ -1041,12 +1041,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1061,7 +1061,7 @@ class SessionApi:
 
 
     @validate_call
-    def list4_without_preload_content(
+    def list2_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1111,7 +1111,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list2_serialize(
             corpus_id=corpus_id,
             page_size=page_size,
             page_index=page_index,
@@ -1122,12 +1122,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1137,7 +1137,7 @@ class SessionApi:
         return response_data.response
 
 
-    def _list4_serialize(
+    def _list2_serialize(
         self,
         corpus_id,
         page_size,
@@ -1284,12 +1284,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1373,12 +1373,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1462,12 +1462,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1622,12 +1622,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1699,12 +1699,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1776,12 +1776,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1929,12 +1929,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2014,12 +2014,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2099,12 +2099,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "SessionListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2197,7 +2197,7 @@ class SessionApi:
 
 
     @validate_call
-    def update2(
+    def update(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to update.")],
         session_update_request: SessionUpdateRequest,
@@ -2244,7 +2244,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             session_id=session_id,
             session_update_request=session_update_request,
             _request_auth=_request_auth,
@@ -2254,12 +2254,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -2274,7 +2274,7 @@ class SessionApi:
 
 
     @validate_call
-    def update2_with_http_info(
+    def update_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to update.")],
         session_update_request: SessionUpdateRequest,
@@ -2321,7 +2321,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             session_id=session_id,
             session_update_request=session_update_request,
             _request_auth=_request_auth,
@@ -2331,12 +2331,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -2351,7 +2351,7 @@ class SessionApi:
 
 
     @validate_call
-    def update2_without_preload_content(
+    def update_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to update.")],
         session_update_request: SessionUpdateRequest,
@@ -2398,7 +2398,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             session_id=session_id,
             session_update_request=session_update_request,
             _request_auth=_request_auth,
@@ -2408,12 +2408,12 @@ class SessionApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Session",
         }
         response_data = self.api_client.call_api(
@@ -2423,7 +2423,7 @@ class SessionApi:
         return response_data.response
 
 
-    def _update2_serialize(
+    def _update_serialize(
         self,
         session_id,
         session_update_request,

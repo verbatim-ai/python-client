@@ -34,8 +34,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_delete3(self) -> None:
-        """Test case for delete3
+    def test_delete1(self) -> None:
+        """Test case for delete1
 
         Delete a document
         """
@@ -48,8 +48,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_get3(self) -> None:
-        """Test case for get3
+    def test_get1(self) -> None:
+        """Test case for get1
 
         Get a document
         """
@@ -62,8 +62,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_list5(self) -> None:
-        """Test case for list5
+    def test_list4(self) -> None:
+        """Test case for list4
 
         List documents
         """
@@ -111,8 +111,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_update3(self) -> None:
-        """Test case for update3
+    def test_update1(self) -> None:
+        """Test case for update1
 
         Update a document
         """

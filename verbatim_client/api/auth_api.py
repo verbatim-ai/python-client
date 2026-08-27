@@ -95,12 +95,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -168,12 +168,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -241,12 +241,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -387,12 +387,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -460,12 +460,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -533,12 +533,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -662,12 +662,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(
@@ -731,12 +731,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(
@@ -800,12 +800,12 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(

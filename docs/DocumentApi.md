@@ -5,18 +5,18 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**commit_upload**](DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
-[**delete3**](DocumentApi.md#delete3) | **DELETE** /v1/doc/{id} | Delete a document
+[**delete1**](DocumentApi.md#delete1) | **DELETE** /v1/doc/{id} | Delete a document
 [**download_url1**](DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
-[**get3**](DocumentApi.md#get3) | **GET** /v1/doc/{id} | Get a document
+[**get1**](DocumentApi.md#get1) | **GET** /v1/doc/{id} | Get a document
 [**init_upload**](DocumentApi.md#init_upload) | **POST** /v1/doc/init | Initialize a direct-to-storage upload
-[**list5**](DocumentApi.md#list5) | **GET** /v1/doc/ | List documents
+[**list4**](DocumentApi.md#list4) | **GET** /v1/doc/ | List documents
 [**list_supported_documents**](DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
 [**preview_urls1**](DocumentApi.md#preview_urls1) | **GET** /v1/doc/{id}/preview-urls | Get presigned preview URLs
 [**reinit_upload**](DocumentApi.md#reinit_upload) | **PUT** /v1/doc/{id}/init | Re-initialize a document for a new upload
 [**search**](DocumentApi.md#search) | **GET** /v1/doc/q | Search documents
 [**status**](DocumentApi.md#status) | **GET** /v1/doc/{id}/status | Get a document&#39;s status
 [**summary**](DocumentApi.md#summary) | **GET** /v1/doc/{id}/summary | Get a document summary
-[**update3**](DocumentApi.md#update3) | **PATCH** /v1/doc/{id} | Update a document
+[**update1**](DocumentApi.md#update1) | **PATCH** /v1/doc/{id} | Update a document
 
 
 # **commit_upload**
@@ -112,18 +112,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **202** | Ingestion queued. Document moved to PROCESSING. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete3**
-> AckResponse delete3(id)
+# **delete1**
+> AckResponse delete1(id)
 
 Delete a document
 
@@ -170,11 +170,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a document
-        api_response = api_instance.delete3(id)
-        print("The response of DocumentApi->delete3:\n")
+        api_response = api_instance.delete1(id)
+        print("The response of DocumentApi->delete1:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->delete3: %s\n" % e)
+        print("Exception when calling DocumentApi->delete1: %s\n" % e)
 ```
 
 
@@ -203,12 +203,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Document and dependencies deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -299,18 +299,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Presigned URL issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get3**
-> Document get3(id)
+# **get1**
+> Document get1(id)
 
 Get a document
 
@@ -357,11 +357,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a document
-        api_response = api_instance.get3(id)
-        print("The response of DocumentApi->get3:\n")
+        api_response = api_instance.get1(id)
+        print("The response of DocumentApi->get1:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->get3: %s\n" % e)
+        print("Exception when calling DocumentApi->get1: %s\n" % e)
 ```
 
 
@@ -390,12 +390,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Document found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -500,18 +500,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Document created in AWAITING_UPLOAD status. PUT the file to &#x60;uploadUrl&#x60;. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list5**
-> DocumentListResponse list5(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
+# **list4**
+> DocumentListResponse list4(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
 
 List documents
 
@@ -569,11 +569,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List documents
-        api_response = api_instance.list5(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
-        print("The response of DocumentApi->list5:\n")
+        api_response = api_instance.list4(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
+        print("The response of DocumentApi->list4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->list5: %s\n" % e)
+        print("Exception when calling DocumentApi->list4: %s\n" % e)
 ```
 
 
@@ -606,12 +606,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of documents. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -692,12 +692,12 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | List of accepted MIME types. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -803,12 +803,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pages&#x60; is missing, empty, carries more than 10 indices, or names a page outside the document. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Presigned preview URLs issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -915,12 +915,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | The document&#39;s content type is no longer accepted — see &#x60;GET /v1/doc/accept&#x60;. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | Document is not in &#x60;READY&#x60; or &#x60;FAILED&#x60; status — nothing to replace, or an ingestion is in flight. |  -  |
-**415** | The document&#39;s content type is no longer accepted — see &#x60;GET /v1/doc/accept&#x60;. |  -  |
 **200** | Document reset to AWAITING_UPLOAD status. PUT the new file to &#x60;uploadUrl&#x60;. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1119,12 +1119,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | A filter or paging parameter is out of bounds, or the date window is empty. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of matching documents. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1210,12 +1210,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Status returned. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1300,18 +1300,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Summary returned (may be empty). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update3**
-> Document update3(id, document_update_request)
+# **update1**
+> Document update1(id, document_update_request)
 
 Update a document
 
@@ -1377,11 +1377,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update a document
-        api_response = api_instance.update3(id, document_update_request)
-        print("The response of DocumentApi->update3:\n")
+        api_response = api_instance.update1(id, document_update_request)
+        print("The response of DocumentApi->update1:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->update3: %s\n" % e)
+        print("Exception when calling DocumentApi->update1: %s\n" % e)
 ```
 
 
@@ -1411,12 +1411,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;filename&#x60; is blank or longer than 256 characters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Document updated. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

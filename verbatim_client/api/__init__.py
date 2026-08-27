@@ -6,13 +6,7 @@ from verbatim_client.api.auth_api import AuthApi
 from verbatim_client.api.configuration_api import ConfigurationApi
 from verbatim_client.api.corpus_api import CorpusApi
 from verbatim_client.api.document_api import DocumentApi
-from verbatim_client.api.flyway_api import FlywayApi
-from verbatim_client.api.key_api import KeyApi
 from verbatim_client.api.post_api import PostApi
-from verbatim_client.api.private_api import PrivateApi
-from verbatim_client.api.public_api import PublicApi
 from verbatim_client.api.session_api import SessionApi
 from verbatim_client.api.usage_api import UsageApi
-from verbatim_client.api.user_api import UserApi
-from verbatim_client.api.widget_api import WidgetApi
 

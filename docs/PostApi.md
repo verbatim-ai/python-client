@@ -4,18 +4,17 @@ All URIs are relative to *http://localhost:8080*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**attachment1**](PostApi.md#attachment1) | **GET** /v1/post/attachment/{postId} | Attachments from a post
-[**delete5**](PostApi.md#delete5) | **DELETE** /v1/post/{postId} | Delete a post
+[**attachment**](PostApi.md#attachment) | **GET** /v1/post/attachment/{postId} | Attachments from a post
+[**delete4**](PostApi.md#delete4) | **DELETE** /v1/post/{postId} | Delete a post
 [**download_url**](PostApi.md#download_url) | **GET** /v1/post/attachment/{docId}/download-url | Get a presigned download URL
-[**get5**](PostApi.md#get5) | **GET** /v1/post/{postId} | Get a post
-[**list**](PostApi.md#list) | **GET** /v1/post/ | List posts
+[**get4**](PostApi.md#get4) | **GET** /v1/post/{postId} | Get a post
+[**list3**](PostApi.md#list3) | **GET** /v1/post/ | List posts
 [**preview_urls**](PostApi.md#preview_urls) | **GET** /v1/post/attachment/{docId}/preview-urls | Get presigned preview URLs
-[**query1**](PostApi.md#query1) | **GET** /v1/post/q | Send a query
-[**query_post_legacy**](PostApi.md#query_post_legacy) | **POST** /v1/post/ | DEPRECATED. use GET /v1/post/q instead. Send a query
+[**query**](PostApi.md#query) | **GET** /v1/post/q | Send a query
 
 
-# **attachment1**
-> PostAttachmentResponse attachment1(post_id)
+# **attachment**
+> PostAttachmentResponse attachment(post_id)
 
 Attachments from a post
 
@@ -62,11 +61,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Attachments from a post
-        api_response = api_instance.attachment1(post_id)
-        print("The response of PostApi->attachment1:\n")
+        api_response = api_instance.attachment(post_id)
+        print("The response of PostApi->attachment:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->attachment1: %s\n" % e)
+        print("Exception when calling PostApi->attachment: %s\n" % e)
 ```
 
 
@@ -95,18 +94,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Attachments found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete5**
-> AckResponse delete5(post_id)
+# **delete4**
+> AckResponse delete4(post_id)
 
 Delete a post
 
@@ -153,11 +152,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a post
-        api_response = api_instance.delete5(post_id)
-        print("The response of PostApi->delete5:\n")
+        api_response = api_instance.delete4(post_id)
+        print("The response of PostApi->delete4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->delete5: %s\n" % e)
+        print("Exception when calling PostApi->delete4: %s\n" % e)
 ```
 
 
@@ -186,12 +185,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Post deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -282,18 +281,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Presigned URL issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get5**
-> Post get5(post_id)
+# **get4**
+> Post get4(post_id)
 
 Get a post
 
@@ -340,11 +339,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a post
-        api_response = api_instance.get5(post_id)
-        print("The response of PostApi->get5:\n")
+        api_response = api_instance.get4(post_id)
+        print("The response of PostApi->get4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->get5: %s\n" % e)
+        print("Exception when calling PostApi->get4: %s\n" % e)
 ```
 
 
@@ -373,18 +372,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Post found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list**
-> PostListResponse list(session_id, page_size=page_size, page_index=page_index)
+# **list3**
+> PostListResponse list3(session_id, page_size=page_size, page_index=page_index)
 
 List posts
 
@@ -433,11 +432,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List posts
-        api_response = api_instance.list(session_id, page_size=page_size, page_index=page_index)
-        print("The response of PostApi->list:\n")
+        api_response = api_instance.list3(session_id, page_size=page_size, page_index=page_index)
+        print("The response of PostApi->list3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->list: %s\n" % e)
+        print("Exception when calling PostApi->list3: %s\n" % e)
 ```
 
 
@@ -468,12 +467,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of posts. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -579,18 +578,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pages&#x60; is missing, empty, carries more than 10 indices, or names a page outside the document. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Presigned preview URLs issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **query1**
-> PostItemResponse query1(session_id, body, lang=lang, agent_id=agent_id)
+# **query**
+> PostItemResponse query(session_id, body, lang=lang, agent_id=agent_id)
 
 Send a query
 
@@ -674,11 +673,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Send a query
-        api_response = api_instance.query1(session_id, body, lang=lang, agent_id=agent_id)
-        print("The response of PostApi->query1:\n")
+        api_response = api_instance.query(session_id, body, lang=lang, agent_id=agent_id)
+        print("The response of PostApi->query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->query1: %s\n" % e)
+        print("Exception when calling PostApi->query: %s\n" % e)
 ```
 
 
@@ -710,119 +709,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
-**200** | Query processed and answer returned. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **query_post_legacy**
-> PostItemResponse query_post_legacy(session_id, body, lang=lang, agent_id=agent_id)
-
-DEPRECATED. use GET /v1/post/q instead. Send a query
-
-DEPRECATED.
-use GET /v1/post instead.
-Submit a user message to a session and run the full RAG pipeline:
-
-1. Persist the query as a post with `owner = USER`.
-2. Vectorize the query and run a cosine-similarity search against the session's corpora.
-3. Feed the top chunks to the session's LLM as context.
-4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.
-
-The response contains both the user post (`query`) and the system post (`answer`).
-
-
-### Example
-
-* Bearer (JWT) Authentication (JWT):
-* Api Key Authentication (AccessToken):
-
-```python
-import verbatim_client
-from verbatim_client.models.post_item_response import PostItemResponse
-from verbatim_client.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost:8080
-# See configuration.py for a list of all supported configuration parameters.
-configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): JWT
-configuration = verbatim_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Configure API key authorization: AccessToken
-configuration.api_key['AccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['AccessToken'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with verbatim_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = verbatim_client.PostApi(api_client)
-    session_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the session to post the query into.
-    body = 'What is the main topic of the corpus?' # str | User message to send to the LLM.
-    lang = 'fr' # str | ISO-639 language code used by the LLM. Defaults to `en`. (optional)
-    agent_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization. (optional)
-
-    try:
-        # DEPRECATED. use GET /v1/post/q instead. Send a query
-        api_response = api_instance.query_post_legacy(session_id, body, lang=lang, agent_id=agent_id)
-        print("The response of PostApi->query_post_legacy:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling PostApi->query_post_legacy: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **session_id** | **UUID**| ID of the session to post the query into. | 
- **body** | **str**| User message to send to the LLM. | 
- **lang** | **str**| ISO-639 language code used by the LLM. Defaults to &#x60;en&#x60;. | [optional] 
- **agent_id** | **UUID**| Agent to run this query under. Omit to use the platform default agent. Must be one of the agents &#x60;GET /v1/agent/&#x60; lists for your organization. | [optional] 
-
-### Return type
-
-[**PostItemResponse**](PostItemResponse.md)
-
-### Authorization
-
-[JWT](../README.md#JWT), [AccessToken](../README.md#AccessToken)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**500** | Internal error. Check body to get more info |  -  |
-**403** | Not authorized. Access not granted for this request |  -  |
-**404** | The resource referenced by the request does not exist. |  -  |
-**400** | The request is malformed or contains invalid parameters. |  -  |
-**409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Query processed and answer returned. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

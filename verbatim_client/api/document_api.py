@@ -104,12 +104,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -177,12 +177,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -250,12 +250,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -331,7 +331,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete3(
+    def delete1(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -375,7 +375,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -384,12 +384,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -404,7 +404,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete3_with_http_info(
+    def delete1_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -448,7 +448,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -457,12 +457,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -477,7 +477,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete3_without_preload_content(
+    def delete1_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -521,7 +521,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -530,12 +530,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -545,7 +545,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _delete3_serialize(
+    def _delete1_serialize(
         self,
         id,
         _request_auth,
@@ -664,12 +664,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -737,12 +737,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -810,12 +810,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -891,7 +891,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get3(
+    def get1(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -935,7 +935,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -944,12 +944,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -964,7 +964,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get3_with_http_info(
+    def get1_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -1008,7 +1008,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1017,12 +1017,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1037,7 +1037,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get3_without_preload_content(
+    def get1_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -1081,7 +1081,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get1_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1090,12 +1090,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1105,7 +1105,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _get3_serialize(
+    def _get1_serialize(
         self,
         id,
         _request_auth,
@@ -1224,12 +1224,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1297,12 +1297,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1370,12 +1370,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1464,7 +1464,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5(
+    def list4(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1520,7 +1520,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1533,12 +1533,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1553,7 +1553,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5_with_http_info(
+    def list4_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1609,7 +1609,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1622,12 +1622,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1642,7 +1642,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5_without_preload_content(
+    def list4_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1698,7 +1698,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list4_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1711,12 +1711,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1726,7 +1726,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _list5_serialize(
+    def _list4_serialize(
         self,
         corpus_id,
         status,
@@ -1864,12 +1864,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -1933,12 +1933,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -2002,12 +2002,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -2137,12 +2137,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2214,12 +2214,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2291,12 +2291,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2431,12 +2431,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': None,
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': None,
-            '415': None,
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2504,12 +2504,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': None,
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': None,
-            '415': None,
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2577,12 +2577,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': None,
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': None,
-            '415': None,
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2771,12 +2771,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -2904,12 +2904,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -3037,12 +3037,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -3269,12 +3269,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3342,12 +3342,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3415,12 +3415,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3549,12 +3549,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3622,12 +3622,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3695,12 +3695,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
-            '415': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3777,7 +3777,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update3(
+    def update1(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3824,7 +3824,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update1_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -3834,12 +3834,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3854,7 +3854,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update3_with_http_info(
+    def update1_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3901,7 +3901,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update1_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -3911,12 +3911,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3931,7 +3931,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update3_without_preload_content(
+    def update1_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3978,7 +3978,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update1_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -3988,12 +3988,12 @@ class DocumentApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '415': "Error",
             '500': "Error",
             '403': "Error",
             '404': "Error",
             '400': None,
             '409': "Error",
-            '415': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -4003,7 +4003,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _update3_serialize(
+    def _update1_serialize(
         self,
         id,
         document_update_request,

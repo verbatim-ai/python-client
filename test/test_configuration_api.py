@@ -27,8 +27,8 @@ class TestConfigurationApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_list6(self) -> None:
-        """Test case for list6
+    def test_list5(self) -> None:
+        """Test case for list5
 
         List supported LLM models
         """

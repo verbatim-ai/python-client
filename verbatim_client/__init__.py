@@ -24,15 +24,9 @@ __all__ = [
     "ConfigurationApi",
     "CorpusApi",
     "DocumentApi",
-    "FlywayApi",
-    "KeyApi",
     "PostApi",
-    "PrivateApi",
-    "PublicApi",
     "SessionApi",
     "UsageApi",
-    "UserApi",
-    "WidgetApi",
     "ApiResponse",
     "ApiClient",
     "Configuration",
@@ -50,8 +44,6 @@ __all__ = [
     "AgentListResponse",
     "AgentUpdateRequest",
     "Attachment",
-    "CheckItem",
-    "CheckResponse",
     "Corpus",
     "CorpusCreateRequest",
     "CorpusCreateResponse",
@@ -70,13 +62,6 @@ __all__ = [
     "DocumentStatus",
     "DocumentUpdateRequest",
     "Error",
-    "Key",
-    "KeyCreateRequest",
-    "KeyCreateResponse",
-    "KeyItemResponse",
-    "KeyListResponse",
-    "KeyUpdateRequest",
-    "KeyUpdateResponse",
     "ModelListResponse",
     "Post",
     "PostAttachmentResponse",
@@ -86,28 +71,13 @@ __all__ = [
     "SessionCreateRequest",
     "SessionCreateResponse",
     "SessionListResponse",
-    "SessionMessage",
     "SessionUpdateRequest",
     "Usage",
     "UsageBucket",
     "UsageCount",
     "UsageDelta",
     "UsageTokens",
-    "UserOnboardResponse",
     "WhoAmI",
-    "WidgetAttachment",
-    "WidgetAttachmentPage",
-    "WidgetAttachmentResponse",
-    "WidgetMessageResponse",
-    "WidgetMessageResponseItem",
-    "WidgetPost",
-    "WidgetPostsResponse",
-    "WidgetQueryResponse",
-    "WidgetSessionRequest",
-    "WidgetSessionRequestBody",
-    "WidgetSessionResponse",
-    "WidgetSessionResponseItem",
-    "WidgetSessionResponseLegacy",
 ]
 
 # import apis into sdk package
@@ -116,15 +86,9 @@ from verbatim_client.api.auth_api import AuthApi as AuthApi
 from verbatim_client.api.configuration_api import ConfigurationApi as ConfigurationApi
 from verbatim_client.api.corpus_api import CorpusApi as CorpusApi
 from verbatim_client.api.document_api import DocumentApi as DocumentApi
-from verbatim_client.api.flyway_api import FlywayApi as FlywayApi
-from verbatim_client.api.key_api import KeyApi as KeyApi
 from verbatim_client.api.post_api import PostApi as PostApi
-from verbatim_client.api.private_api import PrivateApi as PrivateApi
-from verbatim_client.api.public_api import PublicApi as PublicApi
 from verbatim_client.api.session_api import SessionApi as SessionApi
 from verbatim_client.api.usage_api import UsageApi as UsageApi
-from verbatim_client.api.user_api import UserApi as UserApi
-from verbatim_client.api.widget_api import WidgetApi as WidgetApi
 
 # import ApiClient
 from verbatim_client.api_response import ApiResponse as ApiResponse
@@ -146,8 +110,6 @@ from verbatim_client.models.agent_create_request import AgentCreateRequest as Ag
 from verbatim_client.models.agent_list_response import AgentListResponse as AgentListResponse
 from verbatim_client.models.agent_update_request import AgentUpdateRequest as AgentUpdateRequest
 from verbatim_client.models.attachment import Attachment as Attachment
-from verbatim_client.models.check_item import CheckItem as CheckItem
-from verbatim_client.models.check_response import CheckResponse as CheckResponse
 from verbatim_client.models.corpus import Corpus as Corpus
 from verbatim_client.models.corpus_create_request import CorpusCreateRequest as CorpusCreateRequest
 from verbatim_client.models.corpus_create_response import CorpusCreateResponse as CorpusCreateResponse
@@ -166,13 +128,6 @@ from verbatim_client.models.document_search_response import DocumentSearchRespon
 from verbatim_client.models.document_status import DocumentStatus as DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest as DocumentUpdateRequest
 from verbatim_client.models.error import Error as Error
-from verbatim_client.models.key import Key as Key
-from verbatim_client.models.key_create_request import KeyCreateRequest as KeyCreateRequest
-from verbatim_client.models.key_create_response import KeyCreateResponse as KeyCreateResponse
-from verbatim_client.models.key_item_response import KeyItemResponse as KeyItemResponse
-from verbatim_client.models.key_list_response import KeyListResponse as KeyListResponse
-from verbatim_client.models.key_update_request import KeyUpdateRequest as KeyUpdateRequest
-from verbatim_client.models.key_update_response import KeyUpdateResponse as KeyUpdateResponse
 from verbatim_client.models.model_list_response import ModelListResponse as ModelListResponse
 from verbatim_client.models.post import Post as Post
 from verbatim_client.models.post_attachment_response import PostAttachmentResponse as PostAttachmentResponse
@@ -182,26 +137,11 @@ from verbatim_client.models.session import Session as Session
 from verbatim_client.models.session_create_request import SessionCreateRequest as SessionCreateRequest
 from verbatim_client.models.session_create_response import SessionCreateResponse as SessionCreateResponse
 from verbatim_client.models.session_list_response import SessionListResponse as SessionListResponse
-from verbatim_client.models.session_message import SessionMessage as SessionMessage
 from verbatim_client.models.session_update_request import SessionUpdateRequest as SessionUpdateRequest
 from verbatim_client.models.usage import Usage as Usage
 from verbatim_client.models.usage_bucket import UsageBucket as UsageBucket
 from verbatim_client.models.usage_count import UsageCount as UsageCount
 from verbatim_client.models.usage_delta import UsageDelta as UsageDelta
 from verbatim_client.models.usage_tokens import UsageTokens as UsageTokens
-from verbatim_client.models.user_onboard_response import UserOnboardResponse as UserOnboardResponse
 from verbatim_client.models.who_am_i import WhoAmI as WhoAmI
-from verbatim_client.models.widget_attachment import WidgetAttachment as WidgetAttachment
-from verbatim_client.models.widget_attachment_page import WidgetAttachmentPage as WidgetAttachmentPage
-from verbatim_client.models.widget_attachment_response import WidgetAttachmentResponse as WidgetAttachmentResponse
-from verbatim_client.models.widget_message_response import WidgetMessageResponse as WidgetMessageResponse
-from verbatim_client.models.widget_message_response_item import WidgetMessageResponseItem as WidgetMessageResponseItem
-from verbatim_client.models.widget_post import WidgetPost as WidgetPost
-from verbatim_client.models.widget_posts_response import WidgetPostsResponse as WidgetPostsResponse
-from verbatim_client.models.widget_query_response import WidgetQueryResponse as WidgetQueryResponse
-from verbatim_client.models.widget_session_request import WidgetSessionRequest as WidgetSessionRequest
-from verbatim_client.models.widget_session_request_body import WidgetSessionRequestBody as WidgetSessionRequestBody
-from verbatim_client.models.widget_session_response import WidgetSessionResponse as WidgetSessionResponse
-from verbatim_client.models.widget_session_response_item import WidgetSessionResponseItem as WidgetSessionResponseItem
-from verbatim_client.models.widget_session_response_legacy import WidgetSessionResponseLegacy as WidgetSessionResponseLegacy
 

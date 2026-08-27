@@ -5,13 +5,13 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create**](SessionApi.md#create) | **POST** /v1/session/ | Create a session
-[**delete2**](SessionApi.md#delete2) | **DELETE** /v1/session/{sessionId} | Delete a session
-[**get2**](SessionApi.md#get2) | **GET** /v1/session/{sessionId} | Get a session
-[**list4**](SessionApi.md#list4) | **GET** /v1/session/byCorpus | List sessions attached to a corpus
+[**delete**](SessionApi.md#delete) | **DELETE** /v1/session/{sessionId} | Delete a session
+[**get**](SessionApi.md#get) | **GET** /v1/session/{sessionId} | Get a session
+[**list2**](SessionApi.md#list2) | **GET** /v1/session/byCorpus | List sessions attached to a corpus
 [**list_by_metadata**](SessionApi.md#list_by_metadata) | **GET** /v1/session/byMetadata | List sessions matching a metadata fragment
 [**list_by_organization**](SessionApi.md#list_by_organization) | **GET** /v1/session/byOrganization | List every session in the caller&#39;s organization
 [**list_by_user**](SessionApi.md#list_by_user) | **GET** /v1/session/byUser | List sessions owned by a user
-[**update2**](SessionApi.md#update2) | **PATCH** /v1/session/{sessionId} | Update a session
+[**update**](SessionApi.md#update) | **PATCH** /v1/session/{sessionId} | Update a session
 
 
 # **create**
@@ -96,18 +96,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Session created. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete2**
-> AckResponse delete2(session_id)
+# **delete**
+> AckResponse delete(session_id)
 
 Delete a session
 
@@ -154,11 +154,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a session
-        api_response = api_instance.delete2(session_id)
-        print("The response of SessionApi->delete2:\n")
+        api_response = api_instance.delete(session_id)
+        print("The response of SessionApi->delete:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SessionApi->delete2: %s\n" % e)
+        print("Exception when calling SessionApi->delete: %s\n" % e)
 ```
 
 
@@ -187,18 +187,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Session and posts deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get2**
-> Session get2(session_id)
+# **get**
+> Session get(session_id)
 
 Get a session
 
@@ -245,11 +245,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a session
-        api_response = api_instance.get2(session_id)
-        print("The response of SessionApi->get2:\n")
+        api_response = api_instance.get(session_id)
+        print("The response of SessionApi->get:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SessionApi->get2: %s\n" % e)
+        print("Exception when calling SessionApi->get: %s\n" % e)
 ```
 
 
@@ -278,18 +278,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Session found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list4**
-> SessionListResponse list4(corpus_id, page_size=page_size, page_index=page_index)
+# **list2**
+> SessionListResponse list2(corpus_id, page_size=page_size, page_index=page_index)
 
 List sessions attached to a corpus
 
@@ -338,11 +338,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List sessions attached to a corpus
-        api_response = api_instance.list4(corpus_id, page_size=page_size, page_index=page_index)
-        print("The response of SessionApi->list4:\n")
+        api_response = api_instance.list2(corpus_id, page_size=page_size, page_index=page_index)
+        print("The response of SessionApi->list2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SessionApi->list4: %s\n" % e)
+        print("Exception when calling SessionApi->list2: %s\n" % e)
 ```
 
 
@@ -373,12 +373,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of sessions. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -472,12 +472,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of sessions. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -565,12 +565,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of sessions. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -662,18 +662,18 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Page of sessions. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update2**
-> Session update2(session_id, session_update_request)
+# **update**
+> Session update(session_id, session_update_request)
 
 Update a session
 
@@ -722,11 +722,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update a session
-        api_response = api_instance.update2(session_id, session_update_request)
-        print("The response of SessionApi->update2:\n")
+        api_response = api_instance.update(session_id, session_update_request)
+        print("The response of SessionApi->update:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SessionApi->update2: %s\n" % e)
+        print("Exception when calling SessionApi->update: %s\n" % e)
 ```
 
 
@@ -756,12 +756,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Session updated. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

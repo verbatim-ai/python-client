@@ -27,15 +27,15 @@ class TestPostApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_attachment1(self) -> None:
-        """Test case for attachment1
+    def test_attachment(self) -> None:
+        """Test case for attachment
 
         Attachments from a post
         """
         pass
 
-    def test_delete5(self) -> None:
-        """Test case for delete5
+    def test_delete4(self) -> None:
+        """Test case for delete4
 
         Delete a post
         """
@@ -48,15 +48,15 @@ class TestPostApi(unittest.TestCase):
         """
         pass
 
-    def test_get5(self) -> None:
-        """Test case for get5
+    def test_get4(self) -> None:
+        """Test case for get4
 
         Get a post
         """
         pass
 
-    def test_list(self) -> None:
-        """Test case for list
+    def test_list3(self) -> None:
+        """Test case for list3
 
         List posts
         """
@@ -69,17 +69,10 @@ class TestPostApi(unittest.TestCase):
         """
         pass
 
-    def test_query1(self) -> None:
-        """Test case for query1
+    def test_query(self) -> None:
+        """Test case for query
 
         Send a query
-        """
-        pass
-
-    def test_query_post_legacy(self) -> None:
-        """Test case for query_post_legacy
-
-        DEPRECATED. use GET /v1/post/q instead. Send a query
         """
         pass
 
