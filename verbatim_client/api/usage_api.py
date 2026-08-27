@@ -94,12 +94,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -167,12 +167,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -240,12 +240,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -380,12 +380,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -457,12 +457,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -534,12 +534,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -677,12 +677,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -754,12 +754,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(
@@ -831,12 +831,12 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Usage",
         }
         response_data = self.api_client.call_api(

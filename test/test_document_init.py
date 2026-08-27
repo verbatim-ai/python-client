@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -37,24 +37,27 @@ class TestDocumentInit(unittest.TestCase):
         if include_optional:
             return DocumentInit(
                 document = verbatim_client.models.document.Document(
-                    id = '', 
-                    corpus_id = '', 
-                    user_id = '', 
-                    filename = '', 
-                    content_type = '', 
-                    status = 'AWAITING_UPLOAD', 
+                    id = '550e8400-e29b-41d4-a716-446655440000', 
+                    corpus_id = '550e8400-e29b-41d4-a716-446655440000', 
+                    user_id = '550e8400-e29b-41d4-a716-446655440099', 
+                    filename = 'annual-report-2025.pdf', 
+                    content_type = 'application/pdf', 
+                    status = 'READY', 
                     path = '', 
-                    provider = '', 
-                    lang = '', 
+                    provider = 'user', 
+                    lang = 'fr', 
                     metadata = {source=user, team=legal}, 
+                    tags = [legal, 2026], 
+                    chunk = {strategy=by_title, max_characters=10000, combine_text_under_n_chars=1000}, 
                     doc_create = '2026-01-15T10:30:00Z', 
                     doc_update = '2026-04-01T08:00:00Z', 
                     created_at = '2026-04-23T04:06:51Z', 
                     updated_at = '2026-04-23T04:06:51Z', 
                     size = 204800, 
                     tokens = 150, 
-                    nb_words = 1200, ),
-                upload_url = '',
+                    nb_words = 1200, 
+                    nb_pages = 24, ),
+                upload_url = 'https://s3.fr-par.scw.cloud/bucket/documents/<corpus>/src/<doc>?X-Amz-Algorithm=...',
                 expires_at = '2026-05-21T10:15:00Z'
             )
         else:

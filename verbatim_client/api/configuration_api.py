@@ -37,7 +37,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list5(
+    def list6(
         self,
         _request_timeout: Union[
             None,
@@ -78,7 +78,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -86,12 +86,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -106,7 +106,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list5_with_http_info(
+    def list6_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -147,7 +147,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -155,12 +155,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -175,7 +175,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list5_without_preload_content(
+    def list6_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -216,7 +216,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -224,12 +224,12 @@ class ConfigurationApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -239,7 +239,7 @@ class ConfigurationApi:
         return response_data.response
 
 
-    def _list5_serialize(
+    def _list6_serialize(
         self,
         _request_auth,
         _content_type,

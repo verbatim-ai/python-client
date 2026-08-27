@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -37,11 +37,11 @@ class TestUsage(unittest.TestCase):
         if include_optional:
             return Usage(
                 timeframe = 'Day',
-                var_from = '2026-04-22T04:06:51Z',
-                to = '2026-04-23T04:06:51Z',
-                organization_id = '',
-                corpus_id = '',
-                user_id = '',
+                var_from = '2026-07-25T00:00:00Z',
+                to = '2026-08-24T00:00:00Z',
+                organization_id = '550e8400-e29b-41d4-a716-446655440000',
+                corpus_id = '550e8400-e29b-41d4-a716-446655440001',
+                user_id = 'user-42',
                 tokens = verbatim_client.models.usage_tokens.UsageTokens(
                     total = 1245000, 
                     in_period = 12450, ),
@@ -61,14 +61,24 @@ class TestUsage(unittest.TestCase):
                     total = 240, 
                     created = 28, 
                     removed = 3, ),
-                timestamp = '2026-04-23T04:06:51Z'
+                series = [
+                    verbatim_client.models.usage_bucket.UsageBucket(
+                        from = '2026-07-25T00:00:00Z', 
+                        to = '2026-07-26T00:00:00Z', 
+                        tokens = 410, 
+                        corpora = null, 
+                        sessions = null, 
+                        posts = null, 
+                        storage = null, )
+                    ],
+                timestamp = '2026-08-24T09:12:04Z'
             )
         else:
             return Usage(
                 timeframe = 'Day',
-                var_from = '2026-04-22T04:06:51Z',
-                to = '2026-04-23T04:06:51Z',
-                organization_id = '',
+                var_from = '2026-07-25T00:00:00Z',
+                to = '2026-08-24T00:00:00Z',
+                organization_id = '550e8400-e29b-41d4-a716-446655440000',
                 tokens = verbatim_client.models.usage_tokens.UsageTokens(
                     total = 1245000, 
                     in_period = 12450, ),
@@ -88,7 +98,17 @@ class TestUsage(unittest.TestCase):
                     total = 240, 
                     created = 28, 
                     removed = 3, ),
-                timestamp = '2026-04-23T04:06:51Z',
+                series = [
+                    verbatim_client.models.usage_bucket.UsageBucket(
+                        from = '2026-07-25T00:00:00Z', 
+                        to = '2026-07-26T00:00:00Z', 
+                        tokens = 410, 
+                        corpora = null, 
+                        sessions = null, 
+                        posts = null, 
+                        storage = null, )
+                    ],
+                timestamp = '2026-08-24T09:12:04Z',
         )
         """
 

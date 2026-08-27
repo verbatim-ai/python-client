@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assert_email**](PublicApi.md#assert_email) | **GET** /pub/v1/user/assert/email/{email} | Assert an email free from registration
+[**check**](PublicApi.md#check) | **GET** /pub/check | Deep health check
 [**check_verification_code**](PublicApi.md#check_verification_code) | **GET** /pub/v1/user/assert/code/{email}/{code} | Assert email verification code
 [**ping**](PublicApi.md#ping) | **GET** /pub/ping | Basic ping
 
@@ -84,6 +85,85 @@ No authorization required
 **409** | The request conflicts with the current state of the resource. |  -  |
 **415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **200** | Email is free from registration. Email with a verification code is fired. User can go throw signin process |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **check**
+> CheckResponse check()
+
+Deep health check
+
+Probe every subsystem the platform depends on and report each outcome:
+
+- **S3** — read an object back from the archive storage
+- **DB** — run a query on a pooled connection
+- **LLM** — send a prompt to the inference endpoint and require an answer
+
+Every probe runs on every call, so one failure never hides another. The response
+is `200` when all of them pass and `500` as soon as one fails, which is the
+signal a monitoring tool alerts on; the body names the failing subsystem and
+carries its reason.
+
+### Example
+
+
+```python
+import verbatim_client
+from verbatim_client.models.check_response import CheckResponse
+from verbatim_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:8080
+# See configuration.py for a list of all supported configuration parameters.
+configuration = verbatim_client.Configuration(
+    host = "http://localhost:8080"
+)
+
+
+# Enter a context with an instance of the API client
+with verbatim_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = verbatim_client.PublicApi(api_client)
+
+    try:
+        # Deep health check
+        api_response = api_instance.check()
+        print("The response of PublicApi->check:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PublicApi->check: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CheckResponse**](CheckResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**500** | At least one subsystem failed its probe. |  -  |
+**403** | Not authorized. Access not granted for this request |  -  |
+**404** | The resource referenced by the request does not exist. |  -  |
+**400** | The request is malformed or contains invalid parameters. |  -  |
+**409** | The request conflicts with the current state of the resource. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
+**200** | Every subsystem answered. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

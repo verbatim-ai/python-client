@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -27,15 +27,15 @@ class TestPostApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_attachment(self) -> None:
-        """Test case for attachment
+    def test_attachment1(self) -> None:
+        """Test case for attachment1
 
         Attachments from a post
         """
         pass
 
-    def test_delete3(self) -> None:
-        """Test case for delete3
+    def test_delete5(self) -> None:
+        """Test case for delete5
 
         Delete a post
         """
@@ -48,15 +48,15 @@ class TestPostApi(unittest.TestCase):
         """
         pass
 
-    def test_get3(self) -> None:
-        """Test case for get3
+    def test_get5(self) -> None:
+        """Test case for get5
 
         Get a post
         """
         pass
 
-    def test_list2(self) -> None:
-        """Test case for list2
+    def test_list(self) -> None:
+        """Test case for list
 
         List posts
         """
@@ -69,10 +69,17 @@ class TestPostApi(unittest.TestCase):
         """
         pass
 
-    def test_query(self) -> None:
-        """Test case for query
+    def test_query1(self) -> None:
+        """Test case for query1
 
         Send a query
+        """
+        pass
+
+    def test_query_post_legacy(self) -> None:
+        """Test case for query_post_legacy
+
+        DEPRECATED. use GET /v1/post/q instead. Send a query
         """
         pass
 

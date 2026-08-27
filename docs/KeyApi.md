@@ -5,11 +5,11 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activate**](KeyApi.md#activate) | **PUT** /_/v1/key/{keyId}/activate | Activate a key
-[**create3**](KeyApi.md#create3) | **POST** /_/v1/key/ | Register a new key slot
+[**create4**](KeyApi.md#create4) | **POST** /_/v1/key/ | Register a new key slot
 [**deactivate**](KeyApi.md#deactivate) | **PUT** /_/v1/key/{keyId}/deactivate | Deactivate a key
 [**delete1**](KeyApi.md#delete1) | **DELETE** /_/v1/key/{keyId} | Delete a key
 [**get1**](KeyApi.md#get1) | **GET** /_/v1/key/{keyId} | Get a key
-[**list2**](KeyApi.md#list2) | **GET** /_/v1/key/ | List keys
+[**list3**](KeyApi.md#list3) | **GET** /_/v1/key/ | List keys
 [**publish**](KeyApi.md#publish) | **POST** /_/v1/key/{keyId}/publish | Publish PEM content for a key
 [**update1**](KeyApi.md#update1) | **PUT** /_/v1/key/{keyId} | Update a key
 
@@ -105,8 +105,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create3**
-> KeyCreateResponse create3(key_create_request)
+# **create4**
+> KeyCreateResponse create4(key_create_request)
 
 Register a new key slot
 
@@ -154,11 +154,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Register a new key slot
-        api_response = api_instance.create3(key_create_request)
-        print("The response of KeyApi->create3:\n")
+        api_response = api_instance.create4(key_create_request)
+        print("The response of KeyApi->create4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KeyApi->create3: %s\n" % e)
+        print("Exception when calling KeyApi->create4: %s\n" % e)
 ```
 
 
@@ -470,8 +470,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list2**
-> KeyListResponse list2(page_size=page_size, page_index=page_index)
+# **list3**
+> KeyListResponse list3(page_size=page_size, page_index=page_index)
 
 List keys
 
@@ -519,11 +519,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List keys
-        api_response = api_instance.list2(page_size=page_size, page_index=page_index)
-        print("The response of KeyApi->list2:\n")
+        api_response = api_instance.list3(page_size=page_size, page_index=page_index)
+        print("The response of KeyApi->list3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling KeyApi->list2: %s\n" % e)
+        print("Exception when calling KeyApi->list3: %s\n" % e)
 ```
 
 

@@ -5,12 +5,12 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activate**](PrivateApi.md#activate) | **PUT** /_/v1/key/{keyId}/activate | Activate a key
-[**create3**](PrivateApi.md#create3) | **POST** /_/v1/key/ | Register a new key slot
+[**create4**](PrivateApi.md#create4) | **POST** /_/v1/key/ | Register a new key slot
 [**deactivate**](PrivateApi.md#deactivate) | **PUT** /_/v1/key/{keyId}/deactivate | Deactivate a key
 [**delete1**](PrivateApi.md#delete1) | **DELETE** /_/v1/key/{keyId} | Delete a key
 [**get1**](PrivateApi.md#get1) | **GET** /_/v1/key/{keyId} | Get a key
 [**get_migration_info**](PrivateApi.md#get_migration_info) | **GET** /_/v1/flyway/info | 
-[**list2**](PrivateApi.md#list2) | **GET** /_/v1/key/ | List keys
+[**list3**](PrivateApi.md#list3) | **GET** /_/v1/key/ | List keys
 [**onboard**](PrivateApi.md#onboard) | **PUT** /_/v1/user/onboard | Onboard the authenticated user
 [**publish**](PrivateApi.md#publish) | **POST** /_/v1/key/{keyId}/publish | Publish PEM content for a key
 [**update1**](PrivateApi.md#update1) | **PUT** /_/v1/key/{keyId} | Update a key
@@ -107,8 +107,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create3**
-> KeyCreateResponse create3(key_create_request)
+# **create4**
+> KeyCreateResponse create4(key_create_request)
 
 Register a new key slot
 
@@ -156,11 +156,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Register a new key slot
-        api_response = api_instance.create3(key_create_request)
-        print("The response of PrivateApi->create3:\n")
+        api_response = api_instance.create4(key_create_request)
+        print("The response of PrivateApi->create4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PrivateApi->create3: %s\n" % e)
+        print("Exception when calling PrivateApi->create4: %s\n" % e)
 ```
 
 
@@ -553,8 +553,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list2**
-> KeyListResponse list2(page_size=page_size, page_index=page_index)
+# **list3**
+> KeyListResponse list3(page_size=page_size, page_index=page_index)
 
 List keys
 
@@ -602,11 +602,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List keys
-        api_response = api_instance.list2(page_size=page_size, page_index=page_index)
-        print("The response of PrivateApi->list2:\n")
+        api_response = api_instance.list3(page_size=page_size, page_index=page_index)
+        print("The response of PrivateApi->list3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PrivateApi->list2: %s\n" % e)
+        print("Exception when calling PrivateApi->list3: %s\n" % e)
 ```
 
 

@@ -100,12 +100,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -173,12 +173,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -246,12 +246,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -340,7 +340,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2(
+    def delete(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -384,7 +384,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -393,12 +393,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -413,7 +413,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2_with_http_info(
+    def delete_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -457,7 +457,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -466,12 +466,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -486,7 +486,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2_without_preload_content(
+    def delete_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -530,7 +530,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -539,12 +539,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -554,7 +554,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _delete2_serialize(
+    def _delete_serialize(
         self,
         corpus_id,
         _request_auth,
@@ -620,7 +620,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2(
+    def get(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -664,7 +664,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -673,12 +673,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -693,7 +693,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2_with_http_info(
+    def get_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -737,7 +737,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -746,12 +746,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -766,7 +766,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2_without_preload_content(
+    def get_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -810,7 +810,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -819,12 +819,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -834,7 +834,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _get2_serialize(
+    def _get_serialize(
         self,
         corpus_id,
         _request_auth,
@@ -900,7 +900,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list(
+    def list1(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -947,7 +947,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -957,12 +957,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -977,7 +977,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list_with_http_info(
+    def list1_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1024,7 +1024,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1034,12 +1034,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1054,7 +1054,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list_without_preload_content(
+    def list1_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1101,7 +1101,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1111,12 +1111,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1126,7 +1126,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _list_serialize(
+    def _list1_serialize(
         self,
         page_size,
         page_index,
@@ -1199,7 +1199,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2(
+    def update(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1246,7 +1246,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1256,12 +1256,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(
@@ -1276,7 +1276,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2_with_http_info(
+    def update_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1323,7 +1323,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1333,12 +1333,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(
@@ -1353,7 +1353,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2_without_preload_content(
+    def update_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1400,7 +1400,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1410,12 +1410,12 @@ class CorpusApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(
@@ -1425,7 +1425,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _update2_serialize(
+    def _update_serialize(
         self,
         corpus_id,
         corpus_update_request,
@@ -1490,6 +1490,317 @@ class CorpusApi:
 
         return self.api_client.param_serialize(
             method='PATCH',
+            resource_path='/v1/corpus/{corpusId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def update_legacy(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
+        corpus_update_request: CorpusUpdateRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CorpusUpdateResponse:
+        """(Deprecated) Update a corpus (deprecated)
+
+        **Deprecated — use `PATCH /v1/corpus/{corpusId}` instead.**  Kept for backward compatibility and strictly equivalent to the `PATCH` operation: despite the `PUT` verb, omitted fields are **not** reset, they keep their current value. That partial-update semantic is what `PATCH` expresses correctly, hence the move. This operation will be removed in a future release. 
+
+        :param corpus_id: ID of the corpus to update. (required)
+        :type corpus_id: UUID
+        :param corpus_update_request: (required)
+        :type corpus_update_request: CorpusUpdateRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("PUT /v1/corpus/{corpusId} is deprecated.", DeprecationWarning)
+
+        _param = self._update_legacy_serialize(
+            corpus_id=corpus_id,
+            corpus_update_request=corpus_update_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "CorpusUpdateResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def update_legacy_with_http_info(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
+        corpus_update_request: CorpusUpdateRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CorpusUpdateResponse]:
+        """(Deprecated) Update a corpus (deprecated)
+
+        **Deprecated — use `PATCH /v1/corpus/{corpusId}` instead.**  Kept for backward compatibility and strictly equivalent to the `PATCH` operation: despite the `PUT` verb, omitted fields are **not** reset, they keep their current value. That partial-update semantic is what `PATCH` expresses correctly, hence the move. This operation will be removed in a future release. 
+
+        :param corpus_id: ID of the corpus to update. (required)
+        :type corpus_id: UUID
+        :param corpus_update_request: (required)
+        :type corpus_update_request: CorpusUpdateRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("PUT /v1/corpus/{corpusId} is deprecated.", DeprecationWarning)
+
+        _param = self._update_legacy_serialize(
+            corpus_id=corpus_id,
+            corpus_update_request=corpus_update_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "CorpusUpdateResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def update_legacy_without_preload_content(
+        self,
+        corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
+        corpus_update_request: CorpusUpdateRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """(Deprecated) Update a corpus (deprecated)
+
+        **Deprecated — use `PATCH /v1/corpus/{corpusId}` instead.**  Kept for backward compatibility and strictly equivalent to the `PATCH` operation: despite the `PUT` verb, omitted fields are **not** reset, they keep their current value. That partial-update semantic is what `PATCH` expresses correctly, hence the move. This operation will be removed in a future release. 
+
+        :param corpus_id: ID of the corpus to update. (required)
+        :type corpus_id: UUID
+        :param corpus_update_request: (required)
+        :type corpus_update_request: CorpusUpdateRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("PUT /v1/corpus/{corpusId} is deprecated.", DeprecationWarning)
+
+        _param = self._update_legacy_serialize(
+            corpus_id=corpus_id,
+            corpus_update_request=corpus_update_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "CorpusUpdateResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _update_legacy_serialize(
+        self,
+        corpus_id,
+        corpus_update_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if corpus_id is not None:
+            _path_params['corpusId'] = corpus_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if corpus_update_request is not None:
+            _body_params = corpus_update_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT', 
+            'AccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='PUT',
             resource_path='/v1/corpus/{corpusId}',
             path_params=_path_params,
             query_params=_query_params,

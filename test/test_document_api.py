@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-    Backend API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform.  ## Concepts  - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication  Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## Conventions  - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -34,8 +34,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_delete1(self) -> None:
-        """Test case for delete1
+    def test_delete3(self) -> None:
+        """Test case for delete3
 
         Delete a document
         """
@@ -48,8 +48,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_get1(self) -> None:
-        """Test case for get1
+    def test_get3(self) -> None:
+        """Test case for get3
 
         Get a document
         """
@@ -62,8 +62,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_list3(self) -> None:
-        """Test case for list3
+    def test_list5(self) -> None:
+        """Test case for list5
 
         List documents
         """
@@ -90,6 +90,13 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
+    def test_search(self) -> None:
+        """Test case for search
+
+        Search documents
+        """
+        pass
+
     def test_status(self) -> None:
         """Test case for status
 
@@ -104,8 +111,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_update1(self) -> None:
-        """Test case for update1
+    def test_update3(self) -> None:
+        """Test case for update3
 
         Update a document
         """

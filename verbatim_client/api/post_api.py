@@ -47,7 +47,7 @@ class PostApi:
 
 
     @validate_call
-    def attachment(
+    def attachment1(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -91,7 +91,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._attachment_serialize(
+        _param = self._attachment1_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -100,12 +100,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -120,7 +120,7 @@ class PostApi:
 
 
     @validate_call
-    def attachment_with_http_info(
+    def attachment1_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -164,7 +164,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._attachment_serialize(
+        _param = self._attachment1_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -173,12 +173,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -193,7 +193,7 @@ class PostApi:
 
 
     @validate_call
-    def attachment_without_preload_content(
+    def attachment1_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -237,7 +237,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._attachment_serialize(
+        _param = self._attachment1_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -246,12 +246,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -261,7 +261,7 @@ class PostApi:
         return response_data.response
 
 
-    def _attachment_serialize(
+    def _attachment1_serialize(
         self,
         post_id,
         _request_auth,
@@ -327,7 +327,7 @@ class PostApi:
 
 
     @validate_call
-    def delete4(
+    def delete5(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -371,7 +371,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -380,12 +380,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -400,7 +400,7 @@ class PostApi:
 
 
     @validate_call
-    def delete4_with_http_info(
+    def delete5_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -444,7 +444,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -453,12 +453,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -473,7 +473,7 @@ class PostApi:
 
 
     @validate_call
-    def delete4_without_preload_content(
+    def delete5_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -517,7 +517,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -526,12 +526,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -541,7 +541,7 @@ class PostApi:
         return response_data.response
 
 
-    def _delete4_serialize(
+    def _delete5_serialize(
         self,
         post_id,
         _request_auth,
@@ -660,12 +660,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -733,12 +733,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -806,12 +806,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -887,7 +887,7 @@ class PostApi:
 
 
     @validate_call
-    def get4(
+    def get5(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -931,7 +931,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -940,12 +940,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -960,7 +960,7 @@ class PostApi:
 
 
     @validate_call
-    def get4_with_http_info(
+    def get5_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1004,7 +1004,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1013,12 +1013,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1033,7 +1033,7 @@ class PostApi:
 
 
     @validate_call
-    def get4_without_preload_content(
+    def get5_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1077,7 +1077,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1086,12 +1086,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1101,7 +1101,7 @@ class PostApi:
         return response_data.response
 
 
-    def _get4_serialize(
+    def _get5_serialize(
         self,
         post_id,
         _request_auth,
@@ -1167,7 +1167,7 @@ class PostApi:
 
 
     @validate_call
-    def list3(
+    def list(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1217,7 +1217,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1228,12 +1228,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1248,7 +1248,7 @@ class PostApi:
 
 
     @validate_call
-    def list3_with_http_info(
+    def list_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1298,7 +1298,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1309,12 +1309,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1329,7 +1329,7 @@ class PostApi:
 
 
     @validate_call
-    def list3_without_preload_content(
+    def list_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session.")],
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
@@ -1379,7 +1379,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list_serialize(
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1390,12 +1390,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1405,7 +1405,7 @@ class PostApi:
         return response_data.response
 
 
-    def _list3_serialize(
+    def _list_serialize(
         self,
         session_id,
         page_size,
@@ -1540,12 +1540,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1617,12 +1617,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1694,12 +1694,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1781,7 +1781,7 @@ class PostApi:
 
 
     @validate_call
-    def query(
+    def query1(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
@@ -1834,7 +1834,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query1_serialize(
             session_id=session_id,
             body=body,
             lang=lang,
@@ -1846,12 +1846,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -1866,7 +1866,7 @@ class PostApi:
 
 
     @validate_call
-    def query_with_http_info(
+    def query1_with_http_info(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
@@ -1919,7 +1919,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query1_serialize(
             session_id=session_id,
             body=body,
             lang=lang,
@@ -1931,12 +1931,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -1951,7 +1951,7 @@ class PostApi:
 
 
     @validate_call
-    def query_without_preload_content(
+    def query1_without_preload_content(
         self,
         session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
@@ -2004,7 +2004,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query1_serialize(
             session_id=session_id,
             body=body,
             lang=lang,
@@ -2016,12 +2016,12 @@ class PostApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
             '403': "Error",
             '404': "Error",
-            '415': "Error",
             '400': "Error",
             '409': "Error",
-            '500': "Error",
+            '415': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -2031,7 +2031,7 @@ class PostApi:
         return response_data.response
 
 
-    def _query_serialize(
+    def _query1_serialize(
         self,
         session_id,
         body,
@@ -2098,6 +2098,342 @@ class PostApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/post/q',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def query_post_legacy(
+        self,
+        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PostItemResponse:
+        """(Deprecated) DEPRECATED. use GET /v1/post/q instead. Send a query
+
+        DEPRECATED. use GET /v1/post instead. Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+
+        :param session_id: ID of the session to post the query into. (required)
+        :type session_id: UUID
+        :param body: User message to send to the LLM. (required)
+        :type body: str
+        :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
+        :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("POST /v1/post/ is deprecated.", DeprecationWarning)
+
+        _param = self._query_post_legacy_serialize(
+            session_id=session_id,
+            body=body,
+            lang=lang,
+            agent_id=agent_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "PostItemResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def query_post_legacy_with_http_info(
+        self,
+        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PostItemResponse]:
+        """(Deprecated) DEPRECATED. use GET /v1/post/q instead. Send a query
+
+        DEPRECATED. use GET /v1/post instead. Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+
+        :param session_id: ID of the session to post the query into. (required)
+        :type session_id: UUID
+        :param body: User message to send to the LLM. (required)
+        :type body: str
+        :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
+        :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("POST /v1/post/ is deprecated.", DeprecationWarning)
+
+        _param = self._query_post_legacy_serialize(
+            session_id=session_id,
+            body=body,
+            lang=lang,
+            agent_id=agent_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "PostItemResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def query_post_legacy_without_preload_content(
+        self,
+        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
+        agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """(Deprecated) DEPRECATED. use GET /v1/post/q instead. Send a query
+
+        DEPRECATED. use GET /v1/post instead. Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`). 
+
+        :param session_id: ID of the session to post the query into. (required)
+        :type session_id: UUID
+        :param body: User message to send to the LLM. (required)
+        :type body: str
+        :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
+        :type lang: str
+        :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
+        :type agent_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+        warnings.warn("POST /v1/post/ is deprecated.", DeprecationWarning)
+
+        _param = self._query_post_legacy_serialize(
+            session_id=session_id,
+            body=body,
+            lang=lang,
+            agent_id=agent_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '415': "Error",
+            '200': "PostItemResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _query_post_legacy_serialize(
+        self,
+        session_id,
+        body,
+        lang,
+        agent_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if session_id is not None:
+            
+            _query_params.append(('sessionId', session_id))
+            
+        if body is not None:
+            
+            _query_params.append(('body', body))
+            
+        if lang is not None:
+            
+            _query_params.append(('lang', lang))
+            
+        if agent_id is not None:
+            
+            _query_params.append(('agentId', agent_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT', 
+            'AccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/post/',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
