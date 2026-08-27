@@ -1,6 +1,6 @@
 # verbatim_client.CorpusApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -30,10 +30,10 @@ from verbatim_client.models.corpus_create_response import CorpusCreateResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -121,10 +121,10 @@ from verbatim_client.models.ack_response import AckResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -212,10 +212,10 @@ from verbatim_client.models.corpus_item_response import CorpusItemResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -303,10 +303,10 @@ from verbatim_client.models.corpus_list_response import CorpusListResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -404,10 +404,10 @@ from verbatim_client.models.corpus_update_response import CorpusUpdateResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters

@@ -1,6 +1,6 @@
 # verbatim_client.PostApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,10 +31,10 @@ from verbatim_client.models.post_attachment_response import PostAttachmentRespon
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -122,10 +122,10 @@ from verbatim_client.models.ack_response import AckResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -218,10 +218,10 @@ from verbatim_client.models.document_download_url import DocumentDownloadUrl
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -309,10 +309,10 @@ from verbatim_client.models.post import Post
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -400,10 +400,10 @@ from verbatim_client.models.post_list_response import PostListResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -513,10 +513,10 @@ from verbatim_client.models.document_preview_urls import DocumentPreviewUrls
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -640,10 +640,10 @@ from verbatim_client.models.post_item_response import PostItemResponse
 from verbatim_client.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost:8080
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = verbatim_client.Configuration(
-    host = "http://localhost:8080"
+    host = "https://api.verbatim-ai.com"
 )
 
 # The client must configure the authentication and authorization parameters
