@@ -900,7 +900,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list(
+    def list1(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -947,7 +947,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -977,7 +977,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list_with_http_info(
+    def list1_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1024,7 +1024,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1054,7 +1054,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list_without_preload_content(
+    def list1_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1101,7 +1101,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_serialize(
+        _param = self._list1_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1126,7 +1126,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _list_serialize(
+    def _list1_serialize(
         self,
         page_size,
         page_index,

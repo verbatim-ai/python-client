@@ -6,7 +6,7 @@ Identity of the authenticated caller, as resolved from the Bearer token.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**organization_id** | **str** | ID of the organization the caller belongs to (UUIDv4). | [optional] 
+**organization_id** | **UUID** | ID of the organization the caller belongs to (UUIDv4). | [optional] 
 **user_id** | **str** | Unique identifier of the authenticated user (UUIDv4). | [optional] 
 **email** | **str** | Email address of the authenticated user. | [optional] 
 **name** | **str** | Display name of the authenticated user. | [optional] 

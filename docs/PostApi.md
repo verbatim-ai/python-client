@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 Get a post
 
-Fetch a single post by its identifier, including its attachments.
+Fetch a single post by its identifier. The response carries `attachment`, the number of source chunks behind it; the sources themselves come from `GET /v1/post/attachment/{postId}`.
 
 ### Example
 

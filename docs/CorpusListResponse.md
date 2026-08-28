@@ -6,9 +6,9 @@ Paginated list of corpora belonging to an organization.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**org_id** | **str** | ID of the parent organization (UUIDv4). | 
 **page_index** | **int** | Zero-based index of the returned page. | [optional] 
 **items** | [**List[Corpus]**](Corpus.md) | Corpora contained in this page, newest first. | [optional] 
+**org_id** | **str** |  | [optional] 
 
 ## Example
 

@@ -19,8 +19,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,16 +30,14 @@ class SessionCreateResponse(BaseModel):
     """
     Acknowledgement returned after opening a new session.
     """ # noqa: E501
-    id: StrictStr = Field(description="ID of the newly created session (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="ID of the newly created session (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     user_id: Optional[StrictStr] = Field(default=None, description="Identifier of the user who opened the session (echo of the JWT subject).", alias="userId", json_schema_extra={"examples": ["user_42"]})
-    corpus_id: List[StrictStr] = Field(description="IDs of the corpora the session is bound to (UUIDv4).", alias="corpusId", json_schema_extra={"examples": [["550e8400-e29b-41d4-a716-446655440000"]]})
-    model: StrictStr = Field(description="LLM bound to the session.", json_schema_extra={"examples": ["mistral"]})
-    system: Optional[StrictStr] = Field(default=None, description="System prompt the LLM was initialised with.", json_schema_extra={"examples": ["You are a concise support agent. Answer in French."]})
-    temperature: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Sampling temperature configured on the session.", json_schema_extra={"examples": [0.2]})
-    thinking: Optional[StrictBool] = Field(default=None, description="Whether the model's *thinking* mode is enabled on this session.", json_schema_extra={"examples": [False]})
+    corpus_id: List[UUID] = Field(description="IDs of the corpora the session is bound to (UUIDv4).", alias="corpusId", json_schema_extra={"examples": [["550e8400-e29b-41d4-a716-446655440000"]]})
+    model: Optional[StrictStr] = None
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary JSON metadata attached to the session.", json_schema_extra={"examples": [{"customer_id": "42"}]})
     created_at: datetime = Field(description="Creation timestamp of the session (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
-    __properties: ClassVar[List[str]] = ["id", "userId", "corpusId", "model", "system", "temperature", "thinking", "metadata", "createdAt"]
+    updated_at: datetime = Field(description="Last modification of the session (ISO-8601, UTC). Equal to `createdAt` on a session that has just been created.", alias="updatedAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
+    __properties: ClassVar[List[str]] = ["id", "userId", "corpusId", "model", "metadata", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,11 +94,9 @@ class SessionCreateResponse(BaseModel):
             "userId": obj.get("userId"),
             "corpusId": obj.get("corpusId"),
             "model": obj.get("model"),
-            "system": obj.get("system"),
-            "temperature": obj.get("temperature"),
-            "thinking": obj.get("thinking"),
             "metadata": obj.get("metadata"),
-            "createdAt": obj.get("createdAt")
+            "createdAt": obj.get("createdAt"),
+            "updatedAt": obj.get("updatedAt")
         })
         return _obj
 

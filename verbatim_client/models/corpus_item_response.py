@@ -29,7 +29,7 @@ class CorpusItemResponse(BaseModel):
     """
     Single corpus wrapped with its parent organization id.
     """ # noqa: E501
-    org_id: StrictStr = Field(description="ID of the parent organization (UUIDv4).", alias="orgId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
     item: Optional[Corpus] = Field(default=None, description="The corpus payload.")
     __properties: ClassVar[List[str]] = ["orgId", "item"]
 

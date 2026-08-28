@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from verbatim_client.models.post import Post
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class PostItemResponse(BaseModel):
     """
     Pair of posts produced by a query: the user message and the corresponding system answer.
     """ # noqa: E501
-    session_id: StrictStr = Field(description="ID of the session the posts belong to (UUIDv4).", alias="sessionId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    session_id: UUID = Field(description="ID of the session the posts belong to (UUIDv4).", alias="sessionId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     query: Optional[Post] = Field(default=None, description="User post (the query). `owner = USER`.")
     answer: Optional[Post] = Field(default=None, description="System post (the LLM answer). `owner = SYSTEM`, with attachments pointing to the chunks used as context.")
     __properties: ClassVar[List[str]] = ["sessionId", "query", "answer"]

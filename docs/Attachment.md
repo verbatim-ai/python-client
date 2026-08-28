@@ -6,7 +6,7 @@ Document used as context to produce a system answer.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**post_id** | **str** | ID of the post (UUIDv4). | 
+**post_id** | **UUID** | ID of the post (UUIDv4). | 
 **doc_id** | **UUID** | ID of the document (UUIDv4). | 
 **summary** | **str** | Summary of the document (markdown) | 
 **pages** | **List[int]** | Sorted list of page indexes (1-based) retrieved from this document. User endpoint /{id}/preview-urls get secured preview image of the page | 

@@ -6,7 +6,7 @@ Attachment details for a Post
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**post_id** | **str** | ID of the post (UUIDv4). | 
+**post_id** | **UUID** | ID of the post (UUIDv4). | 
 **items** | [**List[Attachment]**](Attachment.md) | All the attachments of the post | 
 
 ## Example

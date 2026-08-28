@@ -36,7 +36,6 @@ class TestCorpusListResponse(unittest.TestCase):
         model = CorpusListResponse()
         if include_optional:
             return CorpusListResponse(
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
                 page_index = 0,
                 items = [
                     verbatim_client.models.corpus.Corpus(
@@ -46,11 +45,11 @@ class TestCorpusListResponse(unittest.TestCase):
                         name = 'Support knowledge base', 
                         description = 'Tickets, FAQs and runbooks used by the support team.', 
                         metadata = {owner=support-team, language=fr}, )
-                    ]
+                    ],
+                org_id = ''
             )
         else:
             return CorpusListResponse(
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
         )
         """
 

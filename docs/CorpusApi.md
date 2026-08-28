@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create1**](CorpusApi.md#create1) | **POST** /v1/corpus/ | Create a corpus
 [**delete2**](CorpusApi.md#delete2) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
 [**get2**](CorpusApi.md#get2) | **GET** /v1/corpus/{corpusId} | Get a corpus
-[**list**](CorpusApi.md#list) | **GET** /v1/corpus/ | List corpora
+[**list1**](CorpusApi.md#list1) | **GET** /v1/corpus/ | List corpora
 [**update2**](CorpusApi.md#update2) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
 
 
@@ -285,8 +285,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list**
-> CorpusListResponse list(page_size=page_size, page_index=page_index)
+# **list1**
+> CorpusListResponse list1(page_size=page_size, page_index=page_index)
 
 List corpora
 
@@ -334,11 +334,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List corpora
-        api_response = api_instance.list(page_size=page_size, page_index=page_index)
-        print("The response of CorpusApi->list:\n")
+        api_response = api_instance.list1(page_size=page_size, page_index=page_index)
+        print("The response of CorpusApi->list1:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->list: %s\n" % e)
+        print("Exception when calling CorpusApi->list1: %s\n" % e)
 ```
 
 

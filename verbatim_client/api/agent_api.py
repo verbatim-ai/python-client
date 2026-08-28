@@ -898,7 +898,7 @@ class AgentApi:
 
 
     @validate_call
-    def list1(
+    def list2(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -945,7 +945,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -975,7 +975,7 @@ class AgentApi:
 
 
     @validate_call
-    def list1_with_http_info(
+    def list2_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1022,7 +1022,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1052,7 +1052,7 @@ class AgentApi:
 
 
     @validate_call
-    def list1_without_preload_content(
+    def list2_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1099,7 +1099,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1124,7 +1124,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _list1_serialize(
+    def _list2_serialize(
         self,
         page_size,
         page_index,

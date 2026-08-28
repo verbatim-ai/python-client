@@ -48,31 +48,17 @@ class TestSessionApi(unittest.TestCase):
         """
         pass
 
-    def test_list2(self) -> None:
-        """Test case for list2
+    def test_list(self) -> None:
+        """Test case for list
 
-        List sessions attached to a corpus
+        List sessions
         """
         pass
 
-    def test_list_by_metadata(self) -> None:
-        """Test case for list_by_metadata
+    def test_search(self) -> None:
+        """Test case for search
 
-        List sessions matching a metadata fragment
-        """
-        pass
-
-    def test_list_by_organization(self) -> None:
-        """Test case for list_by_organization
-
-        List every session in the caller's organization
-        """
-        pass
-
-    def test_list_by_user(self) -> None:
-        """Test case for list_by_user
-
-        List sessions owned by a user
+        Search sessions
         """
         pass
 

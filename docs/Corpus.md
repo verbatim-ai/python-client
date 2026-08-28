@@ -6,7 +6,7 @@ Knowledge base inside an organization. Bound to an embedding model and a summary
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier of the corpus (UUIDv4). | 
+**id** | **UUID** | Unique identifier of the corpus (UUIDv4). | 
 **created_at** | **datetime** | Creation timestamp (ISO-8601, UTC). | 
 **updated_at** | **datetime** | Last update timestamp (ISO-8601, UTC). | 
 **name** | **str** | Human-readable name of the corpus. | 

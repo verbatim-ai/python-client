@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from verbatim_client.models.document import Document
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class DocumentListResponse(BaseModel):
     """
     Paginated list of documents in a corpus.
     """ # noqa: E501
-    corpus_id: StrictStr = Field(description="ID of the corpus (UUIDv4).", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    corpus_id: UUID = Field(description="ID of the corpus (UUIDv4).", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     page_index: StrictInt = Field(description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [5]})
     items: List[Document] = Field(description="Documents contained in this page, newest first.")
     __properties: ClassVar[List[str]] = ["corpusId", "pageIndex", "items"]

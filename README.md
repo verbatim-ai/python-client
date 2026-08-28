@@ -130,7 +130,7 @@ Class | Method | HTTP request | Description
 *AgentApi* | [**create3**](docs/AgentApi.md#create3) | **POST** /v1/agent/ | Create an agent
 *AgentApi* | [**delete3**](docs/AgentApi.md#delete3) | **DELETE** /v1/agent/{agentId} | Delete an agent
 *AgentApi* | [**get3**](docs/AgentApi.md#get3) | **GET** /v1/agent/{agentId} | Get an agent
-*AgentApi* | [**list1**](docs/AgentApi.md#list1) | **GET** /v1/agent/ | List agents
+*AgentApi* | [**list2**](docs/AgentApi.md#list2) | **GET** /v1/agent/ | List agents
 *AgentApi* | [**update3**](docs/AgentApi.md#update3) | **PATCH** /v1/agent/{agentId} | Update an agent
 *AuthApi* | [**create2**](docs/AuthApi.md#create2) | **POST** /v1/auth/access-token | Create an access token
 *AuthApi* | [**revoke**](docs/AuthApi.md#revoke) | **DELETE** /v1/auth/access-token/{token} | Revoke an access token
@@ -139,7 +139,7 @@ Class | Method | HTTP request | Description
 *CorpusApi* | [**create1**](docs/CorpusApi.md#create1) | **POST** /v1/corpus/ | Create a corpus
 *CorpusApi* | [**delete2**](docs/CorpusApi.md#delete2) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
 *CorpusApi* | [**get2**](docs/CorpusApi.md#get2) | **GET** /v1/corpus/{corpusId} | Get a corpus
-*CorpusApi* | [**list**](docs/CorpusApi.md#list) | **GET** /v1/corpus/ | List corpora
+*CorpusApi* | [**list1**](docs/CorpusApi.md#list1) | **GET** /v1/corpus/ | List corpora
 *CorpusApi* | [**update2**](docs/CorpusApi.md#update2) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
 *DocumentApi* | [**commit_upload**](docs/DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
 *DocumentApi* | [**delete1**](docs/DocumentApi.md#delete1) | **DELETE** /v1/doc/{id} | Delete a document
@@ -150,7 +150,7 @@ Class | Method | HTTP request | Description
 *DocumentApi* | [**list_supported_documents**](docs/DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
 *DocumentApi* | [**preview_urls1**](docs/DocumentApi.md#preview_urls1) | **GET** /v1/doc/{id}/preview-urls | Get presigned preview URLs
 *DocumentApi* | [**reinit_upload**](docs/DocumentApi.md#reinit_upload) | **PUT** /v1/doc/{id}/init | Re-initialize a document for a new upload
-*DocumentApi* | [**search**](docs/DocumentApi.md#search) | **GET** /v1/doc/q | Search documents
+*DocumentApi* | [**search1**](docs/DocumentApi.md#search1) | **GET** /v1/doc/q | Search documents
 *DocumentApi* | [**status**](docs/DocumentApi.md#status) | **GET** /v1/doc/{id}/status | Get a document&#39;s status
 *DocumentApi* | [**summary**](docs/DocumentApi.md#summary) | **GET** /v1/doc/{id}/summary | Get a document summary
 *DocumentApi* | [**update1**](docs/DocumentApi.md#update1) | **PATCH** /v1/doc/{id} | Update a document
@@ -164,10 +164,8 @@ Class | Method | HTTP request | Description
 *SessionApi* | [**create**](docs/SessionApi.md#create) | **POST** /v1/session/ | Create a session
 *SessionApi* | [**delete**](docs/SessionApi.md#delete) | **DELETE** /v1/session/{sessionId} | Delete a session
 *SessionApi* | [**get**](docs/SessionApi.md#get) | **GET** /v1/session/{sessionId} | Get a session
-*SessionApi* | [**list2**](docs/SessionApi.md#list2) | **GET** /v1/session/byCorpus | List sessions attached to a corpus
-*SessionApi* | [**list_by_metadata**](docs/SessionApi.md#list_by_metadata) | **GET** /v1/session/byMetadata | List sessions matching a metadata fragment
-*SessionApi* | [**list_by_organization**](docs/SessionApi.md#list_by_organization) | **GET** /v1/session/byOrganization | List every session in the caller&#39;s organization
-*SessionApi* | [**list_by_user**](docs/SessionApi.md#list_by_user) | **GET** /v1/session/byUser | List sessions owned by a user
+*SessionApi* | [**list**](docs/SessionApi.md#list) | **GET** /v1/session/ | List sessions
+*SessionApi* | [**search**](docs/SessionApi.md#search) | **GET** /v1/session/q | Search sessions
 *SessionApi* | [**update**](docs/SessionApi.md#update) | **PATCH** /v1/session/{sessionId} | Update a session
 *UsageApi* | [**usage**](docs/UsageApi.md#usage) | **GET** /v1/usage/all | Organization usage
 *UsageApi* | [**usage_by_corpus**](docs/UsageApi.md#usage_by_corpus) | **GET** /v1/usage/corpus/{corpusId} | Corpus usage

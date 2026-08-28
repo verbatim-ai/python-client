@@ -6,8 +6,8 @@ A file ingested into a corpus. Holds metadata; the binary content is streamed vi
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier of the document (UUIDv4). | 
-**corpus_id** | **str** | ID of the corpus this document belongs to. | 
+**id** | **UUID** | Unique identifier of the document (UUIDv4). | 
+**corpus_id** | **UUID** | ID of the corpus this document belongs to. | 
 **user_id** | **str** | Identifier of the user who uploaded the document. May be null when no user identity was provided at upload time. | [optional] 
 **filename** | **str** | Original filename, as provided at upload time. | 
 **content_type** | **str** | MIME content type of the file. | 

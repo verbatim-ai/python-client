@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,8 +30,8 @@ class Document(BaseModel):
     """
     A file ingested into a corpus. Holds metadata; the binary content is streamed via the download endpoint.
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier of the document (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
-    corpus_id: StrictStr = Field(description="ID of the corpus this document belongs to.", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="Unique identifier of the document (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    corpus_id: UUID = Field(description="ID of the corpus this document belongs to.", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     user_id: Optional[StrictStr] = Field(default=None, description="Identifier of the user who uploaded the document. May be null when no user identity was provided at upload time.", alias="userId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440099"]})
     filename: StrictStr = Field(description="Original filename, as provided at upload time.", json_schema_extra={"examples": ["annual-report-2025.pdf"]})
     content_type: StrictStr = Field(description="MIME content type of the file.", alias="contentType", json_schema_extra={"examples": ["application/pdf"]})

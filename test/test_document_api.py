@@ -90,8 +90,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_search(self) -> None:
-        """Test case for search
+    def test_search1(self) -> None:
+        """Test case for search1
 
         Search documents
         """

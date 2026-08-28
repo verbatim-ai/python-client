@@ -37,16 +37,11 @@ class TestSessionCreateRequest(unittest.TestCase):
         if include_optional:
             return SessionCreateRequest(
                 corpus_ids = [550e8400-e29b-41d4-a716-446655440000],
-                model = 'mistral',
-                system = 'You are a concise support agent. Answer in French.',
-                temperature = 0.2,
-                thinking = False,
                 metadata = {customer_id=42}
             )
         else:
             return SessionCreateRequest(
                 corpus_ids = [550e8400-e29b-41d4-a716-446655440000],
-                model = 'mistral',
         )
         """
 

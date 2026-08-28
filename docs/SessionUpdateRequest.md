@@ -6,10 +6,6 @@ Payload to patch a session. Only the fields you set are updated; omit a field to
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | **str** | New LLM for the session. Must be installed on the Ollama runtime. Omit to keep the current model. | [optional] 
-**system** | **str** | New system prompt. Omit to keep the current prompt. | [optional] 
-**temperature** | **float** | New sampling temperature. Omit to keep the current value. | [optional] 
-**thinking** | **bool** | Enable or disable thinking mode. Omit to keep the current value. | [optional] 
 **metadata** | **Dict[str, Optional[object]]** | New JSON metadata. When provided, **replaces** the existing metadata map; omit to keep it unchanged. | [optional] 
 
 ## Example

@@ -905,7 +905,7 @@ class PostApi:
     ) -> Post:
         """Get a post
 
-        Fetch a single post by its identifier, including its attachments.
+        Fetch a single post by its identifier. The response carries `attachment`, the number of source chunks behind it; the sources themselves come from `GET /v1/post/attachment/{postId}`.
 
         :param post_id: ID of the post. (required)
         :type post_id: UUID
@@ -978,7 +978,7 @@ class PostApi:
     ) -> ApiResponse[Post]:
         """Get a post
 
-        Fetch a single post by its identifier, including its attachments.
+        Fetch a single post by its identifier. The response carries `attachment`, the number of source chunks behind it; the sources themselves come from `GET /v1/post/attachment/{postId}`.
 
         :param post_id: ID of the post. (required)
         :type post_id: UUID
@@ -1051,7 +1051,7 @@ class PostApi:
     ) -> RESTResponseType:
         """Get a post
 
-        Fetch a single post by its identifier, including its attachments.
+        Fetch a single post by its identifier. The response carries `attachment`, the number of source chunks behind it; the sources themselves come from `GET /v1/post/attachment/{postId}`.
 
         :param post_id: ID of the post. (required)
         :type post_id: UUID

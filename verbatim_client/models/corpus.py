@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +30,7 @@ class Corpus(BaseModel):
     """
     Knowledge base inside an organization. Bound to an embedding model and a summary LLM.
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier of the corpus (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="Unique identifier of the corpus (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     created_at: datetime = Field(description="Creation timestamp (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
     updated_at: datetime = Field(description="Last update timestamp (ISO-8601, UTC).", alias="updatedAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
     name: StrictStr = Field(description="Human-readable name of the corpus.", json_schema_extra={"examples": ["Support knowledge base"]})

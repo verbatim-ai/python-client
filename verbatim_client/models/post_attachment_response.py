@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from verbatim_client.models.attachment import Attachment
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class PostAttachmentResponse(BaseModel):
     """
     Attachment details for a Post
     """ # noqa: E501
-    post_id: StrictStr = Field(description="ID of the post (UUIDv4).", alias="postId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    post_id: UUID = Field(description="ID of the post (UUIDv4).", alias="postId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     items: List[Attachment] = Field(description="All the attachments of the post")
     __properties: ClassVar[List[str]] = ["postId", "items"]
 

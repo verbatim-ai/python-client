@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from verbatim_client.models.document import Document
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +30,7 @@ class DocumentSearchResponse(BaseModel):
     """
     Page of documents matching a search, with the total number of matches.
     """ # noqa: E501
-    corpus_id: StrictStr = Field(description="ID of the searched corpus (UUIDv4).", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440001"]})
+    corpus_id: UUID = Field(description="ID of the searched corpus (UUIDv4).", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440001"]})
     page_index: StrictInt = Field(description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [0]})
     page_size: StrictInt = Field(description="Number of documents this page can hold — the requested `pageSize`. The last page may carry fewer items.", alias="pageSize", json_schema_extra={"examples": [25]})
     total: StrictInt = Field(description="Total number of documents matching the filters, across every page. Divide by `pageSize` to know how many pages to walk.", json_schema_extra={"examples": [137]})

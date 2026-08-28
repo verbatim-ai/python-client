@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +30,7 @@ class DocumentStatus(BaseModel):
     """
     Lightweight view of a document's ingestion lifecycle. Cheaper than fetching the full document, and intended for polling loops between commit and the final READY/FAILED status.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="ID of the document (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: Optional[UUID] = Field(default=None, description="ID of the document (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     status: Optional[StrictStr] = Field(default=None, description="Current lifecycle status of the document.", json_schema_extra={"examples": ["PROCESSING"]})
     status_msg: Optional[StrictStr] = Field(default=None, description="Optional human-readable detail attached to the status — typically a failure reason when `status == FAILED`. `null` otherwise.", alias="statusMsg", json_schema_extra={"examples": ["Embedding model returned an empty vector"]})
     updated_at: Optional[datetime] = Field(default=None, description="Wall-clock timestamp of the last status update (ISO-8601, UTC).", alias="updatedAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})

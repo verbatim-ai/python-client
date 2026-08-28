@@ -6,7 +6,7 @@ Paginated list of documents in a corpus.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**corpus_id** | **str** | ID of the corpus (UUIDv4). | 
+**corpus_id** | **UUID** | ID of the corpus (UUIDv4). | 
 **page_index** | **int** | Zero-based index of the returned page. | [default to 0]
 **items** | [**List[Document]**](Document.md) | Documents contained in this page, newest first. | 
 

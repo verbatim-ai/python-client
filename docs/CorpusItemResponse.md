@@ -6,7 +6,7 @@ Single corpus wrapped with its parent organization id.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**org_id** | **str** | ID of the parent organization (UUIDv4). | 
+**org_id** | **str** |  | [optional] 
 **item** | [**Corpus**](Corpus.md) | The corpus payload. | [optional] 
 
 ## Example

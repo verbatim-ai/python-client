@@ -20,7 +20,8 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,12 +30,13 @@ class CorpusUpdateResponse(BaseModel):
     """
     Acknowledgement returned after updating a corpus.
     """ # noqa: E501
-    id: StrictStr = Field(description="ID of the corpus (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="ID of the corpus (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     created_at: datetime = Field(description="Original creation timestamp (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
     updated_at: datetime = Field(description="Timestamp of this update (ISO-8601, UTC).", alias="updatedAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
     name: StrictStr = Field(description="Name of the corpus.", json_schema_extra={"examples": ["Support knowledge base"]})
     description: StrictStr = Field(description="Description of the corpus.", json_schema_extra={"examples": ["Tickets, FAQs and runbooks used by the support team."]})
-    __properties: ClassVar[List[str]] = ["id", "createdAt", "updatedAt", "name", "description"]
+    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
+    __properties: ClassVar[List[str]] = ["id", "createdAt", "updatedAt", "name", "description", "orgId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,7 +93,8 @@ class CorpusUpdateResponse(BaseModel):
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt"),
             "name": obj.get("name"),
-            "description": obj.get("description")
+            "description": obj.get("description"),
+            "orgId": obj.get("orgId")
         })
         return _obj
 

@@ -18,9 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,12 +28,8 @@ class SessionUpdateRequest(BaseModel):
     """
     Payload to patch a session. Only the fields you set are updated; omit a field to leave it unchanged.
     """ # noqa: E501
-    model: Optional[StrictStr] = Field(default=None, description="New LLM for the session. Must be installed on the Ollama runtime. Omit to keep the current model.", json_schema_extra={"examples": ["gemma4"]})
-    system: Optional[StrictStr] = Field(default=None, description="New system prompt. Omit to keep the current prompt.", json_schema_extra={"examples": ["You are a helpful assistant."]})
-    temperature: Optional[Union[Annotated[float, Field(le=2, strict=True, ge=0)], Annotated[int, Field(le=2, strict=True, ge=0)]]] = Field(default=None, description="New sampling temperature. Omit to keep the current value.", json_schema_extra={"examples": [0.5]})
-    thinking: Optional[StrictBool] = Field(default=None, description="Enable or disable thinking mode. Omit to keep the current value.", json_schema_extra={"examples": [True]})
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="New JSON metadata. When provided, **replaces** the existing metadata map; omit to keep it unchanged.", json_schema_extra={"examples": [{"customer_id": "99"}]})
-    __properties: ClassVar[List[str]] = ["model", "system", "temperature", "thinking", "metadata"]
+    __properties: ClassVar[List[str]] = ["metadata"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,10 +82,6 @@ class SessionUpdateRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "model": obj.get("model"),
-            "system": obj.get("system"),
-            "temperature": obj.get("temperature"),
-            "thinking": obj.get("thinking"),
             "metadata": obj.get("metadata")
         })
         return _obj

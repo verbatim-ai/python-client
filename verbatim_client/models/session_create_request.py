@@ -18,9 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,12 +30,8 @@ class SessionCreateRequest(BaseModel):
     Payload to open a new conversation session. The model, system prompt, temperature and thinking flag are locked at creation time and apply to every post in the session.
     """ # noqa: E501
     corpus_ids: List[UUID] = Field(description="IDs of the corpora the session is bound to (UUIDv4). A session may search across several corpora.", alias="corpusIds", json_schema_extra={"examples": [["550e8400-e29b-41d4-a716-446655440000"]]})
-    model: StrictStr = Field(description="Name of the LLM used to answer queries in this session. Must be installed on the Ollama runtime.", json_schema_extra={"examples": ["mistral"]})
-    system: Optional[StrictStr] = Field(default=None, description="System prompt sent to the LLM as the first message. Falls back to a default RAG prompt when omitted.", json_schema_extra={"examples": ["You are a concise support agent. Answer in French."]})
-    temperature: Optional[Union[Annotated[float, Field(le=2, strict=True, ge=0)], Annotated[int, Field(le=2, strict=True, ge=0)]]] = Field(default=None, description="Sampling temperature. Range and meaning depend on the model — refer to the model's documentation.", json_schema_extra={"examples": [0.2]})
-    thinking: Optional[StrictBool] = Field(default=None, description="Enable the model's *thinking* mode. Only honored by models that support it.", json_schema_extra={"examples": [False]})
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary JSON metadata attached to the session. Stored as JSONB.", json_schema_extra={"examples": [{"customer_id": "42"}]})
-    __properties: ClassVar[List[str]] = ["corpusIds", "model", "system", "temperature", "thinking", "metadata"]
+    __properties: ClassVar[List[str]] = ["corpusIds", "metadata"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,10 +85,6 @@ class SessionCreateRequest(BaseModel):
 
         _obj = cls.model_validate({
             "corpusIds": obj.get("corpusIds"),
-            "model": obj.get("model"),
-            "system": obj.get("system"),
-            "temperature": obj.get("temperature"),
-            "thinking": obj.get("thinking"),
             "metadata": obj.get("metadata")
         })
         return _obj

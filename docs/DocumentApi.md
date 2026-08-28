@@ -13,7 +13,7 @@ Method | HTTP request | Description
 [**list_supported_documents**](DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
 [**preview_urls1**](DocumentApi.md#preview_urls1) | **GET** /v1/doc/{id}/preview-urls | Get presigned preview URLs
 [**reinit_upload**](DocumentApi.md#reinit_upload) | **PUT** /v1/doc/{id}/init | Re-initialize a document for a new upload
-[**search**](DocumentApi.md#search) | **GET** /v1/doc/q | Search documents
+[**search1**](DocumentApi.md#search1) | **GET** /v1/doc/q | Search documents
 [**status**](DocumentApi.md#status) | **GET** /v1/doc/{id}/status | Get a document&#39;s status
 [**summary**](DocumentApi.md#summary) | **GET** /v1/doc/{id}/summary | Get a document summary
 [**update1**](DocumentApi.md#update1) | **PATCH** /v1/doc/{id} | Update a document
@@ -925,8 +925,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search**
-> DocumentSearchResponse search(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+# **search1**
+> DocumentSearchResponse search1(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
 
 Search documents
 
@@ -1071,11 +1071,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Search documents
-        api_response = api_instance.search(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
-        print("The response of DocumentApi->search:\n")
+        api_response = api_instance.search1(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+        print("The response of DocumentApi->search1:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->search: %s\n" % e)
+        print("Exception when calling DocumentApi->search1: %s\n" % e)
 ```
 
 

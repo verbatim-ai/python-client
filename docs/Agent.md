@@ -6,7 +6,7 @@ Setup driving a RAG query: how wide the retrieval goes, whether results are re-r
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | Unique identifier of the agent (UUIDv4). | 
+**id** | **UUID** | Unique identifier of the agent (UUIDv4). | 
 **name** | **str** | Human-readable name of the agent. | 
 **description** | **str** | Free-form description of what this agent is for. | [optional] 
 **lock** | **bool** | Read-only. &#x60;true&#x60; for a core agent: shared across the platform and not writable. Attempting to update or delete one answers &#x60;400&#x60;. | 

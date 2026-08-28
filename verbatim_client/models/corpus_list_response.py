@@ -29,10 +29,10 @@ class CorpusListResponse(BaseModel):
     """
     Paginated list of corpora belonging to an organization.
     """ # noqa: E501
-    org_id: StrictStr = Field(description="ID of the parent organization (UUIDv4).", alias="orgId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     page_index: Optional[StrictInt] = Field(default=None, description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [0]})
     items: Optional[List[Corpus]] = Field(default=None, description="Corpora contained in this page, newest first.")
-    __properties: ClassVar[List[str]] = ["orgId", "pageIndex", "items"]
+    org_id: Optional[StrictStr] = Field(default=None, alias="orgId")
+    __properties: ClassVar[List[str]] = ["pageIndex", "items", "orgId"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,9 +91,9 @@ class CorpusListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "orgId": obj.get("orgId"),
             "pageIndex": obj.get("pageIndex"),
-            "items": [Corpus.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
+            "items": [Corpus.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
+            "orgId": obj.get("orgId")
         })
         return _obj
 

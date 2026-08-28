@@ -6,11 +6,12 @@ Acknowledgement returned after creating a corpus.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the newly created corpus (UUIDv4). | 
+**id** | **UUID** | ID of the newly created corpus (UUIDv4). | 
 **created_at** | **datetime** | Creation timestamp (ISO-8601, UTC). | 
 **name** | **str** | Name of the corpus. | 
 **description** | **str** | Description of the corpus. | [optional] 
 **metadata** | **Dict[str, Optional[object]]** | JSON metadata attached to the corpus. | [optional] 
+**org_id** | **str** |  | [optional] 
 
 ## Example
 

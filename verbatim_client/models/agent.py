@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +30,7 @@ class Agent(BaseModel):
     """
     Setup driving a RAG query: how wide the retrieval goes, whether results are re-ranked, what system instruction the model receives, how much history is replayed, and which models answer.  Two kinds of agent are returned by the same endpoints. **Core** agents belong to the platform, are visible to every organization and carry `lock: true` — they cannot be created, updated or deleted. **Custom** agents carry your `orgId`, `lock: false`, and are yours to manage.  Nullable fields are *overrides*, not copies. `null` means \"use the platform default\", so a default that is retuned later moves every agent that never set one. `systemInstruction` is read-only and shows the instruction those resolved values actually produce. 
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier of the agent (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="Unique identifier of the agent (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     name: StrictStr = Field(description="Human-readable name of the agent.", json_schema_extra={"examples": ["Support assistant"]})
     description: Optional[StrictStr] = Field(default=None, description="Free-form description of what this agent is for.", json_schema_extra={"examples": ["Answers customer questions from the support knowledge base, in the customer's language."]})
     lock: StrictBool = Field(description="Read-only. `true` for a core agent: shared across the platform and not writable. Attempting to update or delete one answers `400`.", json_schema_extra={"examples": [False]})

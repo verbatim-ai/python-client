@@ -36,10 +36,6 @@ class TestSessionUpdateRequest(unittest.TestCase):
         model = SessionUpdateRequest()
         if include_optional:
             return SessionUpdateRequest(
-                model = 'gemma4',
-                system = 'You are a helpful assistant.',
-                temperature = 0.5,
-                thinking = True,
                 metadata = {customer_id=99}
             )
         else:

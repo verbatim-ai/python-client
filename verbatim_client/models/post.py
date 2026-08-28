@@ -21,7 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from verbatim_client.models.attachment import Attachment
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,18 +30,17 @@ class Post(BaseModel):
     """
     Single user query or system answer inside a session.
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique identifier of the post (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
-    session_id: StrictStr = Field(description="ID of the session this post belongs to.", alias="sessionId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    id: UUID = Field(description="Unique identifier of the post (UUIDv4).", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    session_id: UUID = Field(description="ID of the session this post belongs to.", alias="sessionId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    agent_id: UUID = Field(description="Agent this answer was produced under", alias="agentId", json_schema_extra={"examples": ["1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61"]})
     body: StrictStr = Field(description="Text content of the post — the user query when `owner = USER`, the LLM answer when `owner = SYSTEM`.", json_schema_extra={"examples": ["What is the main topic of the corpus?"]})
     owner: StrictStr = Field(description="Who produced the post.", json_schema_extra={"examples": ["USER"]})
     token: Optional[StrictInt] = Field(default=None, description="Token count of `body`, as measured by the model.", json_schema_extra={"examples": [42]})
     lang: Optional[StrictStr] = Field(default=None, description="ISO-639 language code used for the post.", json_schema_extra={"examples": ["fr"]})
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Arbitrary JSON metadata attached to the post. Stored as JSONB.", json_schema_extra={"examples": [{"client": "web"}]})
     created_at: datetime = Field(description="Creation timestamp of the post (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-04-23T04:06:51Z"]})
-    attachments: Optional[List[Attachment]] = Field(default=None, description="DEPRECATED. Use /post/attachment to get accurate list. Legacy info :Document chunks used as context for this post. Only populated on system answers.")
     attachment: Optional[StrictInt] = Field(default=None, description="Number of attachment used in the post. Used /post/attachment to get details. Filled only when post have more than one attachment. Zero when no attachment.")
-    agent_id: Optional[StrictStr] = Field(default=None, description="Agent this answer was produced under, when the query named one explicitly (`GET /v1/post/q?agentId=…`). Absent when the query ran on the platform default agent, which is the usual case — so a missing `agentId` means \"default\", not \"unknown\". Only system answers carry it; the user's question never does. Deleting an agent does not rewrite the answers it produced, so this still identifies an agent you have since deleted — resolving it through `GET /v1/agent/{agentId}` then answers `404`.", alias="agentId", json_schema_extra={"examples": ["1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61"]})
-    __properties: ClassVar[List[str]] = ["id", "sessionId", "body", "owner", "token", "lang", "metadata", "createdAt", "attachments", "attachment", "agentId"]
+    __properties: ClassVar[List[str]] = ["id", "sessionId", "agentId", "body", "owner", "token", "lang", "metadata", "createdAt", "attachment"]
 
     @field_validator('owner')
     def owner_validate_enum(cls, value):
@@ -89,12 +88,6 @@ class Post(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in attachments (list)
-        _items = []
-        if self.attachments:
-            for _item_attachments in self.attachments:
-                _items.append(_item_attachments.to_dict() if _item_attachments is not None else None)
-            _dict['attachments'] = _items
         return _dict
 
     @classmethod
@@ -109,15 +102,14 @@ class Post(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "sessionId": obj.get("sessionId"),
+            "agentId": obj.get("agentId"),
             "body": obj.get("body"),
             "owner": obj.get("owner"),
             "token": obj.get("token"),
             "lang": obj.get("lang"),
             "metadata": obj.get("metadata"),
             "createdAt": obj.get("createdAt"),
-            "attachments": [Attachment.from_dict(_item) for _item in obj["attachments"]] if obj.get("attachments") is not None else None,
-            "attachment": obj.get("attachment"),
-            "agentId": obj.get("agentId")
+            "attachment": obj.get("attachment")
         })
         return _obj
 

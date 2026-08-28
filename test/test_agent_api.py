@@ -48,8 +48,8 @@ class TestAgentApi(unittest.TestCase):
         """
         pass
 
-    def test_list1(self) -> None:
-        """Test case for list1
+    def test_list2(self) -> None:
+        """Test case for list2
 
         List agents
         """

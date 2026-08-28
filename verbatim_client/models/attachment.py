@@ -29,7 +29,7 @@ class Attachment(BaseModel):
     """
     Document used as context to produce a system answer.
     """ # noqa: E501
-    post_id: StrictStr = Field(description="ID of the post (UUIDv4).", alias="postId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    post_id: UUID = Field(description="ID of the post (UUIDv4).", alias="postId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     doc_id: UUID = Field(description="ID of the document (UUIDv4).", alias="docId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     summary: StrictStr = Field(description="Summary of the document (markdown)", json_schema_extra={"examples": ["the document expose the marketing strategy of the WAOUW product"]})
     pages: List[StrictInt] = Field(description="Sorted list of page indexes (1-based) retrieved from this document. User endpoint /{id}/preview-urls get secured preview image of the page")

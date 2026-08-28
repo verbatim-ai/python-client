@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +30,7 @@ class WhoAmI(BaseModel):
     """
     Identity of the authenticated caller, as resolved from the Bearer token.
     """ # noqa: E501
-    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization the caller belongs to (UUIDv4).", alias="organizationId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    organization_id: Optional[UUID] = Field(default=None, description="ID of the organization the caller belongs to (UUIDv4).", alias="organizationId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     user_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the authenticated user (UUIDv4).", alias="userId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     email: Optional[StrictStr] = Field(default=None, description="Email address of the authenticated user.", json_schema_extra={"examples": ["jane.doe@example.com"]})
     name: Optional[StrictStr] = Field(default=None, description="Display name of the authenticated user.", json_schema_extra={"examples": ["Jane Doe"]})

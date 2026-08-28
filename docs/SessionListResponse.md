@@ -6,9 +6,8 @@ Paginated list of sessions. Echoes the filter that produced it.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**corpus_id** | **str** | Echo of the corpus filter, when the listing was filtered by corpus. | 
+**corpus_id** | **UUID** | Echo of the corpus filter, when the listing was filtered by corpus. | [optional] 
 **user_id** | **str** | Echo of the user filter, when the listing was filtered by user. | [optional] 
-**org_id** | **str** | Echo of the organization scope (resolved from the caller&#39;s JWT). | 
 **metadata** | **Dict[str, Optional[object]]** | Echo of the metadata fragment used to filter the listing, when applicable. | [optional] 
 **page_index** | **int** | Zero-based index of the returned page. | 
 **page_size** | **int** | Number of items requested per page. | 

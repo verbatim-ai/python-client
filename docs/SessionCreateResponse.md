@@ -6,15 +6,13 @@ Acknowledgement returned after opening a new session.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the newly created session (UUIDv4). | 
+**id** | **UUID** | ID of the newly created session (UUIDv4). | 
 **user_id** | **str** | Identifier of the user who opened the session (echo of the JWT subject). | [optional] 
-**corpus_id** | **List[str]** | IDs of the corpora the session is bound to (UUIDv4). | 
-**model** | **str** | LLM bound to the session. | 
-**system** | **str** | System prompt the LLM was initialised with. | [optional] 
-**temperature** | **float** | Sampling temperature configured on the session. | [optional] 
-**thinking** | **bool** | Whether the model&#39;s *thinking* mode is enabled on this session. | [optional] 
+**corpus_id** | **List[UUID]** | IDs of the corpora the session is bound to (UUIDv4). | 
+**model** | **str** |  | [optional] 
 **metadata** | **Dict[str, Optional[object]]** | Arbitrary JSON metadata attached to the session. | [optional] 
 **created_at** | **datetime** | Creation timestamp of the session (ISO-8601, UTC). | 
+**updated_at** | **datetime** | Last modification of the session (ISO-8601, UTC). Equal to &#x60;createdAt&#x60; on a session that has just been created. | 
 
 ## Example
 

@@ -40,7 +40,8 @@ class TestCorpusUpdateResponse(unittest.TestCase):
                 created_at = '2026-04-23T04:06:51Z',
                 updated_at = '2026-04-23T04:06:51Z',
                 name = 'Support knowledge base',
-                description = 'Tickets, FAQs and runbooks used by the support team.'
+                description = 'Tickets, FAQs and runbooks used by the support team.',
+                org_id = ''
             )
         else:
             return CorpusUpdateResponse(

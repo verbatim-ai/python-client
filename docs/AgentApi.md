@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**create3**](AgentApi.md#create3) | **POST** /v1/agent/ | Create an agent
 [**delete3**](AgentApi.md#delete3) | **DELETE** /v1/agent/{agentId} | Delete an agent
 [**get3**](AgentApi.md#get3) | **GET** /v1/agent/{agentId} | Get an agent
-[**list1**](AgentApi.md#list1) | **GET** /v1/agent/ | List agents
+[**list2**](AgentApi.md#list2) | **GET** /v1/agent/ | List agents
 [**update3**](AgentApi.md#update3) | **PATCH** /v1/agent/{agentId} | Update an agent
 
 
@@ -326,8 +326,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list1**
-> AgentListResponse list1(page_size=page_size, page_index=page_index)
+# **list2**
+> AgentListResponse list2(page_size=page_size, page_index=page_index)
 
 List agents
 
@@ -383,11 +383,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List agents
-        api_response = api_instance.list1(page_size=page_size, page_index=page_index)
-        print("The response of AgentApi->list1:\n")
+        api_response = api_instance.list2(page_size=page_size, page_index=page_index)
+        print("The response of AgentApi->list2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->list1: %s\n" % e)
+        print("Exception when calling AgentApi->list2: %s\n" % e)
 ```
 
 

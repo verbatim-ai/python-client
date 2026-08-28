@@ -6,7 +6,7 @@ Lightweight view of a document's ingestion lifecycle. Cheaper than fetching the 
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the document (UUIDv4). | [optional] 
+**id** | **UUID** | ID of the document (UUIDv4). | [optional] 
 **status** | **str** | Current lifecycle status of the document. | [optional] 
 **status_msg** | **str** | Optional human-readable detail attached to the status — typically a failure reason when &#x60;status &#x3D;&#x3D; FAILED&#x60;. &#x60;null&#x60; otherwise. | [optional] 
 **updated_at** | **datetime** | Wall-clock timestamp of the last status update (ISO-8601, UTC). | [optional] 

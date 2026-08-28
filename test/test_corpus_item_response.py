@@ -36,7 +36,7 @@ class TestCorpusItemResponse(unittest.TestCase):
         model = CorpusItemResponse()
         if include_optional:
             return CorpusItemResponse(
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
+                org_id = '',
                 item = verbatim_client.models.corpus.Corpus(
                     id = '550e8400-e29b-41d4-a716-446655440000', 
                     created_at = '2026-04-23T04:06:51Z', 
@@ -47,7 +47,6 @@ class TestCorpusItemResponse(unittest.TestCase):
             )
         else:
             return CorpusItemResponse(
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
         )
         """
 

@@ -6,11 +6,12 @@ Acknowledgement returned after updating a corpus.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | ID of the corpus (UUIDv4). | 
+**id** | **UUID** | ID of the corpus (UUIDv4). | 
 **created_at** | **datetime** | Original creation timestamp (ISO-8601, UTC). | 
 **updated_at** | **datetime** | Timestamp of this update (ISO-8601, UTC). | 
 **name** | **str** | Name of the corpus. | 
 **description** | **str** | Description of the corpus. | 
+**org_id** | **str** |  | [optional] 
 
 ## Example
 

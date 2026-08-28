@@ -38,29 +38,20 @@ class TestPost(unittest.TestCase):
             return Post(
                 id = '550e8400-e29b-41d4-a716-446655440000',
                 session_id = '550e8400-e29b-41d4-a716-446655440000',
+                agent_id = '1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61',
                 body = 'What is the main topic of the corpus?',
                 owner = 'USER',
                 token = 42,
                 lang = 'fr',
                 metadata = {client=web},
                 created_at = '2026-04-23T04:06:51Z',
-                attachments = [
-                    verbatim_client.models.attachment.Attachment(
-                        post_id = '550e8400-e29b-41d4-a716-446655440000', 
-                        doc_id = '550e8400-e29b-41d4-a716-446655440000', 
-                        summary = 'the document expose the marketing strategy of the WAOUW product', 
-                        pages = [
-                            56
-                            ], 
-                        metadata = {source=user, team=legal}, )
-                    ],
-                attachment = 56,
-                agent_id = '1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61'
+                attachment = 56
             )
         else:
             return Post(
                 id = '550e8400-e29b-41d4-a716-446655440000',
                 session_id = '550e8400-e29b-41d4-a716-446655440000',
+                agent_id = '1a7c9e10-5b3d-4a2f-8c6e-9d0b3f4a5c61',
                 body = 'What is the main topic of the corpus?',
                 owner = 'USER',
                 created_at = '2026-04-23T04:06:51Z',

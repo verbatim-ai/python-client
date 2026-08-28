@@ -38,7 +38,6 @@ class TestSessionListResponse(unittest.TestCase):
             return SessionListResponse(
                 corpus_id = '550e8400-e29b-41d4-a716-446655440000',
                 user_id = 'user_42',
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
                 metadata = {customer_id=42},
                 page_index = 0,
                 page_size = 25,
@@ -48,18 +47,14 @@ class TestSessionListResponse(unittest.TestCase):
                         id = '550e8400-e29b-41d4-a716-446655440000', 
                         user_id = 'user_42', 
                         corpus_ids = [550e8400-e29b-41d4-a716-446655440000], 
-                        model = 'mistral', 
-                        system = 'You are a concise support agent. Answer in French.', 
-                        temperature = 0.2, 
-                        thinking = False, 
                         metadata = {customer_id=42}, 
-                        created_at = '2026-04-23T04:06:51Z', )
+                        created_at = '2026-04-23T04:06:51Z', 
+                        updated_at = '2026-04-23T04:06:51Z', 
+                        model = '', )
                     ]
             )
         else:
             return SessionListResponse(
-                corpus_id = '550e8400-e29b-41d4-a716-446655440000',
-                org_id = '550e8400-e29b-41d4-a716-446655440000',
                 page_index = 0,
                 page_size = 25,
                 total = 42,

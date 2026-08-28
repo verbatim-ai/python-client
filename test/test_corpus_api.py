@@ -48,8 +48,8 @@ class TestCorpusApi(unittest.TestCase):
         """
         pass
 
-    def test_list(self) -> None:
-        """Test case for list
+    def test_list1(self) -> None:
+        """Test case for list1
 
         List corpora
         """

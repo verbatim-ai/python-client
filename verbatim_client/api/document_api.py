@@ -2658,7 +2658,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search(
+    def search1(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -2747,7 +2747,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search_serialize(
+        _param = self._search1_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -2791,7 +2791,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search_with_http_info(
+    def search1_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -2880,7 +2880,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search_serialize(
+        _param = self._search1_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -2924,7 +2924,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search_without_preload_content(
+    def search1_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -3013,7 +3013,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search_serialize(
+        _param = self._search1_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -3052,7 +3052,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _search_serialize(
+    def _search1_serialize(
         self,
         corpus_id,
         q,

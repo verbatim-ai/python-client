@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -64,7 +64,7 @@ class SessionApi:
     ) -> SessionCreateResponse:
         """Create a session
 
-        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. The model, system prompt, temperature and thinking flag are locked at creation time and apply to every post in the session.
+        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. How its queries are answered is not decided here: the agent named on each query decides, so a session carries the corpora, the owner and whatever metadata you attach to it.
 
         :param session_create_request: (required)
         :type session_create_request: SessionCreateRequest
@@ -137,7 +137,7 @@ class SessionApi:
     ) -> ApiResponse[SessionCreateResponse]:
         """Create a session
 
-        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. The model, system prompt, temperature and thinking flag are locked at creation time and apply to every post in the session.
+        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. How its queries are answered is not decided here: the agent named on each query decides, so a session carries the corpora, the owner and whatever metadata you attach to it.
 
         :param session_create_request: (required)
         :type session_create_request: SessionCreateRequest
@@ -210,7 +210,7 @@ class SessionApi:
     ) -> RESTResponseType:
         """Create a session
 
-        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. The model, system prompt, temperature and thinking flag are locked at creation time and apply to every post in the session.
+        Open a new conversation session against one or more corpora. The session is attached to the user carried by the caller's JWT. How its queries are answered is not decided here: the agent named on each query decides, so a session carries the corpora, the owner and whatever metadata you attach to it.
 
         :param session_create_request: (required)
         :type session_create_request: SessionCreateRequest
@@ -899,11 +899,10 @@ class SessionApi:
 
 
     @validate_call
-    def list2(
+    def list(
         self,
-        corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -917,13 +916,11 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionListResponse:
-        """List sessions attached to a corpus
+        """List sessions
 
-        Paginate the sessions opened against a corpus, newest first. The corpus must belong to the caller's organization.
+        Paginate every session of the caller's organization, newest first.  The organization is resolved from the JWT, so there is nothing to pass and no way to ask for another tenant's sessions. A session belongs to an organization as soon as one of its corpora does.  The ordering is closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one when several were opened in the same millisecond. `total` counts every session in the organization, not just those returned here.  To narrow the result — by user, by corpus, by metadata, or by any combination of the three — use `GET /v1/session/q`, which takes the same paging parameters. 
 
-        :param corpus_id: ID of the corpus. (required)
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -949,8 +946,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
-            corpus_id=corpus_id,
+        _param = self._list_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -980,11 +976,10 @@ class SessionApi:
 
 
     @validate_call
-    def list2_with_http_info(
+    def list_with_http_info(
         self,
-        corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -998,13 +993,11 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionListResponse]:
-        """List sessions attached to a corpus
+        """List sessions
 
-        Paginate the sessions opened against a corpus, newest first. The corpus must belong to the caller's organization.
+        Paginate every session of the caller's organization, newest first.  The organization is resolved from the JWT, so there is nothing to pass and no way to ask for another tenant's sessions. A session belongs to an organization as soon as one of its corpora does.  The ordering is closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one when several were opened in the same millisecond. `total` counts every session in the organization, not just those returned here.  To narrow the result — by user, by corpus, by metadata, or by any combination of the three — use `GET /v1/session/q`, which takes the same paging parameters. 
 
-        :param corpus_id: ID of the corpus. (required)
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1030,8 +1023,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
-            corpus_id=corpus_id,
+        _param = self._list_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1061,11 +1053,10 @@ class SessionApi:
 
 
     @validate_call
-    def list2_without_preload_content(
+    def list_without_preload_content(
         self,
-        corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1079,13 +1070,11 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List sessions attached to a corpus
+        """List sessions
 
-        Paginate the sessions opened against a corpus, newest first. The corpus must belong to the caller's organization.
+        Paginate every session of the caller's organization, newest first.  The organization is resolved from the JWT, so there is nothing to pass and no way to ask for another tenant's sessions. A session belongs to an organization as soon as one of its corpora does.  The ordering is closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one when several were opened in the same millisecond. `total` counts every session in the organization, not just those returned here.  To narrow the result — by user, by corpus, by metadata, or by any combination of the three — use `GET /v1/session/q`, which takes the same paging parameters. 
 
-        :param corpus_id: ID of the corpus. (required)
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1111,8 +1100,7 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
-            corpus_id=corpus_id,
+        _param = self._list_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1137,9 +1125,8 @@ class SessionApi:
         return response_data.response
 
 
-    def _list2_serialize(
+    def _list_serialize(
         self,
-        corpus_id,
         page_size,
         page_index,
         _request_auth,
@@ -1164,10 +1151,6 @@ class SessionApi:
 
         # process the path parameters
         # process the query parameters
-        if corpus_id is not None:
-            
-            _query_params.append(('corpusId', corpus_id))
-            
         if page_size is not None:
             
             _query_params.append(('pageSize', page_size))
@@ -1198,7 +1181,7 @@ class SessionApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/v1/session/byCorpus',
+            resource_path='/v1/session/',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1215,13 +1198,15 @@ class SessionApi:
 
 
     @validate_call
-    def list_by_metadata(
+    def search(
         self,
-        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Pair with `value`.")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.")] = None,
+        corpus_id: Annotated[Optional[UUID], Field(description="Keep sessions bound to this corpus. Must belong to the caller's organization.")] = None,
+        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Goes together with `value`.")] = None,
         value: Annotated[Optional[StrictStr], Field(description="Metadata value matching `key`.")] = None,
         var_json: Annotated[Optional[StrictStr], Field(description="Raw JSON object used as the containment filter. Wins over `key`/`value` when set.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1235,17 +1220,21 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SessionListResponse:
-        """List sessions matching a metadata fragment
+        """Search sessions
 
-        Paginate sessions whose metadata JSONB *contains* the provided fragment (PostgreSQL `@>` operator). Results are scoped to the caller's organization. Filtering on a single key/value pair: pass `key` and `value`. For richer filtering (nested JSON, multiple keys) pass a raw JSON object as `json`.
+        Find sessions of the caller's organization by owner, corpus and metadata.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole organization — the same answer as `GET /v1/session/` — and one carrying several returns only the sessions matching all of them. That is what this endpoint adds over the `by…` listings it replaces, which each answer one fixed combination.  The organization is never a parameter. It comes from the JWT and is always applied, so no combination of filters reaches another tenant's sessions.  ### Owner — `userId`  Exact match on the identifier carried by the JWT when the session was opened. Sent empty (`&userId=`) it is treated as absent rather than as a match on the empty string.  ### Corpus — `corpusId`  Keeps sessions bound to that corpus. A session may be bound to several, and it matches as soon as one of them is the requested one. The corpus must belong to the caller's organization.  ### Metadata — `key`/`value`, or `json`  Matches sessions whose metadata **contains** the fragment (PostgreSQL's `@>` operator), extra keys on the session being fine. Pass `key` and `value` for a single pair — they go together, one without the other is a `400` — or `json` for a raw object when the filter is nested or has several keys. `json` wins when both are supplied.  ### Ordering and paging  Newest first, closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one. `total` counts every match across all pages.  ### Examples  * `?userId=user_42` — every session that user opened, across corpora * `?corpusId=…` — every session opened against one corpus, whoever opened it * `?userId=user_42&corpusId=…` — both, which `GET /v1/session/byUser` also did * `?userId=user_42&key=customer_id&value=42` — the combination none of the   `by…` endpoints could express * `?json={\"channel\":{\"kind\":\"web\"}}` — a nested metadata fragment 
 
-        :param key: Metadata key to filter on. Pair with `value`.
+        :param user_id: Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.
+        :type user_id: str
+        :param corpus_id: Keep sessions bound to this corpus. Must belong to the caller's organization.
+        :type corpus_id: UUID
+        :param key: Metadata key to filter on. Goes together with `value`.
         :type key: str
         :param value: Metadata value matching `key`.
         :type value: str
         :param var_json: Raw JSON object used as the containment filter. Wins over `key`/`value` when set.
         :type var_json: str
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1271,7 +1260,9 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_by_metadata_serialize(
+        _param = self._search_serialize(
+            user_id=user_id,
+            corpus_id=corpus_id,
             key=key,
             value=value,
             var_json=var_json,
@@ -1304,13 +1295,15 @@ class SessionApi:
 
 
     @validate_call
-    def list_by_metadata_with_http_info(
+    def search_with_http_info(
         self,
-        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Pair with `value`.")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.")] = None,
+        corpus_id: Annotated[Optional[UUID], Field(description="Keep sessions bound to this corpus. Must belong to the caller's organization.")] = None,
+        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Goes together with `value`.")] = None,
         value: Annotated[Optional[StrictStr], Field(description="Metadata value matching `key`.")] = None,
         var_json: Annotated[Optional[StrictStr], Field(description="Raw JSON object used as the containment filter. Wins over `key`/`value` when set.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1324,17 +1317,21 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SessionListResponse]:
-        """List sessions matching a metadata fragment
+        """Search sessions
 
-        Paginate sessions whose metadata JSONB *contains* the provided fragment (PostgreSQL `@>` operator). Results are scoped to the caller's organization. Filtering on a single key/value pair: pass `key` and `value`. For richer filtering (nested JSON, multiple keys) pass a raw JSON object as `json`.
+        Find sessions of the caller's organization by owner, corpus and metadata.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole organization — the same answer as `GET /v1/session/` — and one carrying several returns only the sessions matching all of them. That is what this endpoint adds over the `by…` listings it replaces, which each answer one fixed combination.  The organization is never a parameter. It comes from the JWT and is always applied, so no combination of filters reaches another tenant's sessions.  ### Owner — `userId`  Exact match on the identifier carried by the JWT when the session was opened. Sent empty (`&userId=`) it is treated as absent rather than as a match on the empty string.  ### Corpus — `corpusId`  Keeps sessions bound to that corpus. A session may be bound to several, and it matches as soon as one of them is the requested one. The corpus must belong to the caller's organization.  ### Metadata — `key`/`value`, or `json`  Matches sessions whose metadata **contains** the fragment (PostgreSQL's `@>` operator), extra keys on the session being fine. Pass `key` and `value` for a single pair — they go together, one without the other is a `400` — or `json` for a raw object when the filter is nested or has several keys. `json` wins when both are supplied.  ### Ordering and paging  Newest first, closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one. `total` counts every match across all pages.  ### Examples  * `?userId=user_42` — every session that user opened, across corpora * `?corpusId=…` — every session opened against one corpus, whoever opened it * `?userId=user_42&corpusId=…` — both, which `GET /v1/session/byUser` also did * `?userId=user_42&key=customer_id&value=42` — the combination none of the   `by…` endpoints could express * `?json={\"channel\":{\"kind\":\"web\"}}` — a nested metadata fragment 
 
-        :param key: Metadata key to filter on. Pair with `value`.
+        :param user_id: Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.
+        :type user_id: str
+        :param corpus_id: Keep sessions bound to this corpus. Must belong to the caller's organization.
+        :type corpus_id: UUID
+        :param key: Metadata key to filter on. Goes together with `value`.
         :type key: str
         :param value: Metadata value matching `key`.
         :type value: str
         :param var_json: Raw JSON object used as the containment filter. Wins over `key`/`value` when set.
         :type var_json: str
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1360,7 +1357,9 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_by_metadata_serialize(
+        _param = self._search_serialize(
+            user_id=user_id,
+            corpus_id=corpus_id,
             key=key,
             value=value,
             var_json=var_json,
@@ -1393,13 +1392,15 @@ class SessionApi:
 
 
     @validate_call
-    def list_by_metadata_without_preload_content(
+    def search_without_preload_content(
         self,
-        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Pair with `value`.")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.")] = None,
+        corpus_id: Annotated[Optional[UUID], Field(description="Keep sessions bound to this corpus. Must belong to the caller's organization.")] = None,
+        key: Annotated[Optional[StrictStr], Field(description="Metadata key to filter on. Goes together with `value`.")] = None,
         value: Annotated[Optional[StrictStr], Field(description="Metadata value matching `key`.")] = None,
         var_json: Annotated[Optional[StrictStr], Field(description="Raw JSON object used as the containment filter. Wins over `key`/`value` when set.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
+        page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1413,17 +1414,21 @@ class SessionApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List sessions matching a metadata fragment
+        """Search sessions
 
-        Paginate sessions whose metadata JSONB *contains* the provided fragment (PostgreSQL `@>` operator). Results are scoped to the caller's organization. Filtering on a single key/value pair: pass `key` and `value`. For richer filtering (nested JSON, multiple keys) pass a raw JSON object as `json`.
+        Find sessions of the caller's organization by owner, corpus and metadata.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole organization — the same answer as `GET /v1/session/` — and one carrying several returns only the sessions matching all of them. That is what this endpoint adds over the `by…` listings it replaces, which each answer one fixed combination.  The organization is never a parameter. It comes from the JWT and is always applied, so no combination of filters reaches another tenant's sessions.  ### Owner — `userId`  Exact match on the identifier carried by the JWT when the session was opened. Sent empty (`&userId=`) it is treated as absent rather than as a match on the empty string.  ### Corpus — `corpusId`  Keeps sessions bound to that corpus. A session may be bound to several, and it matches as soon as one of them is the requested one. The corpus must belong to the caller's organization.  ### Metadata — `key`/`value`, or `json`  Matches sessions whose metadata **contains** the fragment (PostgreSQL's `@>` operator), extra keys on the session being fine. Pass `key` and `value` for a single pair — they go together, one without the other is a `400` — or `json` for a raw object when the filter is nested or has several keys. `json` wins when both are supplied.  ### Ordering and paging  Newest first, closed by the session id, so walking `pageIndex` never shows the same session twice nor skips one. `total` counts every match across all pages.  ### Examples  * `?userId=user_42` — every session that user opened, across corpora * `?corpusId=…` — every session opened against one corpus, whoever opened it * `?userId=user_42&corpusId=…` — both, which `GET /v1/session/byUser` also did * `?userId=user_42&key=customer_id&value=42` — the combination none of the   `by…` endpoints could express * `?json={\"channel\":{\"kind\":\"web\"}}` — a nested metadata fragment 
 
-        :param key: Metadata key to filter on. Pair with `value`.
+        :param user_id: Exact identifier of the user who opened the session. Blank or omitted, the owner is not filtered.
+        :type user_id: str
+        :param corpus_id: Keep sessions bound to this corpus. Must belong to the caller's organization.
+        :type corpus_id: UUID
+        :param key: Metadata key to filter on. Goes together with `value`.
         :type key: str
         :param value: Metadata value matching `key`.
         :type value: str
         :param var_json: Raw JSON object used as the containment filter. Wins over `key`/`value` when set.
         :type var_json: str
-        :param page_size: Number of items per page.
+        :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
@@ -1449,7 +1454,9 @@ class SessionApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_by_metadata_serialize(
+        _param = self._search_serialize(
+            user_id=user_id,
+            corpus_id=corpus_id,
             key=key,
             value=value,
             var_json=var_json,
@@ -1477,8 +1484,10 @@ class SessionApi:
         return response_data.response
 
 
-    def _list_by_metadata_serialize(
+    def _search_serialize(
         self,
+        user_id,
+        corpus_id,
         key,
         value,
         var_json,
@@ -1506,6 +1515,14 @@ class SessionApi:
 
         # process the path parameters
         # process the query parameters
+        if user_id is not None:
+            
+            _query_params.append(('userId', user_id))
+            
+        if corpus_id is not None:
+            
+            _query_params.append(('corpusId', corpus_id))
+            
         if key is not None:
             
             _query_params.append(('key', key))
@@ -1548,639 +1565,7 @@ class SessionApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/v1/session/byMetadata',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def list_by_organization(
-        self,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> SessionListResponse:
-        """List every session in the caller's organization
-
-        Paginate every session attached to at least one corpus of the caller's organization, newest first. The organization is resolved from the JWT, no parameter is needed.
-
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_organization_serialize(
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def list_by_organization_with_http_info(
-        self,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionListResponse]:
-        """List every session in the caller's organization
-
-        Paginate every session attached to at least one corpus of the caller's organization, newest first. The organization is resolved from the JWT, no parameter is needed.
-
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_organization_serialize(
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def list_by_organization_without_preload_content(
-        self,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List every session in the caller's organization
-
-        Paginate every session attached to at least one corpus of the caller's organization, newest first. The organization is resolved from the JWT, no parameter is needed.
-
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_organization_serialize(
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _list_by_organization_serialize(
-        self,
-        page_size,
-        page_index,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        # process the query parameters
-        if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
-        if page_index is not None:
-            
-            _query_params.append(('pageIndex', page_index))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'JWT', 
-            'AccessToken'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v1/session/byOrganization',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def list_by_user(
-        self,
-        user_id: Annotated[StrictStr, Field(description="Identifier of the user (free-form string).")],
-        corpus_id: Annotated[Optional[UUID], Field(description="Optional corpus filter. When provided, only sessions bound to this corpus are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> SessionListResponse:
-        """List sessions owned by a user
-
-        Paginate the sessions opened by a given user identifier, newest first. Results are scoped to the caller's organization at the SQL level: only sessions attached to at least one corpus of the caller's org are returned, so a user identifier shared across tenants never leaks rows. Pass `corpusId` to further restrict results to sessions bound to that specific corpus.
-
-        :param user_id: Identifier of the user (free-form string). (required)
-        :type user_id: str
-        :param corpus_id: Optional corpus filter. When provided, only sessions bound to this corpus are returned.
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_user_serialize(
-            user_id=user_id,
-            corpus_id=corpus_id,
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def list_by_user_with_http_info(
-        self,
-        user_id: Annotated[StrictStr, Field(description="Identifier of the user (free-form string).")],
-        corpus_id: Annotated[Optional[UUID], Field(description="Optional corpus filter. When provided, only sessions bound to this corpus are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SessionListResponse]:
-        """List sessions owned by a user
-
-        Paginate the sessions opened by a given user identifier, newest first. Results are scoped to the caller's organization at the SQL level: only sessions attached to at least one corpus of the caller's org are returned, so a user identifier shared across tenants never leaks rows. Pass `corpusId` to further restrict results to sessions bound to that specific corpus.
-
-        :param user_id: Identifier of the user (free-form string). (required)
-        :type user_id: str
-        :param corpus_id: Optional corpus filter. When provided, only sessions bound to this corpus are returned.
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_user_serialize(
-            user_id=user_id,
-            corpus_id=corpus_id,
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def list_by_user_without_preload_content(
-        self,
-        user_id: Annotated[StrictStr, Field(description="Identifier of the user (free-form string).")],
-        corpus_id: Annotated[Optional[UUID], Field(description="Optional corpus filter. When provided, only sessions bound to this corpus are returned.")] = None,
-        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
-        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List sessions owned by a user
-
-        Paginate the sessions opened by a given user identifier, newest first. Results are scoped to the caller's organization at the SQL level: only sessions attached to at least one corpus of the caller's org are returned, so a user identifier shared across tenants never leaks rows. Pass `corpusId` to further restrict results to sessions bound to that specific corpus.
-
-        :param user_id: Identifier of the user (free-form string). (required)
-        :type user_id: str
-        :param corpus_id: Optional corpus filter. When provided, only sessions bound to this corpus are returned.
-        :type corpus_id: UUID
-        :param page_size: Number of items per page.
-        :type page_size: int
-        :param page_index: Zero-based page index.
-        :type page_index: int
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._list_by_user_serialize(
-            user_id=user_id,
-            corpus_id=corpus_id,
-            page_size=page_size,
-            page_index=page_index,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
-            '500': "Error",
-            '403': "Error",
-            '404': "Error",
-            '400': "Error",
-            '409': "Error",
-            '200': "SessionListResponse",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _list_by_user_serialize(
-        self,
-        user_id,
-        corpus_id,
-        page_size,
-        page_index,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        # process the query parameters
-        if user_id is not None:
-            
-            _query_params.append(('userId', user_id))
-            
-        if corpus_id is not None:
-            
-            _query_params.append(('corpusId', corpus_id))
-            
-        if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
-        if page_index is not None:
-            
-            _query_params.append(('pageIndex', page_index))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'JWT', 
-            'AccessToken'
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/v1/session/byUser',
+            resource_path='/v1/session/q',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

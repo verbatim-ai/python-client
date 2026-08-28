@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from verbatim_client.models.session import Session
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,15 +30,14 @@ class SessionListResponse(BaseModel):
     """
     Paginated list of sessions. Echoes the filter that produced it.
     """ # noqa: E501
-    corpus_id: StrictStr = Field(description="Echo of the corpus filter, when the listing was filtered by corpus.", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    corpus_id: Optional[UUID] = Field(default=None, description="Echo of the corpus filter, when the listing was filtered by corpus.", alias="corpusId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     user_id: Optional[StrictStr] = Field(default=None, description="Echo of the user filter, when the listing was filtered by user.", alias="userId", json_schema_extra={"examples": ["user_42"]})
-    org_id: StrictStr = Field(description="Echo of the organization scope (resolved from the caller's JWT).", alias="orgId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Echo of the metadata fragment used to filter the listing, when applicable.", json_schema_extra={"examples": [{"customer_id": "42"}]})
     page_index: StrictInt = Field(description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [0]})
     page_size: StrictInt = Field(description="Number of items requested per page.", alias="pageSize", json_schema_extra={"examples": [25]})
     total: StrictInt = Field(description="Total number of sessions matching the filter across every page.", json_schema_extra={"examples": [42]})
     items: Optional[List[Session]] = Field(default=None, description="Sessions contained in this page, newest first.")
-    __properties: ClassVar[List[str]] = ["corpusId", "userId", "orgId", "metadata", "pageIndex", "pageSize", "total", "items"]
+    __properties: ClassVar[List[str]] = ["corpusId", "userId", "metadata", "pageIndex", "pageSize", "total", "items"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -98,7 +98,6 @@ class SessionListResponse(BaseModel):
         _obj = cls.model_validate({
             "corpusId": obj.get("corpusId"),
             "userId": obj.get("userId"),
-            "orgId": obj.get("orgId"),
             "metadata": obj.get("metadata"),
             "pageIndex": obj.get("pageIndex"),
             "pageSize": obj.get("pageSize"),
