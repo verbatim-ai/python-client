@@ -1486,7 +1486,7 @@ class PostApi:
     def preview_urls(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1506,7 +1506,7 @@ class PostApi:
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
+        :param pages: One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1563,7 +1563,7 @@ class PostApi:
     def preview_urls_with_http_info(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1583,7 +1583,7 @@ class PostApi:
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
+        :param pages: One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1640,7 +1640,7 @@ class PostApi:
     def preview_urls_without_preload_content(
         self,
         doc_id: Annotated[UUID, Field(description="ID of the document.")],
-        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.")],
+        pages: Annotated[List[StrictInt], Field(min_length=1, max_length=10, description="One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1660,7 +1660,7 @@ class PostApi:
 
         :param doc_id: ID of the document. (required)
         :type doc_id: UUID
-        :param pages: Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`. (required)
+        :param pages: One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`. (required)
         :type pages: List[int]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

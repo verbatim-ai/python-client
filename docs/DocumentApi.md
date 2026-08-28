@@ -765,7 +765,7 @@ with verbatim_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = verbatim_client.DocumentApi(api_client)
     id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the document.
-    pages = [[0]] # List[int] | Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=0&pages=2`.
+    pages = [[1]] # List[int] | One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document's page range. Repeat for multiple values: `pages=1&pages=2`.
 
     try:
         # Get presigned preview URLs
@@ -784,7 +784,7 @@ with verbatim_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **UUID**| ID of the document. | 
- **pages** | [**List[int]**](int.md)| Zero-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document&#39;s page range. Repeat for multiple values: &#x60;pages&#x3D;0&amp;pages&#x3D;2&#x60;. | 
+ **pages** | [**List[int]**](int.md)| One-based page indices to issue preview URLs for. Required: 1 to 10 values per request, each within the document&#39;s page range. Repeat for multiple values: &#x60;pages&#x3D;1&amp;pages&#x3D;2&#x60;. | 
 
 ### Return type
 
