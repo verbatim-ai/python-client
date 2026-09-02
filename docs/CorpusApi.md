@@ -108,7 +108,14 @@ Name | Type | Description  | Notes
 
 Delete a corpus
 
-Permanently delete a corpus. **Cascades** to every session, post, document and embedding owned by this corpus. This operation cannot be undone.
+Delete a corpus.
+
+**This is a soft delete, and it cascades** to every document owned by this
+corpus and to every chunk those documents were split into. All of it disappears
+from the API together and stops being retrievable, while nothing is destroyed
+underneath: archived files and chunk texts are kept. There is no endpoint that
+undoes it.
+
 
 ### Example
 

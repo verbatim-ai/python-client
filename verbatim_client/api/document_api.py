@@ -349,7 +349,7 @@ class DocumentApi:
     ) -> AckResponse:
         """Delete a document
 
-        Permanently remove a document from its corpus. **Cascades** to all embeddings and attachments referencing this document. This operation cannot be undone.
+        Remove a document from its corpus.  **This is a soft delete, and it cascades to the document's chunks.** The document and every chunk it was split into disappear from the API together and stop being retrievable as context, so no answer produced from now on can be built on them. Nothing is destroyed underneath: the archived file and the chunks' stored text are kept. There is no endpoint that undoes it.  Posts that cited this document keep their text and **lose the citations** pointing at it. 
 
         :param id: ID of the document to delete. (required)
         :type id: UUID
@@ -422,7 +422,7 @@ class DocumentApi:
     ) -> ApiResponse[AckResponse]:
         """Delete a document
 
-        Permanently remove a document from its corpus. **Cascades** to all embeddings and attachments referencing this document. This operation cannot be undone.
+        Remove a document from its corpus.  **This is a soft delete, and it cascades to the document's chunks.** The document and every chunk it was split into disappear from the API together and stop being retrievable as context, so no answer produced from now on can be built on them. Nothing is destroyed underneath: the archived file and the chunks' stored text are kept. There is no endpoint that undoes it.  Posts that cited this document keep their text and **lose the citations** pointing at it. 
 
         :param id: ID of the document to delete. (required)
         :type id: UUID
@@ -495,7 +495,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Delete a document
 
-        Permanently remove a document from its corpus. **Cascades** to all embeddings and attachments referencing this document. This operation cannot be undone.
+        Remove a document from its corpus.  **This is a soft delete, and it cascades to the document's chunks.** The document and every chunk it was split into disappear from the API together and stop being retrievable as context, so no answer produced from now on can be built on them. Nothing is destroyed underneath: the archived file and the chunks' stored text are kept. There is no endpoint that undoes it.  Posts that cited this document keep their text and **lose the citations** pointing at it. 
 
         :param id: ID of the document to delete. (required)
         :type id: UUID
@@ -2396,7 +2396,7 @@ class DocumentApi:
     ) -> DocumentInit:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**: the chunks   those citations point at are deleted, so they no longer resolve. Answers   already returned to users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID
@@ -2469,7 +2469,7 @@ class DocumentApi:
     ) -> ApiResponse[DocumentInit]:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**: the chunks   those citations point at are deleted, so they no longer resolve. Answers   already returned to users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID
@@ -2542,7 +2542,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Re-initialize a document for a new upload
 
-        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**, because the   citations point at the embeddings being deleted. Answers already returned to   users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
+        Replace the **content** of an existing document while keeping its identity: same `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk` and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this endpoint only touches the file behind them.  The document must be in `READY` or `FAILED` status; any other status is rejected with `409`, since there is either nothing ingested yet or an ingestion in flight.  Everything derived from the previous content is dropped: its embeddings, its summary, and the counters filled in by ingestion (`size`, `tokens`, `nbWords`). The document moves back to `AWAITING_UPLOAD` and the response carries a fresh presigned PUT URL — the same payload as `POST /v1/doc/init`. From there the flow is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.  Two things to be aware of:  - Posts that cited this document **lose their attachments to it**: the chunks   those citations point at are deleted, so they no longer resolve. Answers   already returned to users are not modified. - The previously uploaded file **stays in storage** until your PUT overwrites it.   Committing without uploading first therefore re-ingests the old content. 
 
         :param id: ID of the document whose content is being replaced. (required)
         :type id: UUID

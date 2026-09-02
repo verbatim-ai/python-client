@@ -127,7 +127,17 @@ Name | Type | Description  | Notes
 
 Delete a document
 
-Permanently remove a document from its corpus. **Cascades** to all embeddings and attachments referencing this document. This operation cannot be undone.
+Remove a document from its corpus.
+
+**This is a soft delete, and it cascades to the document's chunks.** The
+document and every chunk it was split into disappear from the API together and
+stop being retrievable as context, so no answer produced from now on can be
+built on them. Nothing is destroyed underneath: the archived file and the
+chunks' stored text are kept. There is no endpoint that undoes it.
+
+Posts that cited this document keep their text and **lose the citations**
+pointing at it.
+
 
 ### Example
 
@@ -834,9 +844,9 @@ is unchanged: PUT the new bytes, then call `POST /v1/doc/{id}/commit`.
 
 Two things to be aware of:
 
-- Posts that cited this document **lose their attachments to it**, because the
-  citations point at the embeddings being deleted. Answers already returned to
-  users are not modified.
+- Posts that cited this document **lose their attachments to it**: the chunks
+  those citations point at are deleted, so they no longer resolve. Answers
+  already returned to users are not modified.
 - The previously uploaded file **stays in storage** until your PUT overwrites it.
   Committing without uploading first therefore re-ingests the old content.
 
