@@ -38,8 +38,8 @@ class DocumentPreviewUrl(BaseModel):
     @field_validator('size')
     def size_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['SMALL', 'MEDIUM', 'LARGE']):
-            raise ValueError("must be one of enum values ('SMALL', 'MEDIUM', 'LARGE')")
+        if value not in set(['SMALL', 'LARGE']):
+            raise ValueError("must be one of enum values ('SMALL', 'LARGE')")
         return value
 
     model_config = ConfigDict(

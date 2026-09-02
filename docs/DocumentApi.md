@@ -729,7 +729,7 @@ Every index must address a page of *that* document: negatives are rejected, and
 so is anything at or past its page count once that count is known (`nbPages` from
 `GET /v1/doc/{id}`, `0` while the rendering pipeline has not reported it).
 
-One entry is issued per (page, size) over {SMALL, MEDIUM}, so a call returns
+One entry is issued per (page, size) over {SMALL, LARGE}, so a call returns
 `2 × pages` entries — at most 20.
 
 The URLs point at preview images produced asynchronously by the rendering pipeline.
