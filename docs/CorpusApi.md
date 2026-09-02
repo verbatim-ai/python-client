@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Create a corpus
 
-Create a new corpus inside an organization. The embedding model and summary LLM are locked at creation time and used for every document ingested afterwards.
+Create a new corpus inside an organization. The organization is taken from your token, so there is nothing to pass: a corpus needs only a name, and optionally a description and metadata.
 
 ### Example
 
@@ -93,8 +93,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -184,8 +184,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -275,8 +275,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -368,8 +368,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -389,7 +389,9 @@ in the request body are updated; omitted fields keep their current value.
 `metadata` **replaces** the stored map when provided — merge client-side if you want to
 preserve existing keys.
 
-Changing models does **not** re-process already-ingested documents.
+Nothing patchable here changes how the corpus behaves: retrieval and the models that
+answer belong to the agent named on each query, so no edit re-processes documents or
+affects queries already running.
 
 
 ### Example
@@ -469,8 +471,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |

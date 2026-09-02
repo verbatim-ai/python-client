@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from verbatim_client.models.post import Post
@@ -31,9 +31,19 @@ class PostListResponse(BaseModel):
     Paginated list of posts in a session.
     """ # noqa: E501
     session_id: UUID = Field(description="ID of the session (UUIDv4).", alias="sessionId", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
-    page_index: Optional[StrictInt] = Field(default=None, description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [0]})
-    items: Optional[List[Post]] = Field(default=None, description="Posts contained in this page, newest first.")
-    __properties: ClassVar[List[str]] = ["sessionId", "pageIndex", "items"]
+    page_index: StrictInt = Field(description="Zero-based index of the returned page.", alias="pageIndex", json_schema_extra={"examples": [0]})
+    page_size: StrictInt = Field(description="Number of items requested per page. The last page may carry fewer.", alias="pageSize", json_schema_extra={"examples": [25]})
+    total: StrictInt = Field(description="Total number of posts in the session, across every page. Divide by `pageSize` to know how many pages to walk. Soft-deleted posts are not counted.", json_schema_extra={"examples": [42]})
+    order: StrictStr = Field(description="Ordering this page was built under — the `order` that was asked for, or `DESC` when it was omitted.", json_schema_extra={"examples": ["DESC"]})
+    items: Optional[List[Post]] = Field(default=None, description="Posts contained in this page, in the requested order — newest first unless `order=ASC` was passed.")
+    __properties: ClassVar[List[str]] = ["sessionId", "pageIndex", "pageSize", "total", "order", "items"]
+
+    @field_validator('order')
+    def order_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['ASC', 'DESC']):
+            raise ValueError("must be one of enum values ('ASC', 'DESC')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,6 +104,9 @@ class PostListResponse(BaseModel):
         _obj = cls.model_validate({
             "sessionId": obj.get("sessionId"),
             "pageIndex": obj.get("pageIndex"),
+            "pageSize": obj.get("pageSize"),
+            "total": obj.get("total"),
+            "order": obj.get("order"),
             "items": [Post.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
         })
         return _obj

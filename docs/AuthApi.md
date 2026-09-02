@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Create an access token
 
-Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|corpus|post|usage|agent):(create|read|update|delete)
+Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
 
 ### Example
 
@@ -84,8 +84,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -168,8 +168,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -255,8 +255,8 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |

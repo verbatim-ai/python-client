@@ -5,9 +5,9 @@ All URIs are relative to *https://api.verbatim-ai.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**attachment**](PostApi.md#attachment) | **GET** /v1/post/attachment/{postId} | Attachments from a post
-[**delete4**](PostApi.md#delete4) | **DELETE** /v1/post/{postId} | Delete a post
+[**delete5**](PostApi.md#delete5) | **DELETE** /v1/post/{postId} | Delete a post
 [**download_url**](PostApi.md#download_url) | **GET** /v1/post/attachment/{docId}/download-url | Get a presigned download URL
-[**get4**](PostApi.md#get4) | **GET** /v1/post/{postId} | Get a post
+[**get5**](PostApi.md#get5) | **GET** /v1/post/{postId} | Get a post
 [**list3**](PostApi.md#list3) | **GET** /v1/post/ | List posts
 [**preview_urls**](PostApi.md#preview_urls) | **GET** /v1/post/attachment/{docId}/preview-urls | Get presigned preview URLs
 [**query**](PostApi.md#query) | **GET** /v1/post/q | Send a query
@@ -94,8 +94,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -104,8 +104,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete4**
-> AckResponse delete4(post_id)
+# **delete5**
+> AckResponse delete5(post_id)
 
 Delete a post
 
@@ -152,11 +152,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a post
-        api_response = api_instance.delete4(post_id)
-        print("The response of PostApi->delete4:\n")
+        api_response = api_instance.delete5(post_id)
+        print("The response of PostApi->delete5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->delete4: %s\n" % e)
+        print("Exception when calling PostApi->delete5: %s\n" % e)
 ```
 
 
@@ -185,8 +185,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -281,8 +281,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -291,8 +291,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get4**
-> Post get4(post_id)
+# **get5**
+> Post get5(post_id)
 
 Get a post
 
@@ -339,11 +339,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a post
-        api_response = api_instance.get4(post_id)
-        print("The response of PostApi->get4:\n")
+        api_response = api_instance.get5(post_id)
+        print("The response of PostApi->get5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->get4: %s\n" % e)
+        print("Exception when calling PostApi->get5: %s\n" % e)
 ```
 
 
@@ -372,8 +372,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
@@ -383,11 +383,39 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list3**
-> PostListResponse list3(session_id, page_size=page_size, page_index=page_index)
+> PostListResponse list3(session_id, page_size=page_size, page_index=page_index, order=order)
 
 List posts
 
-Paginate every post (user queries and system answers) in a session, newest first.
+Paginate every post of a session — the user questions and the system answers
+alike, interleaved in the order they were written.
+
+**Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first).
+Ordering `order=DESC` reads the conversation backwards, most
+recent first, which is what a client polling for what just happened wants:
+page `0` is the latest exchange whatever the session has grown to. `order=ASC`
+reads it forwards, oldest first — the transcript order, and the one to walk when
+rendering a whole conversation from the beginning.
+
+Posts are ordered on `createdAt` and the ordering is closed by the post id, so
+walking `pageIndex` never shows the same post twice nor skips one — the two posts
+of a single exchange are written microseconds apart and can share a timestamp.
+Note the consequence of that tie: when they do share one, the question and its
+answer are ordered by id, which is arbitrary. Read `owner` rather than position
+to tell them apart.
+
+**Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based.
+Values outside those bounds are refused with `400`. `total` carries the number of
+posts in the session across every page, so a client knows how far it has to walk.
+Soft-deleted posts are excluded from both the page and the count.
+
+Examples:
+
+* `?sessionId=…` — the 25 most recent posts of the session, newest first.
+* `?sessionId=…&order=ASC&pageSize=50` — the conversation from its first post,
+  50 at a time.
+* `?sessionId=…&pageIndex=1` — the exchange before the latest ones.
+
 
 ### Example
 
@@ -427,12 +455,13 @@ with verbatim_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = verbatim_client.PostApi(api_client)
     session_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the session.
-    page_size = 25 # int | Number of items per page. (optional) (default to 25)
+    page_size = 25 # int | Number of items per page, 1-100. (optional) (default to 25)
     page_index = 0 # int | Zero-based page index. (optional) (default to 0)
+    order = 'DESC' # str | Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`. (optional)
 
     try:
         # List posts
-        api_response = api_instance.list3(session_id, page_size=page_size, page_index=page_index)
+        api_response = api_instance.list3(session_id, page_size=page_size, page_index=page_index, order=order)
         print("The response of PostApi->list3:\n")
         pprint(api_response)
     except Exception as e:
@@ -447,8 +476,9 @@ with verbatim_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **session_id** | **UUID**| ID of the session. | 
- **page_size** | **int**| Number of items per page. | [optional] [default to 25]
+ **page_size** | **int**| Number of items per page, 1-100. | [optional] [default to 25]
  **page_index** | **int**| Zero-based page index. | [optional] [default to 0]
+ **order** | **str**| Direction to read the session in: &#x60;DESC&#x60; newest first, &#x60;ASC&#x60; oldest first. Defaults to &#x60;DESC&#x60;. | [optional] 
 
 ### Return type
 
@@ -467,11 +497,11 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
-**400** | The request is malformed or contains invalid parameters. |  -  |
+**400** | &#x60;pageSize&#x60; outside 1–100, a negative &#x60;pageIndex&#x60;, or an &#x60;order&#x60; other than &#x60;ASC&#x60; or &#x60;DESC&#x60;. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **200** | Page of posts. |  -  |
 
@@ -578,8 +608,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pages&#x60; is missing, empty, carries more than 10 indices, or names a page outside the document. |  -  |
@@ -709,8 +739,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **500** | Internal error. Check body to get more info |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |

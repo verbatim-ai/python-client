@@ -5,7 +5,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -21,6 +21,7 @@ __version__ = "1.0.0"
 __all__ = [
     "AgentApi",
     "AuthApi",
+    "ChunkApi",
     "ConfigurationApi",
     "CorpusApi",
     "DocumentApi",
@@ -44,6 +45,9 @@ __all__ = [
     "AgentListResponse",
     "AgentUpdateRequest",
     "Attachment",
+    "Chunk",
+    "ChunkListResponse",
+    "ChunkUpdateRequest",
     "Corpus",
     "CorpusCreateRequest",
     "CorpusCreateResponse",
@@ -83,6 +87,7 @@ __all__ = [
 # import apis into sdk package
 from verbatim_client.api.agent_api import AgentApi as AgentApi
 from verbatim_client.api.auth_api import AuthApi as AuthApi
+from verbatim_client.api.chunk_api import ChunkApi as ChunkApi
 from verbatim_client.api.configuration_api import ConfigurationApi as ConfigurationApi
 from verbatim_client.api.corpus_api import CorpusApi as CorpusApi
 from verbatim_client.api.document_api import DocumentApi as DocumentApi
@@ -110,6 +115,9 @@ from verbatim_client.models.agent_create_request import AgentCreateRequest as Ag
 from verbatim_client.models.agent_list_response import AgentListResponse as AgentListResponse
 from verbatim_client.models.agent_update_request import AgentUpdateRequest as AgentUpdateRequest
 from verbatim_client.models.attachment import Attachment as Attachment
+from verbatim_client.models.chunk import Chunk as Chunk
+from verbatim_client.models.chunk_list_response import ChunkListResponse as ChunkListResponse
+from verbatim_client.models.chunk_update_request import ChunkUpdateRequest as ChunkUpdateRequest
 from verbatim_client.models.corpus import Corpus as Corpus
 from verbatim_client.models.corpus_create_request import CorpusCreateRequest as CorpusCreateRequest
 from verbatim_client.models.corpus_create_response import CorpusCreateResponse as CorpusCreateResponse

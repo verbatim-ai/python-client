@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 4 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (document chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -60,7 +60,7 @@ class AuthApi:
     ) -> AccessTokenCreateResponse:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|corpus|post|usage|agent):(create|read|update|delete)
+        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -95,8 +95,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -133,7 +133,7 @@ class AuthApi:
     ) -> ApiResponse[AccessTokenCreateResponse]:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|corpus|post|usage|agent):(create|read|update|delete)
+        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -168,8 +168,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -206,7 +206,7 @@ class AuthApi:
     ) -> RESTResponseType:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|corpus|post|usage|agent):(create|read|update|delete)
+        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -241,8 +241,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -387,8 +387,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -460,8 +460,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -533,8 +533,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -662,8 +662,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -731,8 +731,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",
@@ -800,8 +800,8 @@ class AuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '415': "Error",
             '500': "Error",
+            '415': "Error",
             '403': "Error",
             '404': "Error",
             '400': "Error",

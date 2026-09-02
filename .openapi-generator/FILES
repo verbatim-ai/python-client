@@ -14,6 +14,10 @@ docs/AgentListResponse.md
 docs/AgentUpdateRequest.md
 docs/Attachment.md
 docs/AuthApi.md
+docs/Chunk.md
+docs/ChunkApi.md
+docs/ChunkListResponse.md
+docs/ChunkUpdateRequest.md
 docs/ConfigurationApi.md
 docs/Corpus.md
 docs/CorpusApi.md
@@ -71,6 +75,10 @@ test/test_agent_list_response.py
 test/test_agent_update_request.py
 test/test_attachment.py
 test/test_auth_api.py
+test/test_chunk.py
+test/test_chunk_api.py
+test/test_chunk_list_response.py
+test/test_chunk_update_request.py
 test/test_configuration_api.py
 test/test_corpus.py
 test/test_corpus_api.py
@@ -116,6 +124,7 @@ verbatim_client/__init__.py
 verbatim_client/api/__init__.py
 verbatim_client/api/agent_api.py
 verbatim_client/api/auth_api.py
+verbatim_client/api/chunk_api.py
 verbatim_client/api/configuration_api.py
 verbatim_client/api/corpus_api.py
 verbatim_client/api/document_api.py
@@ -135,6 +144,9 @@ verbatim_client/models/agent_create_request.py
 verbatim_client/models/agent_list_response.py
 verbatim_client/models/agent_update_request.py
 verbatim_client/models/attachment.py
+verbatim_client/models/chunk.py
+verbatim_client/models/chunk_list_response.py
+verbatim_client/models/chunk_update_request.py
 verbatim_client/models/corpus.py
 verbatim_client/models/corpus_create_request.py
 verbatim_client/models/corpus_create_response.py
