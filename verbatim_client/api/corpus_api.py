@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -47,7 +47,7 @@ class CorpusApi:
 
 
     @validate_call
-    def create1(
+    def create2(
         self,
         corpus_create_request: CorpusCreateRequest,
         _request_timeout: Union[
@@ -91,7 +91,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create1_serialize(
+        _param = self._create2_serialize(
             corpus_create_request=corpus_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -120,7 +120,7 @@ class CorpusApi:
 
 
     @validate_call
-    def create1_with_http_info(
+    def create2_with_http_info(
         self,
         corpus_create_request: CorpusCreateRequest,
         _request_timeout: Union[
@@ -164,7 +164,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create1_serialize(
+        _param = self._create2_serialize(
             corpus_create_request=corpus_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -193,7 +193,7 @@ class CorpusApi:
 
 
     @validate_call
-    def create1_without_preload_content(
+    def create2_without_preload_content(
         self,
         corpus_create_request: CorpusCreateRequest,
         _request_timeout: Union[
@@ -237,7 +237,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create1_serialize(
+        _param = self._create2_serialize(
             corpus_create_request=corpus_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -261,7 +261,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _create1_serialize(
+    def _create2_serialize(
         self,
         corpus_create_request,
         _request_auth,
@@ -340,7 +340,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2(
+    def delete3(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -384,7 +384,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -413,7 +413,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2_with_http_info(
+    def delete3_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -457,7 +457,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -486,7 +486,7 @@ class CorpusApi:
 
 
     @validate_call
-    def delete2_without_preload_content(
+    def delete3_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to delete.")],
         _request_timeout: Union[
@@ -530,7 +530,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete2_serialize(
+        _param = self._delete3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -554,7 +554,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _delete2_serialize(
+    def _delete3_serialize(
         self,
         corpus_id,
         _request_auth,
@@ -620,7 +620,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2(
+    def get3(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -664,7 +664,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -693,7 +693,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2_with_http_info(
+    def get3_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -737,7 +737,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -766,7 +766,7 @@ class CorpusApi:
 
 
     @validate_call
-    def get2_without_preload_content(
+    def get3_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         _request_timeout: Union[
@@ -810,7 +810,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get2_serialize(
+        _param = self._get3_serialize(
             corpus_id=corpus_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -834,7 +834,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _get2_serialize(
+    def _get3_serialize(
         self,
         corpus_id,
         _request_auth,
@@ -900,7 +900,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list1(
+    def list2(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -947,7 +947,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -977,7 +977,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list1_with_http_info(
+    def list2_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1024,7 +1024,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1054,7 +1054,7 @@ class CorpusApi:
 
 
     @validate_call
-    def list1_without_preload_content(
+    def list2_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1101,7 +1101,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list1_serialize(
+        _param = self._list2_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1126,7 +1126,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _list1_serialize(
+    def _list2_serialize(
         self,
         page_size,
         page_index,
@@ -1199,7 +1199,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2(
+    def update3(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1246,7 +1246,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update3_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1276,7 +1276,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2_with_http_info(
+    def update3_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1323,7 +1323,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update3_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1353,7 +1353,7 @@ class CorpusApi:
 
 
     @validate_call
-    def update2_without_preload_content(
+    def update3_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to update.")],
         corpus_update_request: CorpusUpdateRequest,
@@ -1400,7 +1400,7 @@ class CorpusApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update2_serialize(
+        _param = self._update3_serialize(
             corpus_id=corpus_id,
             corpus_update_request=corpus_update_request,
             _request_auth=_request_auth,
@@ -1425,7 +1425,7 @@ class CorpusApi:
         return response_data.response
 
 
-    def _update2_serialize(
+    def _update3_serialize(
         self,
         corpus_id,
         corpus_update_request,

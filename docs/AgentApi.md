@@ -4,15 +4,15 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create3**](AgentApi.md#create3) | **POST** /v1/agent/ | Create an agent
-[**delete4**](AgentApi.md#delete4) | **DELETE** /v1/agent/{agentId} | Delete an agent
-[**get4**](AgentApi.md#get4) | **GET** /v1/agent/{agentId} | Get an agent
-[**list2**](AgentApi.md#list2) | **GET** /v1/agent/ | List agents
-[**update4**](AgentApi.md#update4) | **PATCH** /v1/agent/{agentId} | Update an agent
+[**create4**](AgentApi.md#create4) | **POST** /v1/agent/ | Create an agent
+[**delete5**](AgentApi.md#delete5) | **DELETE** /v1/agent/{agentId} | Delete an agent
+[**get5**](AgentApi.md#get5) | **GET** /v1/agent/{agentId} | Get an agent
+[**list3**](AgentApi.md#list3) | **GET** /v1/agent/ | List agents
+[**update5**](AgentApi.md#update5) | **PATCH** /v1/agent/{agentId} | Update an agent
 
 
-# **create3**
-> Agent create3(agent_create_request)
+# **create4**
+> Agent create4(agent_create_request)
 
 Create an agent
 
@@ -81,11 +81,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Create an agent
-        api_response = api_instance.create3(agent_create_request)
-        print("The response of AgentApi->create3:\n")
+        api_response = api_instance.create4(agent_create_request)
+        print("The response of AgentApi->create4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->create3: %s\n" % e)
+        print("Exception when calling AgentApi->create4: %s\n" % e)
 ```
 
 
@@ -124,8 +124,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete4**
-> AckResponse delete4(agent_id)
+# **delete5**
+> AckResponse delete5(agent_id)
 
 Delete an agent
 
@@ -188,11 +188,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete an agent
-        api_response = api_instance.delete4(agent_id)
-        print("The response of AgentApi->delete4:\n")
+        api_response = api_instance.delete5(agent_id)
+        print("The response of AgentApi->delete5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->delete4: %s\n" % e)
+        print("Exception when calling AgentApi->delete5: %s\n" % e)
 ```
 
 
@@ -231,8 +231,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get4**
-> Agent get4(agent_id)
+# **get5**
+> Agent get5(agent_id)
 
 Get an agent
 
@@ -283,11 +283,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get an agent
-        api_response = api_instance.get4(agent_id)
-        print("The response of AgentApi->get4:\n")
+        api_response = api_instance.get5(agent_id)
+        print("The response of AgentApi->get5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->get4: %s\n" % e)
+        print("Exception when calling AgentApi->get5: %s\n" % e)
 ```
 
 
@@ -326,8 +326,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list2**
-> AgentListResponse list2(page_size=page_size, page_index=page_index)
+# **list3**
+> AgentListResponse list3(page_size=page_size, page_index=page_index)
 
 List agents
 
@@ -383,11 +383,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List agents
-        api_response = api_instance.list2(page_size=page_size, page_index=page_index)
-        print("The response of AgentApi->list2:\n")
+        api_response = api_instance.list3(page_size=page_size, page_index=page_index)
+        print("The response of AgentApi->list3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->list2: %s\n" % e)
+        print("Exception when calling AgentApi->list3: %s\n" % e)
 ```
 
 
@@ -427,8 +427,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update4**
-> Agent update4(agent_id, agent_update_request)
+# **update5**
+> Agent update5(agent_id, agent_update_request)
 
 Update an agent
 
@@ -496,11 +496,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update an agent
-        api_response = api_instance.update4(agent_id, agent_update_request)
-        print("The response of AgentApi->update4:\n")
+        api_response = api_instance.update5(agent_id, agent_update_request)
+        print("The response of AgentApi->update5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AgentApi->update4: %s\n" % e)
+        print("Exception when calling AgentApi->update5: %s\n" % e)
 ```
 
 

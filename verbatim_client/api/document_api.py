@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -331,7 +331,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete1(
+    def delete2(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -375,7 +375,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete1_serialize(
+        _param = self._delete2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -404,7 +404,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete1_with_http_info(
+    def delete2_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -448,7 +448,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete1_serialize(
+        _param = self._delete2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -477,7 +477,7 @@ class DocumentApi:
 
 
     @validate_call
-    def delete1_without_preload_content(
+    def delete2_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
         _request_timeout: Union[
@@ -521,7 +521,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete1_serialize(
+        _param = self._delete2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -545,7 +545,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _delete1_serialize(
+    def _delete2_serialize(
         self,
         id,
         _request_auth,
@@ -891,7 +891,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get1(
+    def get2(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -935,7 +935,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get1_serialize(
+        _param = self._get2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -964,7 +964,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get1_with_http_info(
+    def get2_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -1008,7 +1008,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get1_serialize(
+        _param = self._get2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1037,7 +1037,7 @@ class DocumentApi:
 
 
     @validate_call
-    def get1_without_preload_content(
+    def get2_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document.")],
         _request_timeout: Union[
@@ -1081,7 +1081,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get1_serialize(
+        _param = self._get2_serialize(
             id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1105,7 +1105,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _get1_serialize(
+    def _get2_serialize(
         self,
         id,
         _request_auth,
@@ -1464,7 +1464,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list4(
+    def list5(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1520,7 +1520,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1553,7 +1553,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list4_with_http_info(
+    def list5_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1609,7 +1609,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1642,7 +1642,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list4_without_preload_content(
+    def list5_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1698,7 +1698,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1726,7 +1726,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _list4_serialize(
+    def _list5_serialize(
         self,
         corpus_id,
         status,
@@ -2658,7 +2658,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search1(
+    def search2(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -2747,7 +2747,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search1_serialize(
+        _param = self._search2_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -2791,7 +2791,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search1_with_http_info(
+    def search2_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -2880,7 +2880,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search1_serialize(
+        _param = self._search2_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -2924,7 +2924,7 @@ class DocumentApi:
 
 
     @validate_call
-    def search1_without_preload_content(
+    def search2_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus to search.")],
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
@@ -3013,7 +3013,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search1_serialize(
+        _param = self._search2_serialize(
             corpus_id=corpus_id,
             q=q,
             tags=tags,
@@ -3052,7 +3052,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _search1_serialize(
+    def _search2_serialize(
         self,
         corpus_id,
         q,
@@ -3777,7 +3777,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update1(
+    def update2(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3824,7 +3824,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update1_serialize(
+        _param = self._update2_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -3854,7 +3854,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update1_with_http_info(
+    def update2_with_http_info(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3901,7 +3901,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update1_serialize(
+        _param = self._update2_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -3931,7 +3931,7 @@ class DocumentApi:
 
 
     @validate_call
-    def update1_without_preload_content(
+    def update2_without_preload_content(
         self,
         id: Annotated[UUID, Field(description="ID of the document to update.")],
         document_update_request: DocumentUpdateRequest,
@@ -3978,7 +3978,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update1_serialize(
+        _param = self._update2_serialize(
             id=id,
             document_update_request=document_update_request,
             _request_auth=_request_auth,
@@ -4003,7 +4003,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _update1_serialize(
+    def _update2_serialize(
         self,
         id,
         document_update_request,

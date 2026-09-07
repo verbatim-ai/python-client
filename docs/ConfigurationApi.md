@@ -4,11 +4,11 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**list5**](ConfigurationApi.md#list5) | **GET** /v1/config/model | List supported LLM models
+[**list6**](ConfigurationApi.md#list6) | **GET** /v1/config/model | List supported LLM models
 
 
-# **list5**
-> ModelListResponse list5()
+# **list6**
+> ModelListResponse list6()
 
 List supported LLM models
 
@@ -54,11 +54,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List supported LLM models
-        api_response = api_instance.list5()
-        print("The response of ConfigurationApi->list5:\n")
+        api_response = api_instance.list6()
+        print("The response of ConfigurationApi->list6:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ConfigurationApi->list5: %s\n" % e)
+        print("Exception when calling ConfigurationApi->list6: %s\n" % e)
 ```
 
 

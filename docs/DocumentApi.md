@@ -5,18 +5,18 @@ All URIs are relative to *https://api.verbatim-ai.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**commit_upload**](DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
-[**delete1**](DocumentApi.md#delete1) | **DELETE** /v1/doc/{id} | Delete a document
+[**delete2**](DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 [**download_url1**](DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
-[**get1**](DocumentApi.md#get1) | **GET** /v1/doc/{id} | Get a document
+[**get2**](DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
 [**init_upload**](DocumentApi.md#init_upload) | **POST** /v1/doc/init | Initialize a direct-to-storage upload
-[**list4**](DocumentApi.md#list4) | **GET** /v1/doc/ | List documents
+[**list5**](DocumentApi.md#list5) | **GET** /v1/doc/ | List documents
 [**list_supported_documents**](DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
 [**preview_urls1**](DocumentApi.md#preview_urls1) | **GET** /v1/doc/{id}/preview-urls | Get presigned preview URLs
 [**reinit_upload**](DocumentApi.md#reinit_upload) | **PUT** /v1/doc/{id}/init | Re-initialize a document for a new upload
-[**search1**](DocumentApi.md#search1) | **GET** /v1/doc/q | Search documents
+[**search2**](DocumentApi.md#search2) | **GET** /v1/doc/q | Search documents
 [**status**](DocumentApi.md#status) | **GET** /v1/doc/{id}/status | Get a document&#39;s status
 [**summary**](DocumentApi.md#summary) | **GET** /v1/doc/{id}/summary | Get a document summary
-[**update1**](DocumentApi.md#update1) | **PATCH** /v1/doc/{id} | Update a document
+[**update2**](DocumentApi.md#update2) | **PATCH** /v1/doc/{id} | Update a document
 
 
 # **commit_upload**
@@ -122,8 +122,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete1**
-> AckResponse delete1(id)
+# **delete2**
+> AckResponse delete2(id)
 
 Delete a document
 
@@ -180,11 +180,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a document
-        api_response = api_instance.delete1(id)
-        print("The response of DocumentApi->delete1:\n")
+        api_response = api_instance.delete2(id)
+        print("The response of DocumentApi->delete2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->delete1: %s\n" % e)
+        print("Exception when calling DocumentApi->delete2: %s\n" % e)
 ```
 
 
@@ -319,8 +319,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get1**
-> Document get1(id)
+# **get2**
+> Document get2(id)
 
 Get a document
 
@@ -367,11 +367,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a document
-        api_response = api_instance.get1(id)
-        print("The response of DocumentApi->get1:\n")
+        api_response = api_instance.get2(id)
+        print("The response of DocumentApi->get2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->get1: %s\n" % e)
+        print("Exception when calling DocumentApi->get2: %s\n" % e)
 ```
 
 
@@ -520,8 +520,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list4**
-> DocumentListResponse list4(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
+# **list5**
+> DocumentListResponse list5(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
 
 List documents
 
@@ -579,11 +579,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List documents
-        api_response = api_instance.list4(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
-        print("The response of DocumentApi->list4:\n")
+        api_response = api_instance.list5(corpus_id, status=status, tags=tags, page_size=page_size, page_index=page_index)
+        print("The response of DocumentApi->list5:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->list4: %s\n" % e)
+        print("Exception when calling DocumentApi->list5: %s\n" % e)
 ```
 
 
@@ -935,8 +935,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search1**
-> DocumentSearchResponse search1(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+# **search2**
+> DocumentSearchResponse search2(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
 
 Search documents
 
@@ -1081,11 +1081,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Search documents
-        api_response = api_instance.search1(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
-        print("The response of DocumentApi->search1:\n")
+        api_response = api_instance.search2(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+        print("The response of DocumentApi->search2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->search1: %s\n" % e)
+        print("Exception when calling DocumentApi->search2: %s\n" % e)
 ```
 
 
@@ -1320,8 +1320,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update1**
-> Document update1(id, document_update_request)
+# **update2**
+> Document update2(id, document_update_request)
 
 Update a document
 
@@ -1387,11 +1387,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update a document
-        api_response = api_instance.update1(id, document_update_request)
-        print("The response of DocumentApi->update1:\n")
+        api_response = api_instance.update2(id, document_update_request)
+        print("The response of DocumentApi->update2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling DocumentApi->update1: %s\n" % e)
+        print("Exception when calling DocumentApi->update2: %s\n" % e)
 ```
 
 

@@ -5,7 +5,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -26,7 +26,7 @@ __all__ = [
     "CorpusApi",
     "DocumentApi",
     "PostApi",
-    "SessionApi",
+    "ThreadApi",
     "UsageApi",
     "ApiResponse",
     "ApiClient",
@@ -71,11 +71,11 @@ __all__ = [
     "PostAttachmentResponse",
     "PostItemResponse",
     "PostListResponse",
-    "Session",
     "SessionCreateRequest",
-    "SessionCreateResponse",
-    "SessionListResponse",
-    "SessionUpdateRequest",
+    "Thread",
+    "ThreadCreateResponse",
+    "ThreadListResponse",
+    "ThreadUpdateRequest",
     "Usage",
     "UsageBucket",
     "UsageCount",
@@ -92,7 +92,7 @@ from verbatim_client.api.configuration_api import ConfigurationApi as Configurat
 from verbatim_client.api.corpus_api import CorpusApi as CorpusApi
 from verbatim_client.api.document_api import DocumentApi as DocumentApi
 from verbatim_client.api.post_api import PostApi as PostApi
-from verbatim_client.api.session_api import SessionApi as SessionApi
+from verbatim_client.api.thread_api import ThreadApi as ThreadApi
 from verbatim_client.api.usage_api import UsageApi as UsageApi
 
 # import ApiClient
@@ -141,11 +141,11 @@ from verbatim_client.models.post import Post as Post
 from verbatim_client.models.post_attachment_response import PostAttachmentResponse as PostAttachmentResponse
 from verbatim_client.models.post_item_response import PostItemResponse as PostItemResponse
 from verbatim_client.models.post_list_response import PostListResponse as PostListResponse
-from verbatim_client.models.session import Session as Session
 from verbatim_client.models.session_create_request import SessionCreateRequest as SessionCreateRequest
-from verbatim_client.models.session_create_response import SessionCreateResponse as SessionCreateResponse
-from verbatim_client.models.session_list_response import SessionListResponse as SessionListResponse
-from verbatim_client.models.session_update_request import SessionUpdateRequest as SessionUpdateRequest
+from verbatim_client.models.thread import Thread as Thread
+from verbatim_client.models.thread_create_response import ThreadCreateResponse as ThreadCreateResponse
+from verbatim_client.models.thread_list_response import ThreadListResponse as ThreadListResponse
+from verbatim_client.models.thread_update_request import ThreadUpdateRequest as ThreadUpdateRequest
 from verbatim_client.models.usage import Usage as Usage
 from verbatim_client.models.usage_bucket import UsageBucket as UsageBucket
 from verbatim_client.models.usage_count import UsageCount as UsageCount

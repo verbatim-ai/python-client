@@ -3,7 +3,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -41,11 +41,12 @@ class Usage(BaseModel):
     tokens: UsageTokens = Field(description="Token usage. At organization and user scope, sum of `post.token` + `document.token`. At corpus scope, sum of `post.token` only (vectorization tokens are billed at organization level).")
     corpora: UsageCount = Field(description="Corpus counts. Populated at organization scope only; `null` at corpus and user scopes.")
     sessions: UsageCount = Field(description="Session counts within the scope.")
+    threads: UsageCount = Field(description="Thread counts within the scope.")
     posts: UsageCount = Field(description="Post counts within the scope.")
     storage: UsageCount = Field(description="Storage footprint of documents within the scope. `total`/`created`/`removed` are **bytes**, not item counts.")
     series: List[UsageBucket] = Field(description="Per-bucket breakdown over `[from, to)`, oldest first — 30 daily, 12 weekly, 12 monthly or 5 yearly entries depending on `timeframe`. Contiguous and gapless: a bucket with no activity is present with zeros, and the last entry is the newest **completed** bucket — the one in progress is not reported. The buckets sum to the top-level `created`/`removed`/`inPeriod`.")
     timestamp: datetime = Field(description="Server-side timestamp the metrics were computed at (ISO-8601, UTC). Falls inside the bucket in progress, which the report excludes — so it is later than `to`.", json_schema_extra={"examples": ["2026-08-24T09:12:04Z"]})
-    __properties: ClassVar[List[str]] = ["timeframe", "from", "to", "organizationId", "corpusId", "userId", "tokens", "corpora", "sessions", "posts", "storage", "series", "timestamp"]
+    __properties: ClassVar[List[str]] = ["timeframe", "from", "to", "organizationId", "corpusId", "userId", "tokens", "corpora", "sessions", "threads", "posts", "storage", "series", "timestamp"]
 
     @field_validator('timeframe')
     def timeframe_validate_enum(cls, value):
@@ -102,6 +103,9 @@ class Usage(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of sessions
         if self.sessions:
             _dict['sessions'] = self.sessions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of threads
+        if self.threads:
+            _dict['threads'] = self.threads.to_dict()
         # override the default output from pydantic by calling `to_dict()` of posts
         if self.posts:
             _dict['posts'] = self.posts.to_dict()
@@ -145,6 +149,7 @@ class Usage(BaseModel):
             "tokens": UsageTokens.from_dict(obj["tokens"]) if obj.get("tokens") is not None else None,
             "corpora": UsageCount.from_dict(obj["corpora"]) if obj.get("corpora") is not None else None,
             "sessions": UsageCount.from_dict(obj["sessions"]) if obj.get("sessions") is not None else None,
+            "threads": UsageCount.from_dict(obj["threads"]) if obj.get("threads") is not None else None,
             "posts": UsageCount.from_dict(obj["posts"]) if obj.get("posts") is not None else None,
             "storage": UsageCount.from_dict(obj["storage"]) if obj.get("storage") is not None else None,
             "series": [UsageBucket.from_dict(_item) for _item in obj["series"]] if obj.get("series") is not None else None,

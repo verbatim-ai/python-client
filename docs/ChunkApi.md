@@ -4,15 +4,15 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete3**](ChunkApi.md#delete3) | **DELETE** /v1/chunk/{chunkId} | Delete a chunk
-[**get3**](ChunkApi.md#get3) | **GET** /v1/chunk/{chunkId} | Get a chunk
-[**list6**](ChunkApi.md#list6) | **GET** /v1/chunk/ | List chunks
-[**search2**](ChunkApi.md#search2) | **GET** /v1/chunk/q | Search chunks
-[**update3**](ChunkApi.md#update3) | **PATCH** /v1/chunk/{chunkId} | Update a chunk
+[**delete4**](ChunkApi.md#delete4) | **DELETE** /v1/chunk/{chunkId} | Delete a chunk
+[**get4**](ChunkApi.md#get4) | **GET** /v1/chunk/{chunkId} | Get a chunk
+[**list7**](ChunkApi.md#list7) | **GET** /v1/chunk/ | List chunks
+[**search3**](ChunkApi.md#search3) | **GET** /v1/chunk/q | Search chunks
+[**update4**](ChunkApi.md#update4) | **PATCH** /v1/chunk/{chunkId} | Update a chunk
 
 
-# **delete3**
-> AckResponse delete3(chunk_id)
+# **delete4**
+> AckResponse delete4(chunk_id)
 
 Delete a chunk
 
@@ -79,11 +79,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a chunk
-        api_response = api_instance.delete3(chunk_id)
-        print("The response of ChunkApi->delete3:\n")
+        api_response = api_instance.delete4(chunk_id)
+        print("The response of ChunkApi->delete4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ChunkApi->delete3: %s\n" % e)
+        print("Exception when calling ChunkApi->delete4: %s\n" % e)
 ```
 
 
@@ -122,8 +122,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get3**
-> Chunk get3(chunk_id)
+# **get4**
+> Chunk get4(chunk_id)
 
 Get a chunk
 
@@ -182,11 +182,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a chunk
-        api_response = api_instance.get3(chunk_id)
-        print("The response of ChunkApi->get3:\n")
+        api_response = api_instance.get4(chunk_id)
+        print("The response of ChunkApi->get4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ChunkApi->get3: %s\n" % e)
+        print("Exception when calling ChunkApi->get4: %s\n" % e)
 ```
 
 
@@ -225,8 +225,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list6**
-> ChunkListResponse list6(body=body, page_size=page_size, page_index=page_index)
+# **list7**
+> ChunkListResponse list7(body=body, page_size=page_size, page_index=page_index)
 
 List chunks
 
@@ -294,11 +294,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List chunks
-        api_response = api_instance.list6(body=body, page_size=page_size, page_index=page_index)
-        print("The response of ChunkApi->list6:\n")
+        api_response = api_instance.list7(body=body, page_size=page_size, page_index=page_index)
+        print("The response of ChunkApi->list7:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ChunkApi->list6: %s\n" % e)
+        print("Exception when calling ChunkApi->list7: %s\n" % e)
 ```
 
 
@@ -339,8 +339,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search2**
-> ChunkListResponse search2(corpus_id=corpus_id, document_id=document_id, hash=hash, page=page, key=key, value=value, var_json=var_json, body=body, page_size=page_size, page_index=page_index)
+# **search3**
+> ChunkListResponse search3(corpus_id=corpus_id, document_id=document_id, hash=hash, page=page, key=key, value=value, var_json=var_json, body=body, page_size=page_size, page_index=page_index)
 
 Search chunks
 
@@ -452,11 +452,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Search chunks
-        api_response = api_instance.search2(corpus_id=corpus_id, document_id=document_id, hash=hash, page=page, key=key, value=value, var_json=var_json, body=body, page_size=page_size, page_index=page_index)
-        print("The response of ChunkApi->search2:\n")
+        api_response = api_instance.search3(corpus_id=corpus_id, document_id=document_id, hash=hash, page=page, key=key, value=value, var_json=var_json, body=body, page_size=page_size, page_index=page_index)
+        print("The response of ChunkApi->search3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ChunkApi->search2: %s\n" % e)
+        print("Exception when calling ChunkApi->search3: %s\n" % e)
 ```
 
 
@@ -504,8 +504,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update3**
-> Chunk update3(chunk_id, chunk_update_request)
+# **update4**
+> Chunk update4(chunk_id, chunk_update_request)
 
 Update a chunk
 
@@ -585,11 +585,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update a chunk
-        api_response = api_instance.update3(chunk_id, chunk_update_request)
-        print("The response of ChunkApi->update3:\n")
+        api_response = api_instance.update4(chunk_id, chunk_update_request)
+        print("The response of ChunkApi->update4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ChunkApi->update3: %s\n" % e)
+        print("Exception when calling ChunkApi->update4: %s\n" % e)
 ```
 
 

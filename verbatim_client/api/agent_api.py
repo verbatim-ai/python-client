@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -45,7 +45,7 @@ class AgentApi:
 
 
     @validate_call
-    def create3(
+    def create4(
         self,
         agent_create_request: AgentCreateRequest,
         _request_timeout: Union[
@@ -89,7 +89,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create3_serialize(
+        _param = self._create4_serialize(
             agent_create_request=agent_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -118,7 +118,7 @@ class AgentApi:
 
 
     @validate_call
-    def create3_with_http_info(
+    def create4_with_http_info(
         self,
         agent_create_request: AgentCreateRequest,
         _request_timeout: Union[
@@ -162,7 +162,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create3_serialize(
+        _param = self._create4_serialize(
             agent_create_request=agent_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -191,7 +191,7 @@ class AgentApi:
 
 
     @validate_call
-    def create3_without_preload_content(
+    def create4_without_preload_content(
         self,
         agent_create_request: AgentCreateRequest,
         _request_timeout: Union[
@@ -235,7 +235,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create3_serialize(
+        _param = self._create4_serialize(
             agent_create_request=agent_create_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -259,7 +259,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _create3_serialize(
+    def _create4_serialize(
         self,
         agent_create_request,
         _request_auth,
@@ -338,7 +338,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4(
+    def delete5(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -382,7 +382,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -411,7 +411,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4_with_http_info(
+    def delete5_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -455,7 +455,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -484,7 +484,7 @@ class AgentApi:
 
 
     @validate_call
-    def delete4_without_preload_content(
+    def delete5_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to delete.")],
         _request_timeout: Union[
@@ -528,7 +528,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete4_serialize(
+        _param = self._delete5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -552,7 +552,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _delete4_serialize(
+    def _delete5_serialize(
         self,
         agent_id,
         _request_auth,
@@ -618,7 +618,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4(
+    def get5(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -662,7 +662,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -691,7 +691,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4_with_http_info(
+    def get5_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -735,7 +735,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -764,7 +764,7 @@ class AgentApi:
 
 
     @validate_call
-    def get4_without_preload_content(
+    def get5_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent.")],
         _request_timeout: Union[
@@ -808,7 +808,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get4_serialize(
+        _param = self._get5_serialize(
             agent_id=agent_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -832,7 +832,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _get4_serialize(
+    def _get5_serialize(
         self,
         agent_id,
         _request_auth,
@@ -898,7 +898,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2(
+    def list3(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -945,7 +945,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -975,7 +975,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2_with_http_info(
+    def list3_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1022,7 +1022,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1052,7 +1052,7 @@ class AgentApi:
 
 
     @validate_call
-    def list2_without_preload_content(
+    def list3_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1099,7 +1099,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list2_serialize(
+        _param = self._list3_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1124,7 +1124,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _list2_serialize(
+    def _list3_serialize(
         self,
         page_size,
         page_index,
@@ -1197,7 +1197,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4(
+    def update5(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1244,7 +1244,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update5_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1274,7 +1274,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4_with_http_info(
+    def update5_with_http_info(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1321,7 +1321,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update5_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1351,7 +1351,7 @@ class AgentApi:
 
 
     @validate_call
-    def update4_without_preload_content(
+    def update5_without_preload_content(
         self,
         agent_id: Annotated[UUID, Field(description="ID of the agent to update.")],
         agent_update_request: AgentUpdateRequest,
@@ -1398,7 +1398,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update4_serialize(
+        _param = self._update5_serialize(
             agent_id=agent_id,
             agent_update_request=agent_update_request,
             _request_auth=_request_auth,
@@ -1423,7 +1423,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _update4_serialize(
+    def _update5_serialize(
         self,
         agent_id,
         agent_update_request,

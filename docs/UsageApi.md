@@ -18,7 +18,7 @@ Return the aggregated usage report for the caller's organization, as headline to
 
 Each dimension is reported as:
 - **tokens** — `total` (lifetime, soft-deleted included) and `inPeriod` (over the reported range). At organization scope this sums `post.token` AND `document.token` (vectorization tokens are billed at organization level).
-- **corpora / sessions / posts / storage** — `total`, `created` and `removed` over the range.
+- **corpora / threads / posts / storage** — `total`, `created` and `removed` over the range.
 - **storage** values are bytes.
 - **series** — the same `created`/`removed` deltas and a `tokens` count, bucket by bucket.
 
@@ -133,7 +133,7 @@ Differences with the organization-scope report:
 - **tokens** sums `post.token` only — vectorization tokens (`document.token`) are reported only at organization scope, because they are billed against the org.
 - **corpora** is `null` — cardinality is always 1 at corpus scope. It is absent from the `series` entries too.
 
-Sessions, posts and storage are restricted to the requested corpus.
+Threads, posts and storage are restricted to the requested corpus.
 
 `timeframe` selects the **bucket size**, and with it how far back the report reaches:
 
@@ -245,9 +245,9 @@ User usage
 Return the aggregated usage report for a single user within the caller's organization, as headline totals and as a per-bucket time series.
 
 Scope:
-- **tokens** sums `post.token` of sessions where `session.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of the caller's organization.
-- **sessions** counts distinct sessions owned by `userId` in the organization.
-- **posts** counts posts in those sessions.
+- **tokens** sums `post.token` of threads where `thread.user_id = userId` AND `document.token` of documents where `document.user_id = userId`, both restricted to corpora of the caller's organization.
+- **threads** counts distinct threads owned by `userId` in the organization.
+- **posts** counts posts in those threads.
 - **storage** sums `document.size` of documents uploaded by `userId` in the organization.
 - **corpora** is `null` — cardinality is not meaningful at user scope. It is absent from the `series` entries too.
 
@@ -306,7 +306,7 @@ configuration.api_key['AccessToken'] = os.environ["API_KEY"]
 with verbatim_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = verbatim_client.UsageApi(api_client)
-    user_id = 'user-42' # str | ID of the user to compute usage for. Free-form string (max 256 chars), matched against `session.user_id` and `document.user_id`.
+    user_id = 'user-42' # str | ID of the user to compute usage for. Free-form string (max 256 chars), matched against `thread.user_id` and `document.user_id`.
     timeframe = 'Day' # str | Bucket size to aggregate by, and with it how far back the report reaches. Defaults to `Day` (30 daily buckets). (optional)
 
     try:
@@ -325,7 +325,7 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **str**| ID of the user to compute usage for. Free-form string (max 256 chars), matched against &#x60;session.user_id&#x60; and &#x60;document.user_id&#x60;. | 
+ **user_id** | **str**| ID of the user to compute usage for. Free-form string (max 256 chars), matched against &#x60;thread.user_id&#x60; and &#x60;document.user_id&#x60;. | 
  **timeframe** | **str**| Bucket size to aggregate by, and with it how far back the report reaches. Defaults to &#x60;Day&#x60; (30 daily buckets). | [optional] 
 
 ### Return type

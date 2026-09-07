@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Date the document was uploaded to the platform (ISO-8601, UTC). | 
 **updated_at** | **datetime** | Last update timestamp of the document row (ISO-8601, UTC). | 
 **size** | **int** | Size of the source file in bytes. Set after ingestion. | [optional] 
+**storage** | **int** | Bytes this document occupies on the platform — the source file **plus** everything derived from it: rendered page previews, the markdown conversion, the summary and the embedding payloads. Always larger than &#x60;size&#x60; once ingested, often by several times for a document that renders and chunks. This is the figure the storage totals of &#x60;GET /v1/usage/*&#x60; are built from. &#x60;0&#x60; means *not computed yet* — the processing pipeline reports it during ingestion, so it stays &#x60;0&#x60; until then. | [optional] 
+**nb_chunks** | **int** | Number of chunks this document was split into — the passages &#x60;GET /v1/chunk/q?documentId&#x3D;…&#x60; returns for it. &#x60;0&#x60; means *not computed yet* — the processing pipeline reports it during ingestion, so it stays &#x60;0&#x60; until then. | [optional] 
 **tokens** | **int** | Number of LLM tokens consumed to produce the summary. Set after ingestion. | [optional] 
 **nb_words** | **int** | Number of words in the source document. Set after ingestion. | [optional] 
 **nb_pages** | **int** | Number of pages of the source document. &#x60;0&#x60; means *not counted yet* — the rendering pipeline reports it during ingestion, so it stays &#x60;0&#x60; until then (and for formats that have no pages). Use it to bound the &#x60;pages&#x60; indices of &#x60;GET /v1/doc/{id}/preview-urls&#x60;, whose valid range is &#x60;0..nbPages-1&#x60;. | [optional] 

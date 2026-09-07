@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -44,7 +44,7 @@ class ChunkApi:
 
 
     @validate_call
-    def delete3(
+    def delete4(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to delete.")],
         _request_timeout: Union[
@@ -88,7 +88,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -117,7 +117,7 @@ class ChunkApi:
 
 
     @validate_call
-    def delete3_with_http_info(
+    def delete4_with_http_info(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to delete.")],
         _request_timeout: Union[
@@ -161,7 +161,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -190,7 +190,7 @@ class ChunkApi:
 
 
     @validate_call
-    def delete3_without_preload_content(
+    def delete4_without_preload_content(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to delete.")],
         _request_timeout: Union[
@@ -234,7 +234,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete3_serialize(
+        _param = self._delete4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -258,7 +258,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _delete3_serialize(
+    def _delete4_serialize(
         self,
         chunk_id,
         _request_auth,
@@ -324,7 +324,7 @@ class ChunkApi:
 
 
     @validate_call
-    def get3(
+    def get4(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk.")],
         _request_timeout: Union[
@@ -368,7 +368,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -397,7 +397,7 @@ class ChunkApi:
 
 
     @validate_call
-    def get3_with_http_info(
+    def get4_with_http_info(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk.")],
         _request_timeout: Union[
@@ -441,7 +441,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -470,7 +470,7 @@ class ChunkApi:
 
 
     @validate_call
-    def get3_without_preload_content(
+    def get4_without_preload_content(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk.")],
         _request_timeout: Union[
@@ -514,7 +514,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get3_serialize(
+        _param = self._get4_serialize(
             chunk_id=chunk_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -538,7 +538,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _get3_serialize(
+    def _get4_serialize(
         self,
         chunk_id,
         _request_auth,
@@ -604,7 +604,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list6(
+    def list7(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -654,7 +654,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -685,7 +685,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list6_with_http_info(
+    def list7_with_http_info(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -735,7 +735,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -766,7 +766,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list6_without_preload_content(
+    def list7_without_preload_content(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -816,7 +816,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -842,7 +842,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _list6_serialize(
+    def _list7_serialize(
         self,
         body,
         page_size,
@@ -920,7 +920,7 @@ class ChunkApi:
 
 
     @validate_call
-    def search2(
+    def search3(
         self,
         corpus_id: Annotated[Optional[UUID], Field(description="Keep chunks whose document belongs to this corpus. Must belong to the caller's organization.")] = None,
         document_id: Annotated[Optional[UUID], Field(description="Keep chunks of this document. Must belong to the caller's organization.")] = None,
@@ -991,7 +991,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search2_serialize(
+        _param = self._search3_serialize(
             corpus_id=corpus_id,
             document_id=document_id,
             hash=hash,
@@ -1029,7 +1029,7 @@ class ChunkApi:
 
 
     @validate_call
-    def search2_with_http_info(
+    def search3_with_http_info(
         self,
         corpus_id: Annotated[Optional[UUID], Field(description="Keep chunks whose document belongs to this corpus. Must belong to the caller's organization.")] = None,
         document_id: Annotated[Optional[UUID], Field(description="Keep chunks of this document. Must belong to the caller's organization.")] = None,
@@ -1100,7 +1100,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search2_serialize(
+        _param = self._search3_serialize(
             corpus_id=corpus_id,
             document_id=document_id,
             hash=hash,
@@ -1138,7 +1138,7 @@ class ChunkApi:
 
 
     @validate_call
-    def search2_without_preload_content(
+    def search3_without_preload_content(
         self,
         corpus_id: Annotated[Optional[UUID], Field(description="Keep chunks whose document belongs to this corpus. Must belong to the caller's organization.")] = None,
         document_id: Annotated[Optional[UUID], Field(description="Keep chunks of this document. Must belong to the caller's organization.")] = None,
@@ -1209,7 +1209,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._search2_serialize(
+        _param = self._search3_serialize(
             corpus_id=corpus_id,
             document_id=document_id,
             hash=hash,
@@ -1242,7 +1242,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _search2_serialize(
+    def _search3_serialize(
         self,
         corpus_id,
         document_id,
@@ -1355,7 +1355,7 @@ class ChunkApi:
 
 
     @validate_call
-    def update3(
+    def update4(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to update.")],
         chunk_update_request: ChunkUpdateRequest,
@@ -1402,7 +1402,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update4_serialize(
             chunk_id=chunk_id,
             chunk_update_request=chunk_update_request,
             _request_auth=_request_auth,
@@ -1432,7 +1432,7 @@ class ChunkApi:
 
 
     @validate_call
-    def update3_with_http_info(
+    def update4_with_http_info(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to update.")],
         chunk_update_request: ChunkUpdateRequest,
@@ -1479,7 +1479,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update4_serialize(
             chunk_id=chunk_id,
             chunk_update_request=chunk_update_request,
             _request_auth=_request_auth,
@@ -1509,7 +1509,7 @@ class ChunkApi:
 
 
     @validate_call
-    def update3_without_preload_content(
+    def update4_without_preload_content(
         self,
         chunk_id: Annotated[UUID, Field(description="ID of the chunk to update.")],
         chunk_update_request: ChunkUpdateRequest,
@@ -1556,7 +1556,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update3_serialize(
+        _param = self._update4_serialize(
             chunk_id=chunk_id,
             chunk_update_request=chunk_update_request,
             _request_auth=_request_auth,
@@ -1581,7 +1581,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _update3_serialize(
+    def _update4_serialize(
         self,
         chunk_id,
         chunk_update_request,

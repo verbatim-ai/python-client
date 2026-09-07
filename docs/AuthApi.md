@@ -4,13 +4,13 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create2**](AuthApi.md#create2) | **POST** /v1/auth/access-token | Create an access token
+[**create3**](AuthApi.md#create3) | **POST** /v1/auth/access-token | Create an access token
 [**revoke**](AuthApi.md#revoke) | **DELETE** /v1/auth/access-token/{token} | Revoke an access token
 [**whoami**](AuthApi.md#whoami) | **GET** /v1/auth/whoami | Who am I
 
 
-# **create2**
-> AccessTokenCreateResponse create2(access_token_create_request)
+# **create3**
+> AccessTokenCreateResponse create3(access_token_create_request)
 
 Create an access token
 
@@ -51,11 +51,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Create an access token
-        api_response = api_instance.create2(access_token_create_request)
-        print("The response of AuthApi->create2:\n")
+        api_response = api_instance.create3(access_token_create_request)
+        print("The response of AuthApi->create3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthApi->create2: %s\n" % e)
+        print("Exception when calling AuthApi->create3: %s\n" % e)
 ```
 
 

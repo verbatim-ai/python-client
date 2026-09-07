@@ -3,11 +3,11 @@
 
 ## Concepts
 API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains:
-- **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM.
+- **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM.
 - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…).
 - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns.
-- **Session** — a conversation thread bound to one or more corpora.
-- **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).
+- **Thread** — a conversation thread bound to one or more corpora.
+- **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).
 
 ## Authentication
 Two authentication methods are accepted on endpoints:
@@ -114,11 +114,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Create an agent
-        api_response = api_instance.create3(agent_create_request)
-        print("The response of AgentApi->create3:\n")
+        api_response = api_instance.create4(agent_create_request)
+        print("The response of AgentApi->create4:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling AgentApi->create3: %s\n" % e)
+        print("Exception when calling AgentApi->create4: %s\n" % e)
 
 ```
 
@@ -128,51 +128,57 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AgentApi* | [**create3**](docs/AgentApi.md#create3) | **POST** /v1/agent/ | Create an agent
-*AgentApi* | [**delete4**](docs/AgentApi.md#delete4) | **DELETE** /v1/agent/{agentId} | Delete an agent
-*AgentApi* | [**get4**](docs/AgentApi.md#get4) | **GET** /v1/agent/{agentId} | Get an agent
-*AgentApi* | [**list2**](docs/AgentApi.md#list2) | **GET** /v1/agent/ | List agents
-*AgentApi* | [**update4**](docs/AgentApi.md#update4) | **PATCH** /v1/agent/{agentId} | Update an agent
-*AuthApi* | [**create2**](docs/AuthApi.md#create2) | **POST** /v1/auth/access-token | Create an access token
+*AgentApi* | [**create4**](docs/AgentApi.md#create4) | **POST** /v1/agent/ | Create an agent
+*AgentApi* | [**delete5**](docs/AgentApi.md#delete5) | **DELETE** /v1/agent/{agentId} | Delete an agent
+*AgentApi* | [**get5**](docs/AgentApi.md#get5) | **GET** /v1/agent/{agentId} | Get an agent
+*AgentApi* | [**list3**](docs/AgentApi.md#list3) | **GET** /v1/agent/ | List agents
+*AgentApi* | [**update5**](docs/AgentApi.md#update5) | **PATCH** /v1/agent/{agentId} | Update an agent
+*AuthApi* | [**create3**](docs/AuthApi.md#create3) | **POST** /v1/auth/access-token | Create an access token
 *AuthApi* | [**revoke**](docs/AuthApi.md#revoke) | **DELETE** /v1/auth/access-token/{token} | Revoke an access token
 *AuthApi* | [**whoami**](docs/AuthApi.md#whoami) | **GET** /v1/auth/whoami | Who am I
-*ChunkApi* | [**delete3**](docs/ChunkApi.md#delete3) | **DELETE** /v1/chunk/{chunkId} | Delete a chunk
-*ChunkApi* | [**get3**](docs/ChunkApi.md#get3) | **GET** /v1/chunk/{chunkId} | Get a chunk
-*ChunkApi* | [**list6**](docs/ChunkApi.md#list6) | **GET** /v1/chunk/ | List chunks
-*ChunkApi* | [**search2**](docs/ChunkApi.md#search2) | **GET** /v1/chunk/q | Search chunks
-*ChunkApi* | [**update3**](docs/ChunkApi.md#update3) | **PATCH** /v1/chunk/{chunkId} | Update a chunk
-*ConfigurationApi* | [**list5**](docs/ConfigurationApi.md#list5) | **GET** /v1/config/model | List supported LLM models
-*CorpusApi* | [**create1**](docs/CorpusApi.md#create1) | **POST** /v1/corpus/ | Create a corpus
-*CorpusApi* | [**delete2**](docs/CorpusApi.md#delete2) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
-*CorpusApi* | [**get2**](docs/CorpusApi.md#get2) | **GET** /v1/corpus/{corpusId} | Get a corpus
-*CorpusApi* | [**list1**](docs/CorpusApi.md#list1) | **GET** /v1/corpus/ | List corpora
-*CorpusApi* | [**update2**](docs/CorpusApi.md#update2) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
+*ChunkApi* | [**delete4**](docs/ChunkApi.md#delete4) | **DELETE** /v1/chunk/{chunkId} | Delete a chunk
+*ChunkApi* | [**get4**](docs/ChunkApi.md#get4) | **GET** /v1/chunk/{chunkId} | Get a chunk
+*ChunkApi* | [**list7**](docs/ChunkApi.md#list7) | **GET** /v1/chunk/ | List chunks
+*ChunkApi* | [**search3**](docs/ChunkApi.md#search3) | **GET** /v1/chunk/q | Search chunks
+*ChunkApi* | [**update4**](docs/ChunkApi.md#update4) | **PATCH** /v1/chunk/{chunkId} | Update a chunk
+*ConfigurationApi* | [**list6**](docs/ConfigurationApi.md#list6) | **GET** /v1/config/model | List supported LLM models
+*CorpusApi* | [**create2**](docs/CorpusApi.md#create2) | **POST** /v1/corpus/ | Create a corpus
+*CorpusApi* | [**delete3**](docs/CorpusApi.md#delete3) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
+*CorpusApi* | [**get3**](docs/CorpusApi.md#get3) | **GET** /v1/corpus/{corpusId} | Get a corpus
+*CorpusApi* | [**list2**](docs/CorpusApi.md#list2) | **GET** /v1/corpus/ | List corpora
+*CorpusApi* | [**update3**](docs/CorpusApi.md#update3) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
 *DocumentApi* | [**commit_upload**](docs/DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
-*DocumentApi* | [**delete1**](docs/DocumentApi.md#delete1) | **DELETE** /v1/doc/{id} | Delete a document
+*DocumentApi* | [**delete2**](docs/DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 *DocumentApi* | [**download_url1**](docs/DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
-*DocumentApi* | [**get1**](docs/DocumentApi.md#get1) | **GET** /v1/doc/{id} | Get a document
+*DocumentApi* | [**get2**](docs/DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
 *DocumentApi* | [**init_upload**](docs/DocumentApi.md#init_upload) | **POST** /v1/doc/init | Initialize a direct-to-storage upload
-*DocumentApi* | [**list4**](docs/DocumentApi.md#list4) | **GET** /v1/doc/ | List documents
+*DocumentApi* | [**list5**](docs/DocumentApi.md#list5) | **GET** /v1/doc/ | List documents
 *DocumentApi* | [**list_supported_documents**](docs/DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
 *DocumentApi* | [**preview_urls1**](docs/DocumentApi.md#preview_urls1) | **GET** /v1/doc/{id}/preview-urls | Get presigned preview URLs
 *DocumentApi* | [**reinit_upload**](docs/DocumentApi.md#reinit_upload) | **PUT** /v1/doc/{id}/init | Re-initialize a document for a new upload
-*DocumentApi* | [**search1**](docs/DocumentApi.md#search1) | **GET** /v1/doc/q | Search documents
+*DocumentApi* | [**search2**](docs/DocumentApi.md#search2) | **GET** /v1/doc/q | Search documents
 *DocumentApi* | [**status**](docs/DocumentApi.md#status) | **GET** /v1/doc/{id}/status | Get a document&#39;s status
 *DocumentApi* | [**summary**](docs/DocumentApi.md#summary) | **GET** /v1/doc/{id}/summary | Get a document summary
-*DocumentApi* | [**update1**](docs/DocumentApi.md#update1) | **PATCH** /v1/doc/{id} | Update a document
+*DocumentApi* | [**update2**](docs/DocumentApi.md#update2) | **PATCH** /v1/doc/{id} | Update a document
 *PostApi* | [**attachment**](docs/PostApi.md#attachment) | **GET** /v1/post/attachment/{postId} | Attachments from a post
-*PostApi* | [**delete5**](docs/PostApi.md#delete5) | **DELETE** /v1/post/{postId} | Delete a post
+*PostApi* | [**delete6**](docs/PostApi.md#delete6) | **DELETE** /v1/post/{postId} | Delete a post
 *PostApi* | [**download_url**](docs/PostApi.md#download_url) | **GET** /v1/post/attachment/{docId}/download-url | Get a presigned download URL
-*PostApi* | [**get5**](docs/PostApi.md#get5) | **GET** /v1/post/{postId} | Get a post
-*PostApi* | [**list3**](docs/PostApi.md#list3) | **GET** /v1/post/ | List posts
+*PostApi* | [**get6**](docs/PostApi.md#get6) | **GET** /v1/post/{postId} | Get a post
+*PostApi* | [**list4**](docs/PostApi.md#list4) | **GET** /v1/post/ | List posts
 *PostApi* | [**preview_urls**](docs/PostApi.md#preview_urls) | **GET** /v1/post/attachment/{docId}/preview-urls | Get presigned preview URLs
 *PostApi* | [**query**](docs/PostApi.md#query) | **GET** /v1/post/q | Send a query
-*SessionApi* | [**create**](docs/SessionApi.md#create) | **POST** /v1/session/ | Create a session
-*SessionApi* | [**delete**](docs/SessionApi.md#delete) | **DELETE** /v1/session/{sessionId} | Delete a session
-*SessionApi* | [**get**](docs/SessionApi.md#get) | **GET** /v1/session/{sessionId} | Get a session
-*SessionApi* | [**list**](docs/SessionApi.md#list) | **GET** /v1/session/ | List sessions
-*SessionApi* | [**search**](docs/SessionApi.md#search) | **GET** /v1/session/q | Search sessions
-*SessionApi* | [**update**](docs/SessionApi.md#update) | **PATCH** /v1/session/{sessionId} | Update a session
+*ThreadApi* | [**create**](docs/ThreadApi.md#create) | **POST** /v1/session/ | Create a thread
+*ThreadApi* | [**create1**](docs/ThreadApi.md#create1) | **POST** /v1/thread/ | Create a thread
+*ThreadApi* | [**delete**](docs/ThreadApi.md#delete) | **DELETE** /v1/session/{threadId} | Delete a thread
+*ThreadApi* | [**delete1**](docs/ThreadApi.md#delete1) | **DELETE** /v1/thread/{threadId} | Delete a thread
+*ThreadApi* | [**get**](docs/ThreadApi.md#get) | **GET** /v1/session/{threadId} | Get a thread
+*ThreadApi* | [**get1**](docs/ThreadApi.md#get1) | **GET** /v1/thread/{threadId} | Get a thread
+*ThreadApi* | [**list**](docs/ThreadApi.md#list) | **GET** /v1/session/ | List threads
+*ThreadApi* | [**list1**](docs/ThreadApi.md#list1) | **GET** /v1/thread/ | List threads
+*ThreadApi* | [**search**](docs/ThreadApi.md#search) | **GET** /v1/thread/q | Search threads
+*ThreadApi* | [**search1**](docs/ThreadApi.md#search1) | **GET** /v1/session/q | Search threads
+*ThreadApi* | [**update**](docs/ThreadApi.md#update) | **PATCH** /v1/session/{threadId} | Update a thread
+*ThreadApi* | [**update1**](docs/ThreadApi.md#update1) | **PATCH** /v1/thread/{threadId} | Update a thread
 *UsageApi* | [**usage**](docs/UsageApi.md#usage) | **GET** /v1/usage/all | Organization usage
 *UsageApi* | [**usage_by_corpus**](docs/UsageApi.md#usage_by_corpus) | **GET** /v1/usage/corpus/{corpusId} | Corpus usage
 *UsageApi* | [**usage_by_user**](docs/UsageApi.md#usage_by_user) | **GET** /v1/usage/user/{userId} | User usage
@@ -214,11 +220,11 @@ Class | Method | HTTP request | Description
  - [PostAttachmentResponse](docs/PostAttachmentResponse.md)
  - [PostItemResponse](docs/PostItemResponse.md)
  - [PostListResponse](docs/PostListResponse.md)
- - [Session](docs/Session.md)
  - [SessionCreateRequest](docs/SessionCreateRequest.md)
- - [SessionCreateResponse](docs/SessionCreateResponse.md)
- - [SessionListResponse](docs/SessionListResponse.md)
- - [SessionUpdateRequest](docs/SessionUpdateRequest.md)
+ - [Thread](docs/Thread.md)
+ - [ThreadCreateResponse](docs/ThreadCreateResponse.md)
+ - [ThreadListResponse](docs/ThreadListResponse.md)
+ - [ThreadUpdateRequest](docs/ThreadUpdateRequest.md)
  - [Usage](docs/Usage.md)
  - [UsageBucket](docs/UsageBucket.md)
  - [UsageCount](docs/UsageCount.md)

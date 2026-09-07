@@ -5,10 +5,10 @@ All URIs are relative to *https://api.verbatim-ai.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**attachment**](PostApi.md#attachment) | **GET** /v1/post/attachment/{postId} | Attachments from a post
-[**delete5**](PostApi.md#delete5) | **DELETE** /v1/post/{postId} | Delete a post
+[**delete6**](PostApi.md#delete6) | **DELETE** /v1/post/{postId} | Delete a post
 [**download_url**](PostApi.md#download_url) | **GET** /v1/post/attachment/{docId}/download-url | Get a presigned download URL
-[**get5**](PostApi.md#get5) | **GET** /v1/post/{postId} | Get a post
-[**list3**](PostApi.md#list3) | **GET** /v1/post/ | List posts
+[**get6**](PostApi.md#get6) | **GET** /v1/post/{postId} | Get a post
+[**list4**](PostApi.md#list4) | **GET** /v1/post/ | List posts
 [**preview_urls**](PostApi.md#preview_urls) | **GET** /v1/post/attachment/{docId}/preview-urls | Get presigned preview URLs
 [**query**](PostApi.md#query) | **GET** /v1/post/q | Send a query
 
@@ -104,8 +104,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete5**
-> AckResponse delete5(post_id)
+# **delete6**
+> AckResponse delete6(post_id)
 
 Delete a post
 
@@ -152,11 +152,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a post
-        api_response = api_instance.delete5(post_id)
-        print("The response of PostApi->delete5:\n")
+        api_response = api_instance.delete6(post_id)
+        print("The response of PostApi->delete6:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->delete5: %s\n" % e)
+        print("Exception when calling PostApi->delete6: %s\n" % e)
 ```
 
 
@@ -291,8 +291,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get5**
-> Post get5(post_id)
+# **get6**
+> Post get6(post_id)
 
 Get a post
 
@@ -339,11 +339,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a post
-        api_response = api_instance.get5(post_id)
-        print("The response of PostApi->get5:\n")
+        api_response = api_instance.get6(post_id)
+        print("The response of PostApi->get6:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->get5: %s\n" % e)
+        print("Exception when calling PostApi->get6: %s\n" % e)
 ```
 
 
@@ -382,18 +382,18 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list3**
-> PostListResponse list3(session_id, page_size=page_size, page_index=page_index, order=order)
+# **list4**
+> PostListResponse list4(thread_id, session_id=session_id, page_size=page_size, page_index=page_index, order=order)
 
 List posts
 
-Paginate every post of a session — the user questions and the system answers
+Paginate every post of a thread — the user questions and the system answers
 alike, interleaved in the order they were written.
 
 **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first).
 Ordering `order=DESC` reads the conversation backwards, most
 recent first, which is what a client polling for what just happened wants:
-page `0` is the latest exchange whatever the session has grown to. `order=ASC`
+page `0` is the latest exchange whatever the thread has grown to. `order=ASC`
 reads it forwards, oldest first — the transcript order, and the one to walk when
 rendering a whole conversation from the beginning.
 
@@ -406,15 +406,15 @@ to tell them apart.
 
 **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based.
 Values outside those bounds are refused with `400`. `total` carries the number of
-posts in the session across every page, so a client knows how far it has to walk.
+posts in the thread across every page, so a client knows how far it has to walk.
 Soft-deleted posts are excluded from both the page and the count.
 
 Examples:
 
-* `?sessionId=…` — the 25 most recent posts of the session, newest first.
-* `?sessionId=…&order=ASC&pageSize=50` — the conversation from its first post,
+* `?threadId=…` — the 25 most recent posts of the thread, newest first.
+* `?threadId=…&order=ASC&pageSize=50` — the conversation from its first post,
   50 at a time.
-* `?sessionId=…&pageIndex=1` — the exchange before the latest ones.
+* `?threadId=…&pageIndex=1` — the exchange before the latest ones.
 
 
 ### Example
@@ -454,18 +454,19 @@ configuration.api_key['AccessToken'] = os.environ["API_KEY"]
 with verbatim_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = verbatim_client.PostApi(api_client)
-    session_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the session.
+    thread_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the thread.
+    session_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     page_size = 25 # int | Number of items per page, 1-100. (optional) (default to 25)
     page_index = 0 # int | Zero-based page index. (optional) (default to 0)
-    order = 'DESC' # str | Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`. (optional)
+    order = 'DESC' # str | Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`. (optional)
 
     try:
         # List posts
-        api_response = api_instance.list3(session_id, page_size=page_size, page_index=page_index, order=order)
-        print("The response of PostApi->list3:\n")
+        api_response = api_instance.list4(thread_id, session_id=session_id, page_size=page_size, page_index=page_index, order=order)
+        print("The response of PostApi->list4:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling PostApi->list3: %s\n" % e)
+        print("Exception when calling PostApi->list4: %s\n" % e)
 ```
 
 
@@ -475,10 +476,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **session_id** | **UUID**| ID of the session. | 
+ **thread_id** | **UUID**| ID of the thread. | 
+ **session_id** | **UUID**|  | [optional] 
  **page_size** | **int**| Number of items per page, 1-100. | [optional] [default to 25]
  **page_index** | **int**| Zero-based page index. | [optional] [default to 0]
- **order** | **str**| Direction to read the session in: &#x60;DESC&#x60; newest first, &#x60;ASC&#x60; oldest first. Defaults to &#x60;DESC&#x60;. | [optional] 
+ **order** | **str**| Direction to read the thread in: &#x60;DESC&#x60; newest first, &#x60;ASC&#x60; oldest first. Defaults to &#x60;DESC&#x60;. | [optional] 
 
 ### Return type
 
@@ -619,15 +621,15 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **query**
-> PostItemResponse query(session_id, body, lang=lang, agent_id=agent_id)
+> PostItemResponse query(thread_id, body, session_id=session_id, lang=lang, agent_id=agent_id)
 
 Send a query
 
-Submit a user message to a session and run the full RAG pipeline:
+Submit a user message to a thread and run the full RAG pipeline:
 
 1. Persist the query as a post with `owner = USER`.
-2. Vectorize the query and run a cosine-similarity search against the session's corpora.
-3. Feed the top chunks to the session's LLM as context.
+2. Vectorize the query and run a cosine-similarity search against the thread's corpora.
+3. Feed the top chunks to the thread's LLM as context.
 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.
 
 The response contains both the user post (`query`) and the system post (`answer`).
@@ -642,10 +644,10 @@ Omit `agentId` and the query runs on the platform default agent, which is what e
 did before agents existed. Pass one to run this single query under a different setup:
 
 ```
-GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID
+GET /v1/post/q?threadId=$THREAD_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID
 ```
 
-The choice is **per query, not per session** — the next query on the same session is
+The choice is **per query, not per thread** — the next query on the same thread is
 independent, so a client can escalate one question to a wider, slower agent without
 changing the conversation it belongs to.
 
@@ -696,14 +698,15 @@ configuration.api_key['AccessToken'] = os.environ["API_KEY"]
 with verbatim_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = verbatim_client.PostApi(api_client)
-    session_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the session to post the query into.
+    thread_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | ID of the thread to post the query into.
     body = 'What is the main topic of the corpus?' # str | User message to send to the LLM.
+    session_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     lang = 'fr' # str | ISO-639 language code used by the LLM. Defaults to `en`. (optional)
     agent_id = UUID('123e4567-e89b-12d3-a456-426614174000') # UUID | Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization. (optional)
 
     try:
         # Send a query
-        api_response = api_instance.query(session_id, body, lang=lang, agent_id=agent_id)
+        api_response = api_instance.query(thread_id, body, session_id=session_id, lang=lang, agent_id=agent_id)
         print("The response of PostApi->query:\n")
         pprint(api_response)
     except Exception as e:
@@ -717,8 +720,9 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **session_id** | **UUID**| ID of the session to post the query into. | 
+ **thread_id** | **UUID**| ID of the thread to post the query into. | 
  **body** | **str**| User message to send to the LLM. | 
+ **session_id** | **UUID**|  | [optional] 
  **lang** | **str**| ISO-639 language code used by the LLM. Defaults to &#x60;en&#x60;. | [optional] 
  **agent_id** | **UUID**| Agent to run this query under. Omit to use the platform default agent. Must be one of the agents &#x60;GET /v1/agent/&#x60; lists for your organization. | [optional] 
 

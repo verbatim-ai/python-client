@@ -4,15 +4,15 @@ All URIs are relative to *https://api.verbatim-ai.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create1**](CorpusApi.md#create1) | **POST** /v1/corpus/ | Create a corpus
-[**delete2**](CorpusApi.md#delete2) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
-[**get2**](CorpusApi.md#get2) | **GET** /v1/corpus/{corpusId} | Get a corpus
-[**list1**](CorpusApi.md#list1) | **GET** /v1/corpus/ | List corpora
-[**update2**](CorpusApi.md#update2) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
+[**create2**](CorpusApi.md#create2) | **POST** /v1/corpus/ | Create a corpus
+[**delete3**](CorpusApi.md#delete3) | **DELETE** /v1/corpus/{corpusId} | Delete a corpus
+[**get3**](CorpusApi.md#get3) | **GET** /v1/corpus/{corpusId} | Get a corpus
+[**list2**](CorpusApi.md#list2) | **GET** /v1/corpus/ | List corpora
+[**update3**](CorpusApi.md#update3) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
 
 
-# **create1**
-> CorpusCreateResponse create1(corpus_create_request)
+# **create2**
+> CorpusCreateResponse create2(corpus_create_request)
 
 Create a corpus
 
@@ -60,11 +60,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Create a corpus
-        api_response = api_instance.create1(corpus_create_request)
-        print("The response of CorpusApi->create1:\n")
+        api_response = api_instance.create2(corpus_create_request)
+        print("The response of CorpusApi->create2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->create1: %s\n" % e)
+        print("Exception when calling CorpusApi->create2: %s\n" % e)
 ```
 
 
@@ -103,8 +103,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete2**
-> AckResponse delete2(corpus_id)
+# **delete3**
+> AckResponse delete3(corpus_id)
 
 Delete a corpus
 
@@ -158,11 +158,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Delete a corpus
-        api_response = api_instance.delete2(corpus_id)
-        print("The response of CorpusApi->delete2:\n")
+        api_response = api_instance.delete3(corpus_id)
+        print("The response of CorpusApi->delete3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->delete2: %s\n" % e)
+        print("Exception when calling CorpusApi->delete3: %s\n" % e)
 ```
 
 
@@ -201,8 +201,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get2**
-> CorpusItemResponse get2(corpus_id)
+# **get3**
+> CorpusItemResponse get3(corpus_id)
 
 Get a corpus
 
@@ -249,11 +249,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Get a corpus
-        api_response = api_instance.get2(corpus_id)
-        print("The response of CorpusApi->get2:\n")
+        api_response = api_instance.get3(corpus_id)
+        print("The response of CorpusApi->get3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->get2: %s\n" % e)
+        print("Exception when calling CorpusApi->get3: %s\n" % e)
 ```
 
 
@@ -292,8 +292,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list1**
-> CorpusListResponse list1(page_size=page_size, page_index=page_index)
+# **list2**
+> CorpusListResponse list2(page_size=page_size, page_index=page_index)
 
 List corpora
 
@@ -341,11 +341,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # List corpora
-        api_response = api_instance.list1(page_size=page_size, page_index=page_index)
-        print("The response of CorpusApi->list1:\n")
+        api_response = api_instance.list2(page_size=page_size, page_index=page_index)
+        print("The response of CorpusApi->list2:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->list1: %s\n" % e)
+        print("Exception when calling CorpusApi->list2: %s\n" % e)
 ```
 
 
@@ -385,8 +385,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update2**
-> CorpusUpdateResponse update2(corpus_id, corpus_update_request)
+# **update3**
+> CorpusUpdateResponse update3(corpus_id, corpus_update_request)
 
 Update a corpus
 
@@ -444,11 +444,11 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Update a corpus
-        api_response = api_instance.update2(corpus_id, corpus_update_request)
-        print("The response of CorpusApi->update2:\n")
+        api_response = api_instance.update3(corpus_id, corpus_update_request)
+        print("The response of CorpusApi->update3:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CorpusApi->update2: %s\n" % e)
+        print("Exception when calling CorpusApi->update3: %s\n" % e)
 ```
 
 

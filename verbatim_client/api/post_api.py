@@ -1,7 +1,7 @@
 """
     Verbatim AI — GenAI Backend API
 
-      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, sessions, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Session** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a session. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
+      ## Concepts API of the **Verbatim AI** Retrieval-Augmented-Generation (RAG) platform is built over 5 domains: - **Corpus** — a knowledge base. Holds documents, threads, and is bound to an embedding model and a summary LLM. - **Document** — a file ingested into a corpus (PDF, DOCX, HTML…). - **Chunk** — one embeddable piece of a document, produced by ingestion. The unit retrieval actually returns. - **Thread** — a conversation thread bound to one or more corpora. - **Post** — a single user query or system answer inside a thread. Answers reference attachments (the chunks used as context).  ## Authentication Two authentication methods are accepted on endpoints:  | Method | Header | Allowed HTTP methods | Use case | |--------|--------|----------------------|----------| | **JWT Bearer** | `Authorization: Bearer <jwt>` | All | Server-to-server calls with your RSA-signed JWT | | **Access Token** | `X-Access-Token: <token>` | **Defined by the scope of the token** | Short-lived tokens issued by `POST /v1/access-token/` |  ## API status Get a fresh status from our [API Status dashboard](https://verbatim-ai.openstatus.dev/). Events, maintenance schedules and incidents will be reported in this page.  ## Conventions - **Pagination** — list endpoints accept `pageSize` (default `25`) and `pageIndex` (default `0`). - **IDs** — all resource identifiers are UUIDv4 strings. - **Timestamps** — ISO-8601 (`2026-04-23T04:06:51Z`). - **Errors** — non-2xx responses return a JSON body matching the `Error` schema. --- 
 
     The version of the OpenAPI document: v1
     Contact: contact@verbatim-ai.com
@@ -327,7 +327,7 @@ class PostApi:
 
 
     @validate_call
-    def delete5(
+    def delete6(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -371,7 +371,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete5_serialize(
+        _param = self._delete6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -400,7 +400,7 @@ class PostApi:
 
 
     @validate_call
-    def delete5_with_http_info(
+    def delete6_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -444,7 +444,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete5_serialize(
+        _param = self._delete6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -473,7 +473,7 @@ class PostApi:
 
 
     @validate_call
-    def delete5_without_preload_content(
+    def delete6_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post to delete.")],
         _request_timeout: Union[
@@ -517,7 +517,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete5_serialize(
+        _param = self._delete6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -541,7 +541,7 @@ class PostApi:
         return response_data.response
 
 
-    def _delete5_serialize(
+    def _delete6_serialize(
         self,
         post_id,
         _request_auth,
@@ -887,7 +887,7 @@ class PostApi:
 
 
     @validate_call
-    def get5(
+    def get6(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -931,7 +931,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get5_serialize(
+        _param = self._get6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -960,7 +960,7 @@ class PostApi:
 
 
     @validate_call
-    def get5_with_http_info(
+    def get6_with_http_info(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1004,7 +1004,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get5_serialize(
+        _param = self._get6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1033,7 +1033,7 @@ class PostApi:
 
 
     @validate_call
-    def get5_without_preload_content(
+    def get6_without_preload_content(
         self,
         post_id: Annotated[UUID, Field(description="ID of the post.")],
         _request_timeout: Union[
@@ -1077,7 +1077,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get5_serialize(
+        _param = self._get6_serialize(
             post_id=post_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1101,7 +1101,7 @@ class PostApi:
         return response_data.response
 
 
-    def _get5_serialize(
+    def _get6_serialize(
         self,
         post_id,
         _request_auth,
@@ -1167,12 +1167,13 @@ class PostApi:
 
 
     @validate_call
-    def list3(
+    def list4(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread.")],
+        session_id: Optional[UUID] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
         page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
-        order: Annotated[Optional[StrictStr], Field(description="Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1188,15 +1189,17 @@ class PostApi:
     ) -> PostListResponse:
         """List posts
 
-        Paginate every post of a session — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the session has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the session across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?sessionId=…` — the 25 most recent posts of the session, newest first. * `?sessionId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?sessionId=…&pageIndex=1` — the exchange before the latest ones. 
+        Paginate every post of a thread — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the thread has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the thread across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?threadId=…` — the 25 most recent posts of the thread, newest first. * `?threadId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?threadId=…&pageIndex=1` — the exchange before the latest ones. 
 
-        :param session_id: ID of the session. (required)
+        :param thread_id: ID of the thread. (required)
+        :type thread_id: UUID
+        :param session_id:
         :type session_id: UUID
         :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
-        :param order: Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
+        :param order: Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
         :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1220,7 +1223,8 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
+            thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1252,12 +1256,13 @@ class PostApi:
 
 
     @validate_call
-    def list3_with_http_info(
+    def list4_with_http_info(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread.")],
+        session_id: Optional[UUID] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
         page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
-        order: Annotated[Optional[StrictStr], Field(description="Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1273,15 +1278,17 @@ class PostApi:
     ) -> ApiResponse[PostListResponse]:
         """List posts
 
-        Paginate every post of a session — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the session has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the session across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?sessionId=…` — the 25 most recent posts of the session, newest first. * `?sessionId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?sessionId=…&pageIndex=1` — the exchange before the latest ones. 
+        Paginate every post of a thread — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the thread has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the thread across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?threadId=…` — the 25 most recent posts of the thread, newest first. * `?threadId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?threadId=…&pageIndex=1` — the exchange before the latest ones. 
 
-        :param session_id: ID of the session. (required)
+        :param thread_id: ID of the thread. (required)
+        :type thread_id: UUID
+        :param session_id:
         :type session_id: UUID
         :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
-        :param order: Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
+        :param order: Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
         :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1305,7 +1312,8 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
+            thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1337,12 +1345,13 @@ class PostApi:
 
 
     @validate_call
-    def list3_without_preload_content(
+    def list4_without_preload_content(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread.")],
+        session_id: Optional[UUID] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100.")] = None,
         page_index: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Zero-based page index.")] = None,
-        order: Annotated[Optional[StrictStr], Field(description="Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1358,15 +1367,17 @@ class PostApi:
     ) -> RESTResponseType:
         """List posts
 
-        Paginate every post of a session — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the session has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the session across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?sessionId=…` — the 25 most recent posts of the session, newest first. * `?sessionId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?sessionId=…&pageIndex=1` — the exchange before the latest ones. 
+        Paginate every post of a thread — the user questions and the system answers alike, interleaved in the order they were written.  **Ordering.** `order=ASC` (the default) reads the conversation, natural timestamp (lastest post first). Ordering `order=DESC` reads the conversation backwards, most recent first, which is what a client polling for what just happened wants: page `0` is the latest exchange whatever the thread has grown to. `order=ASC` reads it forwards, oldest first — the transcript order, and the one to walk when rendering a whole conversation from the beginning.  Posts are ordered on `createdAt` and the ordering is closed by the post id, so walking `pageIndex` never shows the same post twice nor skips one — the two posts of a single exchange are written microseconds apart and can share a timestamp. Note the consequence of that tie: when they do share one, the question and its answer are ordered by id, which is arbitrary. Read `owner` rather than position to tell them apart.  **Paging.** `pageSize` is 1–100 and defaults to `25`; `pageIndex` is zero-based. Values outside those bounds are refused with `400`. `total` carries the number of posts in the thread across every page, so a client knows how far it has to walk. Soft-deleted posts are excluded from both the page and the count.  Examples:  * `?threadId=…` — the 25 most recent posts of the thread, newest first. * `?threadId=…&order=ASC&pageSize=50` — the conversation from its first post,   50 at a time. * `?threadId=…&pageIndex=1` — the exchange before the latest ones. 
 
-        :param session_id: ID of the session. (required)
+        :param thread_id: ID of the thread. (required)
+        :type thread_id: UUID
+        :param session_id:
         :type session_id: UUID
         :param page_size: Number of items per page, 1-100.
         :type page_size: int
         :param page_index: Zero-based page index.
         :type page_index: int
-        :param order: Direction to read the session in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
+        :param order: Direction to read the thread in: `DESC` newest first, `ASC` oldest first. Defaults to `DESC`.
         :type order: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1390,7 +1401,8 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
+            thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
             page_index=page_index,
@@ -1417,8 +1429,9 @@ class PostApi:
         return response_data.response
 
 
-    def _list3_serialize(
+    def _list4_serialize(
         self,
+        thread_id,
         session_id,
         page_size,
         page_index,
@@ -1448,6 +1461,10 @@ class PostApi:
         if session_id is not None:
             
             _query_params.append(('sessionId', session_id))
+            
+        if thread_id is not None:
+            
+            _query_params.append(('threadId', thread_id))
             
         if page_size is not None:
             
@@ -1800,8 +1817,9 @@ class PostApi:
     @validate_call
     def query(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        session_id: Optional[UUID] = None,
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
         agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
@@ -1819,12 +1837,14 @@ class PostApi:
     ) -> PostItemResponse:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
+        Submit a user message to a thread and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the thread's corpora. 3. Feed the top chunks to the thread's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?threadId=$THREAD_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per thread** — the next query on the same thread is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
-        :param session_id: ID of the session to post the query into. (required)
-        :type session_id: UUID
+        :param thread_id: ID of the thread to post the query into. (required)
+        :type thread_id: UUID
         :param body: User message to send to the LLM. (required)
         :type body: str
+        :param session_id:
+        :type session_id: UUID
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
         :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
@@ -1852,8 +1872,9 @@ class PostApi:
         """ # noqa: E501
 
         _param = self._query_serialize(
-            session_id=session_id,
+            thread_id=thread_id,
             body=body,
+            session_id=session_id,
             lang=lang,
             agent_id=agent_id,
             _request_auth=_request_auth,
@@ -1885,8 +1906,9 @@ class PostApi:
     @validate_call
     def query_with_http_info(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        session_id: Optional[UUID] = None,
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
         agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
@@ -1904,12 +1926,14 @@ class PostApi:
     ) -> ApiResponse[PostItemResponse]:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
+        Submit a user message to a thread and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the thread's corpora. 3. Feed the top chunks to the thread's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?threadId=$THREAD_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per thread** — the next query on the same thread is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
-        :param session_id: ID of the session to post the query into. (required)
-        :type session_id: UUID
+        :param thread_id: ID of the thread to post the query into. (required)
+        :type thread_id: UUID
         :param body: User message to send to the LLM. (required)
         :type body: str
+        :param session_id:
+        :type session_id: UUID
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
         :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
@@ -1937,8 +1961,9 @@ class PostApi:
         """ # noqa: E501
 
         _param = self._query_serialize(
-            session_id=session_id,
+            thread_id=thread_id,
             body=body,
+            session_id=session_id,
             lang=lang,
             agent_id=agent_id,
             _request_auth=_request_auth,
@@ -1970,8 +1995,9 @@ class PostApi:
     @validate_call
     def query_without_preload_content(
         self,
-        session_id: Annotated[UUID, Field(description="ID of the session to post the query into.")],
+        thread_id: Annotated[UUID, Field(description="ID of the thread to post the query into.")],
         body: Annotated[StrictStr, Field(description="User message to send to the LLM.")],
+        session_id: Optional[UUID] = None,
         lang: Annotated[Optional[StrictStr], Field(description="ISO-639 language code used by the LLM. Defaults to `en`.")] = None,
         agent_id: Annotated[Optional[UUID], Field(description="Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.")] = None,
         _request_timeout: Union[
@@ -1989,12 +2015,14 @@ class PostApi:
     ) -> RESTResponseType:
         """Send a query
 
-        Submit a user message to a session and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the session's corpora. 3. Feed the top chunks to the session's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?sessionId=$SESSION_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per session** — the next query on the same session is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
+        Submit a user message to a thread and run the full RAG pipeline:  1. Persist the query as a post with `owner = USER`. 2. Vectorize the query and run a cosine-similarity search against the thread's corpora. 3. Feed the top chunks to the thread's LLM as context. 4. Persist the answer as a post with `owner = SYSTEM`, with attachments pointing to the chunks used.  The response contains both the user post (`query`) and the system post (`answer`).  ### Choosing an agent  How much of that pipeline runs, and how, is decided by an **agent** — retrieval width, whether the chunks are re-ranked, the system instruction, how much of the conversation is replayed, and which model answers. See `GET /v1/agent/`.  Omit `agentId` and the query runs on the platform default agent, which is what every query did before agents existed. Pass one to run this single query under a different setup:  ``` GET /v1/post/q?threadId=$THREAD_ID&body=What+is+the+refund+policy%3F&agentId=$AGENT_ID ```  The choice is **per query, not per thread** — the next query on the same thread is independent, so a client can escalate one question to a wider, slower agent without changing the conversation it belongs to.  The agent is then recorded on the answer as `agentId`, and only on the answer: the user's question is not something an agent produced. A missing `agentId` on an answer therefore means \"ran on the default agent\", not \"unknown\". Deleting an agent does not rewrite the answers it produced, so this still names an agent you have since deleted — resolving that id through `GET /v1/agent/{agentId}` answers `404`, which is the honest reading.  An `agentId` your organization cannot see — someone else's, or one that never existed — answers `404` and no post is written. 
 
-        :param session_id: ID of the session to post the query into. (required)
-        :type session_id: UUID
+        :param thread_id: ID of the thread to post the query into. (required)
+        :type thread_id: UUID
         :param body: User message to send to the LLM. (required)
         :type body: str
+        :param session_id:
+        :type session_id: UUID
         :param lang: ISO-639 language code used by the LLM. Defaults to `en`.
         :type lang: str
         :param agent_id: Agent to run this query under. Omit to use the platform default agent. Must be one of the agents `GET /v1/agent/` lists for your organization.
@@ -2022,8 +2050,9 @@ class PostApi:
         """ # noqa: E501
 
         _param = self._query_serialize(
-            session_id=session_id,
+            thread_id=thread_id,
             body=body,
+            session_id=session_id,
             lang=lang,
             agent_id=agent_id,
             _request_auth=_request_auth,
@@ -2050,8 +2079,9 @@ class PostApi:
 
     def _query_serialize(
         self,
-        session_id,
+        thread_id,
         body,
+        session_id,
         lang,
         agent_id,
         _request_auth,
@@ -2079,6 +2109,10 @@ class PostApi:
         if session_id is not None:
             
             _query_params.append(('sessionId', session_id))
+            
+        if thread_id is not None:
+            
+            _query_params.append(('threadId', thread_id))
             
         if body is not None:
             
