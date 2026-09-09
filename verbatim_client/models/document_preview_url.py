@@ -29,7 +29,7 @@ class DocumentPreviewUrl(BaseModel):
     """
     Presigned URL granting direct client GET access to a single rendered preview image of one page of a document, at one rendering size.
     """ # noqa: E501
-    page: Optional[StrictInt] = Field(default=None, description="Zero-based page index this preview represents.", json_schema_extra={"examples": [0]})
+    page: Optional[StrictInt] = Field(default=None, description="One-based page index this preview represents.", json_schema_extra={"examples": [1]})
     size: StrictStr = Field(description="Rendering size of the preview image.", json_schema_extra={"examples": ["SMALL"]})
     url: StrictStr = Field(description="Presigned URL to GET the preview image. Single-use, time-limited.", json_schema_extra={"examples": ["https://s3.fr-par.scw.cloud/bucket/documents/<corpus>/preview/<doc>/small/0.jpg?X-Amz-Algorithm=..."]})
     expires_at: datetime = Field(description="Wall-clock expiration of `url` (ISO-8601, UTC). After this, a fresh request is required.", alias="expiresAt", json_schema_extra={"examples": ["2026-05-21T10:15:00Z"]})

@@ -6,7 +6,7 @@ Presigned URL granting direct client GET access to a single rendered preview ima
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**page** | **int** | Zero-based page index this preview represents. | [optional] 
+**page** | **int** | One-based page index this preview represents. | [optional] 
 **size** | **str** | Rendering size of the preview image. | 
 **url** | **str** | Presigned URL to GET the preview image. Single-use, time-limited. | 
 **expires_at** | **datetime** | Wall-clock expiration of &#x60;url&#x60; (ISO-8601, UTC). After this, a fresh request is required. | 

@@ -39,7 +39,7 @@ class TestDocumentPreviewUrls(unittest.TestCase):
                 id = '550e8400-e29b-41d4-a716-446655440000',
                 items = [
                     verbatim_client.models.document_preview_url.DocumentPreviewUrl(
-                        page = 0, 
+                        page = 1, 
                         size = 'SMALL', 
                         url = 'https://s3.fr-par.scw.cloud/bucket/documents/<corpus>/preview/<doc>/small/0.jpg?X-Amz-Algorithm=...', 
                         expires_at = '2026-05-21T10:15:00Z', )

@@ -36,7 +36,7 @@ class TestDocumentPreviewUrl(unittest.TestCase):
         model = DocumentPreviewUrl()
         if include_optional:
             return DocumentPreviewUrl(
-                page = 0,
+                page = 1,
                 size = 'SMALL',
                 url = 'https://s3.fr-par.scw.cloud/bucket/documents/<corpus>/preview/<doc>/small/0.jpg?X-Amz-Algorithm=...',
                 expires_at = '2026-05-21T10:15:00Z'
