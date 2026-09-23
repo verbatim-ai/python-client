@@ -830,8 +830,13 @@ Re-initialize a document for a new upload
 
 Replace the **content** of an existing document while keeping its identity: same
 `id`, same `filename`, `userId`, `provider`, `lang`, `metadata`, `tags`, `chunk`
-and source dates. Use `PATCH /v1/doc/{id}` to change those attributes — this
+and `docCreate`. Use `PATCH /v1/doc/{id}` to change those attributes — this
 endpoint only touches the file behind them.
+
+The one exception is `docUpdate`, the **source** document's last-modified date:
+it described the bytes you are replacing, so it is re-stamped with the moment of
+this call. `PATCH /v1/doc/{id}` it afterwards if you know the new file's real
+modification date — patching it before this call would be overwritten.
 
 The document must be in `READY` or `FAILED` status; any other status is rejected
 with `409`, since there is either nothing ingested yet or an ingestion in flight.
@@ -1336,7 +1341,10 @@ platform default.
 
 `docCreate` and `docUpdate` describe the **source** document, not the platform row:
 they are yours to correct, while `createdAt` and `updatedAt` remain server-managed
-and cannot be set here.
+and cannot be set here. Both are always set — a document uploaded without them
+carries the upload instant rather than a null — so this is the endpoint that
+replaces a guessed date with a real one. Neither can be cleared: omitting a field
+means *leave it alone*, and there is no value that means *unset*.
 
 Every attribute is descriptive: renaming a document does not move the stored file
 nor re-trigger ingestion, so embeddings and previews are left untouched. Changing

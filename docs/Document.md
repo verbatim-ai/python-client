@@ -18,8 +18,8 @@ Name | Type | Description | Notes
 **metadata** | **Dict[str, Optional[object]]** | Arbitrary JSON metadata attached to the document. Stored as JSONB. | [optional] 
 **tags** | **List[str]** | Free-form labels used to classify the document. Filter on them with &#x60;GET /v1/doc/?tags&#x3D;…&#x60;. Null when the document carries no tag. | [optional] 
 **chunk** | **Dict[str, Optional[object]]** | Chunking configuration used when ingesting this document — an Unstructured chunking option set (&#x60;strategy&#x60;, &#x60;max_characters&#x60;, &#x60;overlap&#x60;, …). Null means the platform default was used (&#x60;by_title&#x60;, &#x60;max_characters: 10000&#x60;, &#x60;combine_text_under_n_chars: 1000&#x60;). See &#x60;DocumentInitRequest.chunk&#x60; for the full key reference. | [optional] 
-**doc_create** | **datetime** | Original creation date of the source document (ISO-8601, UTC). Falls back to upload time when unknown. | [optional] 
-**doc_update** | **datetime** | Original last-modified date of the source document (ISO-8601, UTC). Falls back to upload time when unknown. | [optional] 
+**doc_create** | **datetime** | Creation date of the **source** document — the file — as opposed to &#x60;createdAt&#x60;, which is when the platform first saw it (ISO-8601, UTC). Always present: when the upload declared no date, this is the upload instant. | 
+**doc_update** | **datetime** | Last-modified date of the **source** document (ISO-8601, UTC), on the same terms as &#x60;docCreate&#x60;. Always present, and the one of the two that moves: replacing the content with &#x60;PUT /v1/doc/{id}/init&#x60; re-stamps it with the moment of that call. Correct it with &#x60;PATCH /v1/doc/{id}&#x60; when the new file&#39;s real modification date is known. | 
 **created_at** | **datetime** | Date the document was uploaded to the platform (ISO-8601, UTC). | 
 **updated_at** | **datetime** | Last update timestamp of the document row (ISO-8601, UTC). | 
 **size** | **int** | Size of the source file in bytes. Set after ingestion. | [optional] 

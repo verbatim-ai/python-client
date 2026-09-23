@@ -66,6 +66,8 @@ class TestDocument(unittest.TestCase):
                 filename = 'annual-report-2025.pdf',
                 content_type = 'application/pdf',
                 status = 'READY',
+                doc_create = '2026-01-15T10:30:00Z',
+                doc_update = '2026-04-01T08:00:00Z',
                 created_at = '2026-04-23T04:06:51Z',
                 updated_at = '2026-04-23T04:06:51Z',
         )
