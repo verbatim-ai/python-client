@@ -18,21 +18,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from verbatim_client.models.model import Model
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ModelListResponse(BaseModel):
+class Model(BaseModel):
     """
-    LLM models supported by the platform, everything a client needs to let someone choose one.  Not paginated — the catalog is a handful of entries and `models` always holds all of them, in the order the platform means them to be offered. `total` is their number, so a client can size a picker without walking the list.  `items` is the same list reduced to its identifiers, kept for clients written against the first version of this endpoint. It is deprecated and derived from `models`, so the two can never disagree: read `models[].id` instead. 
+    One LLM the platform is configured to serve, with what a client needs to present it.  `id` is the contract: it is the value an agent's `baseModel` or `rerankModel` is set to, and the only field the server reads back. The other three exist to be rendered — a picker built from this endpoint shows `name`, `description` and `iconUrl` and sends `id`.  `name` and `description` are editorial and may be reworded at any time; do not match on them. Which concrete provider model an `id` runs on is deliberately absent — it changes under you without the `id` changing, which is the point of naming the alias. 
     """ # noqa: E501
-    total: StrictInt = Field(description="Number of models in `models`.", json_schema_extra={"examples": [2]})
-    models: Optional[List[Model]] = Field(default=None, description="Supported models, in the order they are meant to be offered. The first is the one to preselect.")
-    items: Optional[List[StrictStr]] = Field(default=None, description="**Deprecated** — identifiers of the supported models, without the display fields. Superseded by `models[].id`, which carries the same values in the same order. Still served for existing clients; it will be removed in a future release.", json_schema_extra={"examples": [["gemma4", "mistral"]]})
-    __properties: ClassVar[List[str]] = ["total", "models", "items"]
+    id: StrictStr = Field(description="Identifier of the model — the value to send anywhere a model is named.", json_schema_extra={"examples": ["gemma4"]})
+    name: Optional[StrictStr] = Field(default=None, description="Display name, for a model picker or the header of an answer.", json_schema_extra={"examples": ["Gemma 4"]})
+    description: Optional[StrictStr] = Field(default=None, description="One-line description of what the model is good for, for a tooltip or a line under the name.", json_schema_extra={"examples": ["Google's open lightweight model. The platform default: quick to answer and inexpensive, a good fit for everyday questions over a corpus."]})
+    icon_url: Optional[StrictStr] = Field(default=None, description="Absolute URL of the model's icon — the provider's own logo, an SVG. Hosted off-platform, so render it as a remote image and keep a fallback for the request failing.", alias="iconUrl", json_schema_extra={"examples": ["https://cdn.simpleicons.org/google"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "iconUrl"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -52,7 +52,7 @@ class ModelListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ModelListResponse from a JSON string"""
+        """Create an instance of Model from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,17 +73,11 @@ class ModelListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in models (list)
-        _items = []
-        if self.models:
-            for _item_models in self.models:
-                _items.append(_item_models.to_dict() if _item_models is not None else None)
-            _dict['models'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ModelListResponse from a dict"""
+        """Create an instance of Model from a dict"""
         if obj is None:
             return None
 
@@ -91,9 +85,10 @@ class ModelListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "total": obj.get("total"),
-            "models": [Model.from_dict(_item) for _item in obj["models"]] if obj.get("models") is not None else None,
-            "items": obj.get("items")
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "iconUrl": obj.get("iconUrl")
         })
         return _obj
 

@@ -54,7 +54,7 @@ class ConfigurationApi:
     ) -> ModelListResponse:
         """List supported LLM models
 
-        Return the identifiers of the LLM models the platform is configured to serve. The list is driven by the `app.ai.model` server property and is the same for every caller.
+        Return the LLM models the platform is configured to serve, each with the `id` to send and the display name, description and icon URL to present it with.  The list is the same for every caller and is not paginated: `models` holds the whole catalog, in the order it is meant to be offered, and `total` is how many that is. Preselect the first entry.  `items` repeats the same ids without the display fields, for clients written against the first version of this endpoint. It is deprecated — read `models[].id`. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -87,8 +87,8 @@ class ConfigurationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
-            '415': "Error",
             '403': "Error",
+            '415': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
@@ -123,7 +123,7 @@ class ConfigurationApi:
     ) -> ApiResponse[ModelListResponse]:
         """List supported LLM models
 
-        Return the identifiers of the LLM models the platform is configured to serve. The list is driven by the `app.ai.model` server property and is the same for every caller.
+        Return the LLM models the platform is configured to serve, each with the `id` to send and the display name, description and icon URL to present it with.  The list is the same for every caller and is not paginated: `models` holds the whole catalog, in the order it is meant to be offered, and `total` is how many that is. Preselect the first entry.  `items` repeats the same ids without the display fields, for clients written against the first version of this endpoint. It is deprecated — read `models[].id`. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -156,8 +156,8 @@ class ConfigurationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
-            '415': "Error",
             '403': "Error",
+            '415': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",
@@ -192,7 +192,7 @@ class ConfigurationApi:
     ) -> RESTResponseType:
         """List supported LLM models
 
-        Return the identifiers of the LLM models the platform is configured to serve. The list is driven by the `app.ai.model` server property and is the same for every caller.
+        Return the LLM models the platform is configured to serve, each with the `id` to send and the display name, description and icon URL to present it with.  The list is the same for every caller and is not paginated: `models` holds the whole catalog, in the order it is meant to be offered, and `total` is how many that is. Preselect the first entry.  `items` repeats the same ids without the display fields, for clients written against the first version of this endpoint. It is deprecated — read `models[].id`. 
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -225,8 +225,8 @@ class ConfigurationApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
-            '415': "Error",
             '403': "Error",
+            '415': "Error",
             '404': "Error",
             '400': "Error",
             '409': "Error",

@@ -15,10 +15,10 @@
 
 import unittest
 
-from verbatim_client.models.model_list_response import ModelListResponse
+from verbatim_client.models.model import Model
 
-class TestModelListResponse(unittest.TestCase):
-    """ModelListResponse unit test stubs"""
+class TestModel(unittest.TestCase):
+    """Model unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,34 +26,29 @@ class TestModelListResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ModelListResponse:
-        """Test ModelListResponse
+    def make_instance(self, include_optional) -> Model:
+        """Test Model
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ModelListResponse`
+        # uncomment below to create an instance of `Model`
         """
-        model = ModelListResponse()
+        model = Model()
         if include_optional:
-            return ModelListResponse(
-                total = 2,
-                models = [
-                    verbatim_client.models.model.Model(
-                        id = 'gemma4', 
-                        name = 'Gemma 4', 
-                        description = 'Google's open lightweight model. The platform default: quick to answer and inexpensive, a good fit for everyday questions over a corpus.', 
-                        icon_url = 'https://cdn.simpleicons.org/google', )
-                    ],
-                items = [gemma4, mistral]
+            return Model(
+                id = 'gemma4',
+                name = 'Gemma 4',
+                description = 'Google's open lightweight model. The platform default: quick to answer and inexpensive, a good fit for everyday questions over a corpus.',
+                icon_url = 'https://cdn.simpleicons.org/google'
             )
         else:
-            return ModelListResponse(
-                total = 2,
+            return Model(
+                id = 'gemma4',
         )
         """
 
-    def testModelListResponse(self):
-        """Test ModelListResponse"""
+    def testModel(self):
+        """Test Model"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

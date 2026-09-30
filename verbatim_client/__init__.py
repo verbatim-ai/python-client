@@ -66,6 +66,7 @@ __all__ = [
     "DocumentStatus",
     "DocumentUpdateRequest",
     "Error",
+    "Model",
     "ModelListResponse",
     "Post",
     "PostAttachmentResponse",
@@ -136,6 +137,7 @@ from verbatim_client.models.document_search_response import DocumentSearchRespon
 from verbatim_client.models.document_status import DocumentStatus as DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest as DocumentUpdateRequest
 from verbatim_client.models.error import Error as Error
+from verbatim_client.models.model import Model as Model
 from verbatim_client.models.model_list_response import ModelListResponse as ModelListResponse
 from verbatim_client.models.post import Post as Post
 from verbatim_client.models.post_attachment_response import PostAttachmentResponse as PostAttachmentResponse

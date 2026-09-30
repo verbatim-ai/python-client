@@ -43,6 +43,7 @@ from verbatim_client.models.document_search_response import DocumentSearchRespon
 from verbatim_client.models.document_status import DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest
 from verbatim_client.models.error import Error
+from verbatim_client.models.model import Model
 from verbatim_client.models.model_list_response import ModelListResponse
 from verbatim_client.models.post import Post
 from verbatim_client.models.post_attachment_response import PostAttachmentResponse
