@@ -106,6 +106,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -179,6 +180,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -252,6 +254,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -399,6 +402,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -472,6 +476,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -545,6 +550,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -679,6 +685,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -752,6 +759,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -825,6 +833,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -963,6 +972,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1040,6 +1050,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1117,6 +1128,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1262,6 +1274,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(
@@ -1339,6 +1352,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(
@@ -1416,6 +1430,7 @@ class CorpusApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "CorpusUpdateResponse",
         }
         response_data = self.api_client.call_api(

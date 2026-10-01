@@ -103,6 +103,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -176,6 +177,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -249,6 +251,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -383,6 +386,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(
@@ -456,6 +460,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(
@@ -529,6 +534,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(
@@ -671,6 +677,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -752,6 +759,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -833,6 +841,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1015,6 +1024,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1124,6 +1134,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1233,6 +1244,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ChunkListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1418,6 +1430,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(
@@ -1495,6 +1508,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(
@@ -1572,6 +1586,7 @@ class ChunkApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Chunk",
         }
         response_data = self.api_client.call_api(

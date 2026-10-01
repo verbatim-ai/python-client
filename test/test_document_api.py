@@ -34,6 +34,13 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
+    def test_convert(self) -> None:
+        """Test case for convert
+
+        Convert a document to Markdown
+        """
+        pass
+
     def test_delete2(self) -> None:
         """Test case for delete2
 

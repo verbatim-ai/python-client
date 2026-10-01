@@ -104,6 +104,7 @@ class AgentApi:
             '404': "Error",
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -177,6 +178,7 @@ class AgentApi:
             '404': "Error",
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -250,6 +252,7 @@ class AgentApi:
             '404': "Error",
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -397,6 +400,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -470,6 +474,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -543,6 +548,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -677,6 +683,7 @@ class AgentApi:
             '404': None,
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -750,6 +757,7 @@ class AgentApi:
             '404': None,
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -823,6 +831,7 @@ class AgentApi:
             '404': None,
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -961,6 +970,7 @@ class AgentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1038,6 +1048,7 @@ class AgentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1115,6 +1126,7 @@ class AgentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AgentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1260,6 +1272,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -1337,6 +1350,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(
@@ -1414,6 +1428,7 @@ class AgentApi:
             '404': None,
             '400': None,
             '409': None,
+            '413': "Error",
             '200': "Agent",
         }
         response_data = self.api_client.call_api(

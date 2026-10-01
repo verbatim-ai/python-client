@@ -118,6 +118,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Chunk deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -221,6 +222,7 @@ Name | Type | Description  | Notes
 **404** | No chunk with this id, or its document has been deleted. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Chunk found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -335,6 +337,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of chunks. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -500,6 +503,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | A filter is malformed, or a paging parameter is out of bounds. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of matching chunks. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -625,6 +629,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | A page number is below 1. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Chunk updated. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

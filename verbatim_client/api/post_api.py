@@ -106,6 +106,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -179,6 +180,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -252,6 +254,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostAttachmentResponse",
         }
         response_data = self.api_client.call_api(
@@ -386,6 +389,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -459,6 +463,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -532,6 +537,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -666,6 +672,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -739,6 +746,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -812,6 +820,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -946,6 +955,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1019,6 +1029,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1092,6 +1103,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Post",
         }
         response_data = self.api_client.call_api(
@@ -1242,6 +1254,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1331,6 +1344,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1420,6 +1434,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1580,6 +1595,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1657,6 +1673,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1734,6 +1751,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -1890,6 +1908,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -1979,6 +1998,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(
@@ -2068,6 +2088,7 @@ class PostApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "PostItemResponse",
         }
         response_data = self.api_client.call_api(

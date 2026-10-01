@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
 *CorpusApi* | [**list2**](docs/CorpusApi.md#list2) | **GET** /v1/corpus/ | List corpora
 *CorpusApi* | [**update3**](docs/CorpusApi.md#update3) | **PATCH** /v1/corpus/{corpusId} | Update a corpus
 *DocumentApi* | [**commit_upload**](docs/DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
+*DocumentApi* | [**convert**](docs/DocumentApi.md#convert) | **POST** /v1/doc/convert | Convert a document to Markdown
 *DocumentApi* | [**delete2**](docs/DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 *DocumentApi* | [**download_url1**](docs/DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
 *DocumentApi* | [**get2**](docs/DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
@@ -205,6 +206,7 @@ Class | Method | HTTP request | Description
  - [CorpusUpdateRequest](docs/CorpusUpdateRequest.md)
  - [CorpusUpdateResponse](docs/CorpusUpdateResponse.md)
  - [Document](docs/Document.md)
+ - [DocumentConvertResponse](docs/DocumentConvertResponse.md)
  - [DocumentDownloadUrl](docs/DocumentDownloadUrl.md)
  - [DocumentInit](docs/DocumentInit.md)
  - [DocumentInitRequest](docs/DocumentInitRequest.md)

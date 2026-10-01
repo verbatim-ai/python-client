@@ -33,6 +33,7 @@ from verbatim_client.models.corpus_list_response import CorpusListResponse
 from verbatim_client.models.corpus_update_request import CorpusUpdateRequest
 from verbatim_client.models.corpus_update_response import CorpusUpdateResponse
 from verbatim_client.models.document import Document
+from verbatim_client.models.document_convert_response import DocumentConvertResponse
 from verbatim_client.models.document_download_url import DocumentDownloadUrl
 from verbatim_client.models.document_init import DocumentInit
 from verbatim_client.models.document_init_request import DocumentInitRequest

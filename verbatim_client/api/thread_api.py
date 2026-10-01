@@ -105,6 +105,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -178,6 +179,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -251,6 +253,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -398,6 +401,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -471,6 +475,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -544,6 +549,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -691,6 +697,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -764,6 +771,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -837,6 +845,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -971,6 +980,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -1044,6 +1054,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -1117,6 +1128,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -1251,6 +1263,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1324,6 +1337,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1397,6 +1411,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1531,6 +1546,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1604,6 +1620,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1677,6 +1694,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -1815,6 +1833,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1892,6 +1911,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1969,6 +1989,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2114,6 +2135,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2191,6 +2213,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2268,6 +2291,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2433,6 +2457,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2530,6 +2555,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2627,6 +2653,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2817,6 +2844,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -2914,6 +2942,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -3011,6 +3040,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ThreadListResponse",
         }
         response_data = self.api_client.call_api(
@@ -3181,6 +3211,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -3258,6 +3289,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -3335,6 +3367,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -3489,6 +3522,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -3566,6 +3600,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(
@@ -3643,6 +3678,7 @@ class ThreadApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Thread",
         }
         response_data = self.api_client.call_api(

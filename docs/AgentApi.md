@@ -120,6 +120,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | Missing or over-long &#x60;name&#x60;, a non-positive &#x60;topK&#x60; / &#x60;rerankTopK&#x60; / &#x60;historySize&#x60;, a &#x60;temperature&#x60; outside 0–1, or a model name &#x60;GET /v1/config/model&#x60; does not advertise. |  -  |
 **409** | This &#x60;name&#x60; is taken — by one of your agents, or by a platform agent. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Agent created. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -227,6 +228,7 @@ Name | Type | Description  | Notes
 **404** | No agent with this id is visible to your organization. |  -  |
 **400** | The agent is a core agent (&#x60;lock: true&#x60;). |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Agent deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -322,6 +324,7 @@ Name | Type | Description  | Notes
 **404** | No agent with this id is visible to your organization. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Agent found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -423,6 +426,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of agents. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -536,6 +540,7 @@ Name | Type | Description  | Notes
 **404** | No agent with this id is visible to your organization. |  -  |
 **400** | The agent is a core agent (&#x60;lock: true&#x60;), &#x60;reset&#x60; names a field that has no platform default, or a value fails validation. |  -  |
 **409** | The requested &#x60;name&#x60; is carried by another of your agents, or by a platform agent. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Agent updated. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -100,6 +100,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Attachments found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -191,6 +192,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Post deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -287,6 +289,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Presigned URL issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -378,6 +381,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Post found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -505,6 +509,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pageSize&#x60; outside 1–100, a negative &#x60;pageIndex&#x60;, or an &#x60;order&#x60; other than &#x60;ASC&#x60; or &#x60;DESC&#x60;. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of posts. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -616,6 +621,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pages&#x60; is missing, empty, carries more than 10 indices, or names a page outside the document. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Presigned preview URLs issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -749,6 +755,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Query processed and answer returned. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

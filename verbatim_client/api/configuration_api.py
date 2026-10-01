@@ -92,6 +92,7 @@ class ConfigurationApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -161,6 +162,7 @@ class ConfigurationApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(
@@ -230,6 +232,7 @@ class ConfigurationApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "ModelListResponse",
         }
         response_data = self.api_client.call_api(

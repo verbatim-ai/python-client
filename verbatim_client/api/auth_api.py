@@ -101,6 +101,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -174,6 +175,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -247,6 +249,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AccessTokenCreateResponse",
         }
         response_data = self.api_client.call_api(
@@ -393,6 +396,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -466,6 +470,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -539,6 +544,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -668,6 +674,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(
@@ -737,6 +744,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(
@@ -806,6 +814,7 @@ class AuthApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "WhoAmI",
         }
         response_data = self.api_client.call_api(

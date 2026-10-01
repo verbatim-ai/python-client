@@ -29,6 +29,7 @@ docs/CorpusUpdateRequest.md
 docs/CorpusUpdateResponse.md
 docs/Document.md
 docs/DocumentApi.md
+docs/DocumentConvertResponse.md
 docs/DocumentDownloadUrl.md
 docs/DocumentInit.md
 docs/DocumentInitRequest.md
@@ -91,6 +92,7 @@ test/test_corpus_update_request.py
 test/test_corpus_update_response.py
 test/test_document.py
 test/test_document_api.py
+test/test_document_convert_response.py
 test/test_document_download_url.py
 test/test_document_init.py
 test/test_document_init_request.py
@@ -157,6 +159,7 @@ verbatim_client/models/corpus_list_response.py
 verbatim_client/models/corpus_update_request.py
 verbatim_client/models/corpus_update_response.py
 verbatim_client/models/document.py
+verbatim_client/models/document_convert_response.py
 verbatim_client/models/document_download_url.py
 verbatim_client/models/document_init.py
 verbatim_client/models/document_init_request.py

@@ -5,6 +5,7 @@ All URIs are relative to *https://api.verbatim-ai.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**commit_upload**](DocumentApi.md#commit_upload) | **POST** /v1/doc/{id}/commit | Commit a previously initialized upload
+[**convert**](DocumentApi.md#convert) | **POST** /v1/doc/convert | Convert a document to Markdown
 [**delete2**](DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 [**download_url1**](DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
 [**get2**](DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
@@ -118,7 +119,132 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **202** | Ingestion queued. Document moved to PROCESSING. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **convert**
+> DocumentConvertResponse convert(body, filename=filename)
+
+Convert a document to Markdown
+
+Convert a document — PDF, Word, Excel, PowerPoint, OpenDocument, EPUB, HTML, e-mail, … —
+to Markdown and return it in the response, typically to feed it to an LLM as context.
+
+**Synchronous and stateless.** The conversion runs during the call and nothing is
+kept: no document is created, no corpus is involved, nothing is ingested. Use the
+`init` → `commit` flow to add a document to a corpus.
+
+**The body is the file itself**, sent as `application/octet-stream` — not JSON, not
+multipart. This is the one endpoint the file bytes go through, so it is bounded:
+a body above 25 MB is refused with `413`.
+
+**No format to declare.** The format is detected from the file's content; `filename`
+is optional and only helps when the content alone is ambiguous — plain-text formats
+such as Markdown or CSV. The format found is returned in `contentType`.
+
+Readable: PDF (with a text layer), `.docx` `.doc` `.xlsx` `.xls` `.pptx` `.ppt`,
+`.odt` `.ods` `.odp`, `.rtf`, `.epub`, `.html`, `.xml`, `.md`, `.txt`, `.csv`,
+`.eml` `.msg`, and most other office and text formats. A format no parser
+recognises — an image, an archive of unknown content, random bytes — answers `415`.
+
+**Output.** Markdown with headings, emphasis, lists and pipe tables; a spreadsheet
+gives one section per sheet. Images are not described, so a scanned PDF converts to
+no text: the call still succeeds, with an empty `markdown` and a `warnings` entry
+saying so. `warnings` also reports parts the converter skipped — a `200` with
+warnings is still a usable conversion.
+
+A document that cannot be read — corrupt, truncated, password-protected — is a `400`
+explaining why.
+
+Scope: `doc:create`.
+
+
+### Example
+
+* Bearer (JWT) Authentication (JWT):
+* Api Key Authentication (AccessToken):
+
+```python
+import verbatim_client
+from verbatim_client.models.document_convert_response import DocumentConvertResponse
+from verbatim_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = verbatim_client.Configuration(
+    host = "https://api.verbatim-ai.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): JWT
+configuration = verbatim_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Configure API key authorization: AccessToken
+configuration.api_key['AccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['AccessToken'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with verbatim_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = verbatim_client.DocumentApi(api_client)
+    body = None # bytes | The document's raw bytes.
+    filename = 'annual-report-2025.docx' # str | Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response. (optional)
+
+    try:
+        # Convert a document to Markdown
+        api_response = api_instance.convert(body, filename=filename)
+        print("The response of DocumentApi->convert:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DocumentApi->convert: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **bytes**| The document&#39;s raw bytes. | 
+ **filename** | **str**| Original file name. Its extension helps detect the format of plain-text files (&#x60;.md&#x60;, &#x60;.csv&#x60;, …); it is echoed back in the response. | [optional] 
+
+### Return type
+
+[**DocumentConvertResponse**](DocumentConvertResponse.md)
+
+### Authorization
+
+[JWT](../README.md#JWT), [AccessToken](../README.md#AccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/octet-stream
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**500** | Internal error. Check body to get more info |  -  |
+**403** | Not authorized. Access not granted for this request |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
+**404** | The resource referenced by the request does not exist. |  -  |
+**400** | The request is malformed or contains invalid parameters. |  -  |
+**409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
+**200** | Document converted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -219,6 +345,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document and dependencies deleted. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -315,6 +442,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Presigned URL issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -406,6 +534,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -516,6 +645,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document created in AWAITING_UPLOAD status. PUT the file to &#x60;uploadUrl&#x60;. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -622,6 +752,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of documents. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -708,6 +839,7 @@ This endpoint does not need any parameter.
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | List of accepted MIME types. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -819,6 +951,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;pages&#x60; is missing, empty, carries more than 10 indices, or names a page outside the document. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Presigned preview URLs issued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -936,6 +1069,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | Document is not in &#x60;READY&#x60; or &#x60;FAILED&#x60; status — nothing to replace, or an ingestion is in flight. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document reset to AWAITING_UPLOAD status. PUT the new file to &#x60;uploadUrl&#x60;. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1140,6 +1274,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | A filter or paging parameter is out of bounds, or the date window is empty. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of matching documents. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1231,6 +1366,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Status returned. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1321,6 +1457,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Summary returned (may be empty). |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1435,6 +1572,7 @@ Name | Type | Description  | Notes
 **404** | The resource referenced by the request does not exist. |  -  |
 **400** | &#x60;filename&#x60; is blank or longer than 256 characters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document updated. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -17,12 +17,13 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import datetime
-from pydantic import Field, StrictInt, StrictStr, field_validator
-from typing import List, Optional
+from pydantic import Field, StrictBytes, StrictInt, StrictStr, field_validator
+from typing import List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from verbatim_client.models.ack_response import AckResponse
 from verbatim_client.models.document import Document
+from verbatim_client.models.document_convert_response import DocumentConvertResponse
 from verbatim_client.models.document_download_url import DocumentDownloadUrl
 from verbatim_client.models.document_init import DocumentInit
 from verbatim_client.models.document_init_request import DocumentInitRequest
@@ -110,6 +111,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -183,6 +185,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -256,6 +259,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '202': "Document",
         }
         response_data = self.api_client.call_api(
@@ -331,6 +335,327 @@ class DocumentApi:
 
 
     @validate_call
+    def convert(
+        self,
+        body: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The document's raw bytes.")],
+        filename: Annotated[Optional[StrictStr], Field(description="Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> DocumentConvertResponse:
+        """Convert a document to Markdown
+
+        Convert a document — PDF, Word, Excel, PowerPoint, OpenDocument, EPUB, HTML, e-mail, … — to Markdown and return it in the response, typically to feed it to an LLM as context.  **Synchronous and stateless.** The conversion runs during the call and nothing is kept: no document is created, no corpus is involved, nothing is ingested. Use the `init` → `commit` flow to add a document to a corpus.  **The body is the file itself**, sent as `application/octet-stream` — not JSON, not multipart. This is the one endpoint the file bytes go through, so it is bounded: a body above 25 MB is refused with `413`.  **No format to declare.** The format is detected from the file's content; `filename` is optional and only helps when the content alone is ambiguous — plain-text formats such as Markdown or CSV. The format found is returned in `contentType`.  Readable: PDF (with a text layer), `.docx` `.doc` `.xlsx` `.xls` `.pptx` `.ppt`, `.odt` `.ods` `.odp`, `.rtf`, `.epub`, `.html`, `.xml`, `.md`, `.txt`, `.csv`, `.eml` `.msg`, and most other office and text formats. A format no parser recognises — an image, an archive of unknown content, random bytes — answers `415`.  **Output.** Markdown with headings, emphasis, lists and pipe tables; a spreadsheet gives one section per sheet. Images are not described, so a scanned PDF converts to no text: the call still succeeds, with an empty `markdown` and a `warnings` entry saying so. `warnings` also reports parts the converter skipped — a `200` with warnings is still a usable conversion.  A document that cannot be read — corrupt, truncated, password-protected — is a `400` explaining why.  Scope: `doc:create`. 
+
+        :param body: The document's raw bytes. (required)
+        :type body: bytes
+        :param filename: Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.
+        :type filename: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._convert_serialize(
+            body=body,
+            filename=filename,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '415': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "DocumentConvertResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def convert_with_http_info(
+        self,
+        body: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The document's raw bytes.")],
+        filename: Annotated[Optional[StrictStr], Field(description="Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[DocumentConvertResponse]:
+        """Convert a document to Markdown
+
+        Convert a document — PDF, Word, Excel, PowerPoint, OpenDocument, EPUB, HTML, e-mail, … — to Markdown and return it in the response, typically to feed it to an LLM as context.  **Synchronous and stateless.** The conversion runs during the call and nothing is kept: no document is created, no corpus is involved, nothing is ingested. Use the `init` → `commit` flow to add a document to a corpus.  **The body is the file itself**, sent as `application/octet-stream` — not JSON, not multipart. This is the one endpoint the file bytes go through, so it is bounded: a body above 25 MB is refused with `413`.  **No format to declare.** The format is detected from the file's content; `filename` is optional and only helps when the content alone is ambiguous — plain-text formats such as Markdown or CSV. The format found is returned in `contentType`.  Readable: PDF (with a text layer), `.docx` `.doc` `.xlsx` `.xls` `.pptx` `.ppt`, `.odt` `.ods` `.odp`, `.rtf`, `.epub`, `.html`, `.xml`, `.md`, `.txt`, `.csv`, `.eml` `.msg`, and most other office and text formats. A format no parser recognises — an image, an archive of unknown content, random bytes — answers `415`.  **Output.** Markdown with headings, emphasis, lists and pipe tables; a spreadsheet gives one section per sheet. Images are not described, so a scanned PDF converts to no text: the call still succeeds, with an empty `markdown` and a `warnings` entry saying so. `warnings` also reports parts the converter skipped — a `200` with warnings is still a usable conversion.  A document that cannot be read — corrupt, truncated, password-protected — is a `400` explaining why.  Scope: `doc:create`. 
+
+        :param body: The document's raw bytes. (required)
+        :type body: bytes
+        :param filename: Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.
+        :type filename: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._convert_serialize(
+            body=body,
+            filename=filename,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '415': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "DocumentConvertResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def convert_without_preload_content(
+        self,
+        body: Annotated[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]], Field(description="The document's raw bytes.")],
+        filename: Annotated[Optional[StrictStr], Field(description="Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Convert a document to Markdown
+
+        Convert a document — PDF, Word, Excel, PowerPoint, OpenDocument, EPUB, HTML, e-mail, … — to Markdown and return it in the response, typically to feed it to an LLM as context.  **Synchronous and stateless.** The conversion runs during the call and nothing is kept: no document is created, no corpus is involved, nothing is ingested. Use the `init` → `commit` flow to add a document to a corpus.  **The body is the file itself**, sent as `application/octet-stream` — not JSON, not multipart. This is the one endpoint the file bytes go through, so it is bounded: a body above 25 MB is refused with `413`.  **No format to declare.** The format is detected from the file's content; `filename` is optional and only helps when the content alone is ambiguous — plain-text formats such as Markdown or CSV. The format found is returned in `contentType`.  Readable: PDF (with a text layer), `.docx` `.doc` `.xlsx` `.xls` `.pptx` `.ppt`, `.odt` `.ods` `.odp`, `.rtf`, `.epub`, `.html`, `.xml`, `.md`, `.txt`, `.csv`, `.eml` `.msg`, and most other office and text formats. A format no parser recognises — an image, an archive of unknown content, random bytes — answers `415`.  **Output.** Markdown with headings, emphasis, lists and pipe tables; a spreadsheet gives one section per sheet. Images are not described, so a scanned PDF converts to no text: the call still succeeds, with an empty `markdown` and a `warnings` entry saying so. `warnings` also reports parts the converter skipped — a `200` with warnings is still a usable conversion.  A document that cannot be read — corrupt, truncated, password-protected — is a `400` explaining why.  Scope: `doc:create`. 
+
+        :param body: The document's raw bytes. (required)
+        :type body: bytes
+        :param filename: Original file name. Its extension helps detect the format of plain-text files (`.md`, `.csv`, …); it is echoed back in the response.
+        :type filename: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._convert_serialize(
+            body=body,
+            filename=filename,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '415': "Error",
+            '404': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "DocumentConvertResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _convert_serialize(
+        self,
+        body,
+        filename,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if filename is not None:
+            
+            _query_params.append(('filename', filename))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if body is not None:
+            # convert to byte array if the input is a file name (str)
+            if isinstance(body, str):
+                with open(body, "rb") as _fp:
+                    _body_params = _fp.read()
+            elif isinstance(body, tuple):
+                # drop the filename from the tuple
+                _body_params = body[1]
+            else:
+                _body_params = body
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/octet-stream'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT', 
+            'AccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/doc/convert',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def delete2(
         self,
         id: Annotated[UUID, Field(description="ID of the document to delete.")],
@@ -390,6 +715,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -463,6 +789,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -536,6 +863,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "AckResponse",
         }
         response_data = self.api_client.call_api(
@@ -670,6 +998,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -743,6 +1072,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -816,6 +1146,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentDownloadUrl",
         }
         response_data = self.api_client.call_api(
@@ -950,6 +1281,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1023,6 +1355,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1096,6 +1429,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -1230,6 +1564,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1303,6 +1638,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1376,6 +1712,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -1539,6 +1876,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1628,6 +1966,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1717,6 +2056,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentListResponse",
         }
         response_data = self.api_client.call_api(
@@ -1870,6 +2210,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -1939,6 +2280,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -2008,6 +2350,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -2143,6 +2486,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2220,6 +2564,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2297,6 +2642,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentPreviewUrls",
         }
         response_data = self.api_client.call_api(
@@ -2437,6 +2783,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': None,
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2510,6 +2857,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': None,
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2583,6 +2931,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': None,
+            '413': "Error",
             '200': "DocumentInit",
         }
         response_data = self.api_client.call_api(
@@ -2777,6 +3126,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -2910,6 +3260,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -3043,6 +3394,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentSearchResponse",
         }
         response_data = self.api_client.call_api(
@@ -3275,6 +3627,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3348,6 +3701,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3421,6 +3775,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "DocumentStatus",
         }
         response_data = self.api_client.call_api(
@@ -3555,6 +3910,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3628,6 +3984,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3701,6 +4058,7 @@ class DocumentApi:
             '404': "Error",
             '400': "Error",
             '409': "Error",
+            '413': "Error",
             '200': "str",
         }
         response_data = self.api_client.call_api(
@@ -3840,6 +4198,7 @@ class DocumentApi:
             '404': "Error",
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3917,6 +4276,7 @@ class DocumentApi:
             '404': "Error",
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
@@ -3994,6 +4354,7 @@ class DocumentApi:
             '404': "Error",
             '400': None,
             '409': "Error",
+            '413': "Error",
             '200': "Document",
         }
         response_data = self.api_client.call_api(
