@@ -69,8 +69,8 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
-    def test_list5(self) -> None:
-        """Test case for list5
+    def test_list6(self) -> None:
+        """Test case for list6
 
         List documents
         """

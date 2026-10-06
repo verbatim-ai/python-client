@@ -95,8 +95,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
@@ -194,8 +194,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
@@ -286,8 +286,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
@@ -380,8 +380,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
@@ -484,8 +484,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **500** | Internal error. Check body to get more info |  -  |
 **403** | Not authorized. Access not granted for this request |  -  |
-**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
+**415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
 **400** | The request is malformed or contains invalid parameters. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |

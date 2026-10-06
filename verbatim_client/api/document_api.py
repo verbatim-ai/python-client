@@ -107,8 +107,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -181,8 +181,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -255,8 +255,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -394,8 +394,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -472,8 +472,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -550,8 +550,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -711,8 +711,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -785,8 +785,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -859,8 +859,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -994,8 +994,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1068,8 +1068,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1142,8 +1142,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1277,8 +1277,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1351,8 +1351,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1425,8 +1425,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1560,8 +1560,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1634,8 +1634,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1708,8 +1708,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1801,7 +1801,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5(
+    def list6(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1857,7 +1857,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1872,8 +1872,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1891,7 +1891,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5_with_http_info(
+    def list6_with_http_info(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -1947,7 +1947,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -1962,8 +1962,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1981,7 +1981,7 @@ class DocumentApi:
 
 
     @validate_call
-    def list5_without_preload_content(
+    def list6_without_preload_content(
         self,
         corpus_id: Annotated[UUID, Field(description="ID of the corpus.")],
         status: Annotated[Optional[StrictStr], Field(description="Optional lifecycle filter. When omitted, documents of all statuses are returned.")] = None,
@@ -2037,7 +2037,7 @@ class DocumentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list5_serialize(
+        _param = self._list6_serialize(
             corpus_id=corpus_id,
             status=status,
             tags=tags,
@@ -2052,8 +2052,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2066,7 +2066,7 @@ class DocumentApi:
         return response_data.response
 
 
-    def _list5_serialize(
+    def _list6_serialize(
         self,
         corpus_id,
         status,
@@ -2206,8 +2206,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2276,8 +2276,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2346,8 +2346,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2482,8 +2482,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2560,8 +2560,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2638,8 +2638,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2779,8 +2779,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': None,
             '404': "Error",
+            '415': None,
             '400': "Error",
             '409': None,
             '413': "Error",
@@ -2853,8 +2853,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': None,
             '404': "Error",
+            '415': None,
             '400': "Error",
             '409': None,
             '413': "Error",
@@ -2927,8 +2927,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': None,
             '404': "Error",
+            '415': None,
             '400': "Error",
             '409': None,
             '413': "Error",
@@ -3122,8 +3122,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3256,8 +3256,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3390,8 +3390,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3623,8 +3623,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3697,8 +3697,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3771,8 +3771,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3906,8 +3906,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -3980,8 +3980,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -4054,8 +4054,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -4194,8 +4194,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",
@@ -4272,8 +4272,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",
@@ -4350,8 +4350,8 @@ class DocumentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",

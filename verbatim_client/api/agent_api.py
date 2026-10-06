@@ -100,8 +100,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",
@@ -174,8 +174,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",
@@ -248,8 +248,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",
@@ -396,8 +396,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",
@@ -470,8 +470,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",
@@ -544,8 +544,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': "Error",
             '413': "Error",
@@ -679,8 +679,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -753,8 +753,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -827,8 +827,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -907,7 +907,7 @@ class AgentApi:
 
 
     @validate_call
-    def list3(
+    def list4(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -954,7 +954,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -966,8 +966,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -985,7 +985,7 @@ class AgentApi:
 
 
     @validate_call
-    def list3_with_http_info(
+    def list4_with_http_info(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1032,7 +1032,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1044,8 +1044,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1063,7 +1063,7 @@ class AgentApi:
 
 
     @validate_call
-    def list3_without_preload_content(
+    def list4_without_preload_content(
         self,
         page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
         page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
@@ -1110,7 +1110,7 @@ class AgentApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list3_serialize(
+        _param = self._list4_serialize(
             page_size=page_size,
             page_index=page_index,
             _request_auth=_request_auth,
@@ -1122,8 +1122,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1136,7 +1136,7 @@ class AgentApi:
         return response_data.response
 
 
-    def _list3_serialize(
+    def _list4_serialize(
         self,
         page_size,
         page_index,
@@ -1268,8 +1268,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",
@@ -1346,8 +1346,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",
@@ -1424,8 +1424,8 @@ class AgentApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': None,
+            '415': "Error",
             '400': None,
             '409': None,
             '413': "Error",

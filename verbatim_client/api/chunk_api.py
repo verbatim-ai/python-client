@@ -99,8 +99,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -173,8 +173,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -247,8 +247,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -382,8 +382,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -456,8 +456,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -530,8 +530,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -610,7 +610,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list7(
+    def list8(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -660,7 +660,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list7_serialize(
+        _param = self._list8_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -673,8 +673,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -692,7 +692,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list7_with_http_info(
+    def list8_with_http_info(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -742,7 +742,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list7_serialize(
+        _param = self._list8_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -755,8 +755,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -774,7 +774,7 @@ class ChunkApi:
 
 
     @validate_call
-    def list7_without_preload_content(
+    def list8_without_preload_content(
         self,
         body: Annotated[Optional[StrictBool], Field(description="Include each chunk's text, read from object storage. One storage read per row — off by default.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page, 1-100 — or 1-25 when `body=true`.")] = None,
@@ -824,7 +824,7 @@ class ChunkApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list7_serialize(
+        _param = self._list8_serialize(
             body=body,
             page_size=page_size,
             page_index=page_index,
@@ -837,8 +837,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -851,7 +851,7 @@ class ChunkApi:
         return response_data.response
 
 
-    def _list7_serialize(
+    def _list8_serialize(
         self,
         body,
         page_size,
@@ -1020,8 +1020,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1130,8 +1130,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1240,8 +1240,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1426,8 +1426,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1504,8 +1504,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1582,8 +1582,8 @@ class ChunkApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",

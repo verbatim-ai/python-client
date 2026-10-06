@@ -6,6 +6,11 @@
 README.md
 docs/AccessTokenCreateRequest.md
 docs/AccessTokenCreateResponse.md
+docs/AccessTokenItem.md
+docs/AccessTokenListResponse.md
+docs/AccessTokenScopeAction.md
+docs/AccessTokenScopeDomain.md
+docs/AccessTokenScopesResponse.md
 docs/AckResponse.md
 docs/Agent.md
 docs/AgentApi.md
@@ -69,6 +74,11 @@ test-requirements.txt
 test/__init__.py
 test/test_access_token_create_request.py
 test/test_access_token_create_response.py
+test/test_access_token_item.py
+test/test_access_token_list_response.py
+test/test_access_token_scope_action.py
+test/test_access_token_scope_domain.py
+test/test_access_token_scopes_response.py
 test/test_ack_response.py
 test/test_agent.py
 test/test_agent_api.py
@@ -142,6 +152,11 @@ verbatim_client/exceptions.py
 verbatim_client/models/__init__.py
 verbatim_client/models/access_token_create_request.py
 verbatim_client/models/access_token_create_response.py
+verbatim_client/models/access_token_item.py
+verbatim_client/models/access_token_list_response.py
+verbatim_client/models/access_token_scope_action.py
+verbatim_client/models/access_token_scope_domain.py
+verbatim_client/models/access_token_scopes_response.py
 verbatim_client/models/ack_response.py
 verbatim_client/models/agent.py
 verbatim_client/models/agent_create_request.py

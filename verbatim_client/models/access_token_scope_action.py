@@ -20,21 +20,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class AccessTokenCreateRequest(BaseModel):
+class AccessTokenScopeAction(BaseModel):
     """
-    AccessTokenCreateRequest
+    AccessTokenScopeAction
     """ # noqa: E501
-    ttl: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Token validity in seconds. Defaults to 3600 (1 hour); at least 10, and at most the platform ceiling (`app.access-token.max-ttl-seconds`, 86400 by default).", json_schema_extra={"examples": [3600]})
-    issuer: Optional[StrictStr] = Field(default=None, description="Optional label identifying the system that requested the token.", json_schema_extra={"examples": ["widget-frontend"]})
-    email: Optional[StrictStr] = Field(default=None, description="Optional email of the end-user the token is issued for.", json_schema_extra={"examples": ["user@example.com"]})
-    user_id: Optional[StrictStr] = Field(default=None, description="Optional user identifier.", alias="userId", json_schema_extra={"examples": ["usr_abc123"]})
-    scope: List[StrictStr] = Field(description="Mandatory, non-empty list of permission scopes the token carries, each `DOMAIN:ACTION`. `GET /v1/auth/access-token/scopes` lists every valid entry.", json_schema_extra={"examples": [["corpus:read", "doc:read"]]})
-    __properties: ClassVar[List[str]] = ["ttl", "issuer", "email", "userId", "scope"]
+    name: Optional[StrictStr] = Field(default=None, description="Action name, the `ACTION` part of a scope entry.", json_schema_extra={"examples": ["read"]})
+    methods: Optional[List[StrictStr]] = Field(default=None, description="HTTP methods the action opens on the domain's API.", json_schema_extra={"examples": [["GET"]]})
+    __properties: ClassVar[List[str]] = ["name", "methods"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -54,7 +50,7 @@ class AccessTokenCreateRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a JSON string"""
+        """Create an instance of AccessTokenScopeAction from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,7 +75,7 @@ class AccessTokenCreateRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a dict"""
+        """Create an instance of AccessTokenScopeAction from a dict"""
         if obj is None:
             return None
 
@@ -87,11 +83,8 @@ class AccessTokenCreateRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ttl": obj.get("ttl"),
-            "issuer": obj.get("issuer"),
-            "email": obj.get("email"),
-            "userId": obj.get("userId"),
-            "scope": obj.get("scope")
+            "name": obj.get("name"),
+            "methods": obj.get("methods")
         })
         return _obj
 

@@ -37,7 +37,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list6(
+    def list7(
         self,
         _request_timeout: Union[
             None,
@@ -78,7 +78,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -88,8 +88,8 @@ class ConfigurationApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -107,7 +107,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list6_with_http_info(
+    def list7_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -148,7 +148,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -158,8 +158,8 @@ class ConfigurationApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -177,7 +177,7 @@ class ConfigurationApi:
 
 
     @validate_call
-    def list6_without_preload_content(
+    def list7_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -218,7 +218,7 @@ class ConfigurationApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list6_serialize(
+        _param = self._list7_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -228,8 +228,8 @@ class ConfigurationApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -242,7 +242,7 @@ class ConfigurationApi:
         return response_data.response
 
 
-    def _list6_serialize(
+    def _list7_serialize(
         self,
         _request_auth,
         _content_type,

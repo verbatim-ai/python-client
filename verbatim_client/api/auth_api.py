@@ -16,10 +16,14 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictInt, StrictStr
+from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from verbatim_client.models.access_token_create_request import AccessTokenCreateRequest
 from verbatim_client.models.access_token_create_response import AccessTokenCreateResponse
+from verbatim_client.models.access_token_list_response import AccessTokenListResponse
+from verbatim_client.models.access_token_scopes_response import AccessTokenScopesResponse
 from verbatim_client.models.ack_response import AckResponse
 from verbatim_client.models.who_am_i import WhoAmI
 
@@ -60,7 +64,7 @@ class AuthApi:
     ) -> AccessTokenCreateResponse:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
+        Mint a short-lived opaque access token for the caller's organization. Send it as the `X-Access-Token` header on `/v1/` API calls.  **The `token` value is only ever returned here.** Store it or hand it over now: the listing shows only its first characters, and no call returns it again.  - `scope` is mandatory and non-empty — a list of `DOMAIN:ACTION` entries such as   `corpus:read`. `GET /v1/auth/access-token/scopes` lists every valid entry. - `ttl` is in seconds: 3600 (1 hour) when omitted, at least 10, and no more than the   ceiling the platform sets (`app.access-token.max-ttl-seconds`, 86400 — 24 hours — by   default). A longer `ttl` is refused with a 400, not shortened. - `issuer`, `email` and `userId` are free labels stored with the token and shown in the   listing; `userId` and `email` are also what `GET /v1/auth/whoami` answers for it.  Only reachable with a JWT: an access token cannot mint another. 
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -97,9 +101,9 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
-            '400': "Error",
+            '415': "Error",
+            '400': None,
             '409': "Error",
             '413': "Error",
             '200': "AccessTokenCreateResponse",
@@ -134,7 +138,7 @@ class AuthApi:
     ) -> ApiResponse[AccessTokenCreateResponse]:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
+        Mint a short-lived opaque access token for the caller's organization. Send it as the `X-Access-Token` header on `/v1/` API calls.  **The `token` value is only ever returned here.** Store it or hand it over now: the listing shows only its first characters, and no call returns it again.  - `scope` is mandatory and non-empty — a list of `DOMAIN:ACTION` entries such as   `corpus:read`. `GET /v1/auth/access-token/scopes` lists every valid entry. - `ttl` is in seconds: 3600 (1 hour) when omitted, at least 10, and no more than the   ceiling the platform sets (`app.access-token.max-ttl-seconds`, 86400 — 24 hours — by   default). A longer `ttl` is refused with a 400, not shortened. - `issuer`, `email` and `userId` are free labels stored with the token and shown in the   listing; `userId` and `email` are also what `GET /v1/auth/whoami` answers for it.  Only reachable with a JWT: an access token cannot mint another. 
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -171,9 +175,9 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
-            '400': "Error",
+            '415': "Error",
+            '400': None,
             '409': "Error",
             '413': "Error",
             '200': "AccessTokenCreateResponse",
@@ -208,7 +212,7 @@ class AuthApi:
     ) -> RESTResponseType:
         """Create an access token
 
-        Generate a new short-lived opaque access token for the caller's organization. The token can be used as the `X-Access-Token` header on `/v1/` API calls. Default TTL is 3600 seconds (1 hour).By default, token inherit privileges over all the domains. To limit access, defined a list of scope, where each must be compliant with the regex (config|auth|session|doc|chunk|corpus|post|usage|agent):(create|read|update|delete)
+        Mint a short-lived opaque access token for the caller's organization. Send it as the `X-Access-Token` header on `/v1/` API calls.  **The `token` value is only ever returned here.** Store it or hand it over now: the listing shows only its first characters, and no call returns it again.  - `scope` is mandatory and non-empty — a list of `DOMAIN:ACTION` entries such as   `corpus:read`. `GET /v1/auth/access-token/scopes` lists every valid entry. - `ttl` is in seconds: 3600 (1 hour) when omitted, at least 10, and no more than the   ceiling the platform sets (`app.access-token.max-ttl-seconds`, 86400 — 24 hours — by   default). A longer `ttl` is refused with a 400, not shortened. - `issuer`, `email` and `userId` are free labels stored with the token and shown in the   listing; `userId` and `email` are also what `GET /v1/auth/whoami` answers for it.  Only reachable with a JWT: an access token cannot mint another. 
 
         :param access_token_create_request: (required)
         :type access_token_create_request: AccessTokenCreateRequest
@@ -245,9 +249,9 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
-            '400': "Error",
+            '415': "Error",
+            '400': None,
             '409': "Error",
             '413': "Error",
             '200': "AccessTokenCreateResponse",
@@ -320,7 +324,308 @@ class AuthApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v1/auth/access-token',
+            resource_path='/v1/auth/access-token/',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def list3(
+        self,
+        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
+        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AccessTokenListResponse:
+        """List access tokens
+
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+
+        :param page_size: Number of items per page.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list3_serialize(
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenListResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list3_with_http_info(
+        self,
+        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
+        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AccessTokenListResponse]:
+        """List access tokens
+
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+
+        :param page_size: Number of items per page.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list3_serialize(
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenListResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list3_without_preload_content(
+        self,
+        page_size: Annotated[Optional[StrictInt], Field(description="Number of items per page.")] = None,
+        page_index: Annotated[Optional[StrictInt], Field(description="Zero-based page index.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List access tokens
+
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+
+        :param page_size: Number of items per page.
+        :type page_size: int
+        :param page_index: Zero-based page index.
+        :type page_index: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list3_serialize(
+            page_size=page_size,
+            page_index=page_index,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenListResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list3_serialize(
+        self,
+        page_size,
+        page_index,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if page_index is not None:
+            
+            _query_params.append(('pageIndex', page_index))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/auth/access-token/',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -353,9 +658,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AckResponse:
-        """Revoke an access token
+        """Revoke an access token by value
 
-        Permanently delete an access token. Any in-flight request using this token will fail immediately after revocation.
+        Permanently delete an access token, given its full value. Any request using this token fails immediately after revocation. An unknown value is acknowledged all the same. When you only have the listing, revoke by id instead. Only reachable with a JWT.
 
         :param token: access token to revoke. (required)
         :type token: str
@@ -392,8 +697,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -427,9 +732,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AckResponse]:
-        """Revoke an access token
+        """Revoke an access token by value
 
-        Permanently delete an access token. Any in-flight request using this token will fail immediately after revocation.
+        Permanently delete an access token, given its full value. Any request using this token fails immediately after revocation. An unknown value is acknowledged all the same. When you only have the listing, revoke by id instead. Only reachable with a JWT.
 
         :param token: access token to revoke. (required)
         :type token: str
@@ -466,8 +771,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -501,9 +806,9 @@ class AuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Revoke an access token
+        """Revoke an access token by value
 
-        Permanently delete an access token. Any in-flight request using this token will fail immediately after revocation.
+        Permanently delete an access token, given its full value. Any request using this token fails immediately after revocation. An unknown value is acknowledged all the same. When you only have the listing, revoke by id instead. Only reachable with a JWT.
 
         :param token: access token to revoke. (required)
         :type token: str
@@ -540,8 +845,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -619,6 +924,555 @@ class AuthApi:
 
 
     @validate_call
+    def revoke_by_id(
+        self,
+        id: Annotated[UUID, Field(description="Id of the access token to revoke, as listed.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AckResponse:
+        """Revoke an access token by id
+
+        Permanently delete one of the organization's access tokens, identified by the `id` the listing returns. Revocation is immediate: the next request carrying the token is refused.  An id that names no token of the caller's organization — unknown, already revoked, or another organization's — is a 404.  Only reachable with a JWT. 
+
+        :param id: Id of the access token to revoke, as listed. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._revoke_by_id_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AckResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def revoke_by_id_with_http_info(
+        self,
+        id: Annotated[UUID, Field(description="Id of the access token to revoke, as listed.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AckResponse]:
+        """Revoke an access token by id
+
+        Permanently delete one of the organization's access tokens, identified by the `id` the listing returns. Revocation is immediate: the next request carrying the token is refused.  An id that names no token of the caller's organization — unknown, already revoked, or another organization's — is a 404.  Only reachable with a JWT. 
+
+        :param id: Id of the access token to revoke, as listed. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._revoke_by_id_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AckResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def revoke_by_id_without_preload_content(
+        self,
+        id: Annotated[UUID, Field(description="Id of the access token to revoke, as listed.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Revoke an access token by id
+
+        Permanently delete one of the organization's access tokens, identified by the `id` the listing returns. Revocation is immediate: the next request carrying the token is refused.  An id that names no token of the caller's organization — unknown, already revoked, or another organization's — is a 404.  Only reachable with a JWT. 
+
+        :param id: Id of the access token to revoke, as listed. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._revoke_by_id_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AckResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _revoke_by_id_serialize(
+        self,
+        id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/v1/auth/access-token/id/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def scopes(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AccessTokenScopesResponse:
+        """List the available scopes
+
+        Every scope an access token can be created with — the values accepted in the `scope` of `POST /v1/auth/access-token/`. Use it to build a scope picker rather than hard-coding the list.  A scope entry is `DOMAIN:ACTION`, and every domain combines with every action:  - `domains` — each domain with the API path it covers, what it gives access to, and its   scope entries, ready to group in a UI; - `actions` — each action with the HTTP methods it opens (`read` is `GET`, so running a   RAG query, `GET /v1/post/q`, needs `post:read`); - `scopes` — the flat list of every valid entry.  The catalog is the same for every organization and every caller. 
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._scopes_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenScopesResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def scopes_with_http_info(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AccessTokenScopesResponse]:
+        """List the available scopes
+
+        Every scope an access token can be created with — the values accepted in the `scope` of `POST /v1/auth/access-token/`. Use it to build a scope picker rather than hard-coding the list.  A scope entry is `DOMAIN:ACTION`, and every domain combines with every action:  - `domains` — each domain with the API path it covers, what it gives access to, and its   scope entries, ready to group in a UI; - `actions` — each action with the HTTP methods it opens (`read` is `GET`, so running a   RAG query, `GET /v1/post/q`, needs `post:read`); - `scopes` — the flat list of every valid entry.  The catalog is the same for every organization and every caller. 
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._scopes_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenScopesResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def scopes_without_preload_content(
+        self,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List the available scopes
+
+        Every scope an access token can be created with — the values accepted in the `scope` of `POST /v1/auth/access-token/`. Use it to build a scope picker rather than hard-coding the list.  A scope entry is `DOMAIN:ACTION`, and every domain combines with every action:  - `domains` — each domain with the API path it covers, what it gives access to, and its   scope entries, ready to group in a UI; - `actions` — each action with the HTTP methods it opens (`read` is `GET`, so running a   RAG query, `GET /v1/post/q`, needs `post:read`); - `scopes` — the flat list of every valid entry.  The catalog is the same for every organization and every caller. 
+
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._scopes_serialize(
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': "Error",
+            '400': "Error",
+            '409': "Error",
+            '413': "Error",
+            '200': "AccessTokenScopesResponse",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _scopes_serialize(
+        self,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v1/auth/access-token/scopes',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def whoami(
         self,
         _request_timeout: Union[
@@ -670,8 +1524,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -740,8 +1594,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -810,8 +1664,8 @@ class AuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",

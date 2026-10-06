@@ -44,6 +44,7 @@ class TestAccessTokenCreateRequest(unittest.TestCase):
             )
         else:
             return AccessTokenCreateRequest(
+                scope = [corpus:read, doc:read],
         )
         """
 

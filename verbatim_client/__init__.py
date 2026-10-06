@@ -39,6 +39,11 @@ __all__ = [
     "ApiException",
     "AccessTokenCreateRequest",
     "AccessTokenCreateResponse",
+    "AccessTokenItem",
+    "AccessTokenListResponse",
+    "AccessTokenScopeAction",
+    "AccessTokenScopeDomain",
+    "AccessTokenScopesResponse",
     "AckResponse",
     "Agent",
     "AgentCreateRequest",
@@ -111,6 +116,11 @@ from verbatim_client.exceptions import ApiException as ApiException
 # import models into sdk package
 from verbatim_client.models.access_token_create_request import AccessTokenCreateRequest as AccessTokenCreateRequest
 from verbatim_client.models.access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
+from verbatim_client.models.access_token_item import AccessTokenItem as AccessTokenItem
+from verbatim_client.models.access_token_list_response import AccessTokenListResponse as AccessTokenListResponse
+from verbatim_client.models.access_token_scope_action import AccessTokenScopeAction as AccessTokenScopeAction
+from verbatim_client.models.access_token_scope_domain import AccessTokenScopeDomain as AccessTokenScopeDomain
+from verbatim_client.models.access_token_scopes_response import AccessTokenScopesResponse as AccessTokenScopesResponse
 from verbatim_client.models.ack_response import AckResponse as AckResponse
 from verbatim_client.models.agent import Agent as Agent
 from verbatim_client.models.agent_create_request import AgentCreateRequest as AgentCreateRequest

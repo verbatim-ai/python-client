@@ -34,10 +34,31 @@ class TestAuthApi(unittest.TestCase):
         """
         pass
 
+    def test_list3(self) -> None:
+        """Test case for list3
+
+        List access tokens
+        """
+        pass
+
     def test_revoke(self) -> None:
         """Test case for revoke
 
-        Revoke an access token
+        Revoke an access token by value
+        """
+        pass
+
+    def test_revoke_by_id(self) -> None:
+        """Test case for revoke_by_id
+
+        Revoke an access token by id
+        """
+        pass
+
+    def test_scopes(self) -> None:
+        """Test case for scopes
+
+        List the available scopes
         """
         pass
 

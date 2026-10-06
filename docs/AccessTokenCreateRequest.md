@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ttl** | **int** | Token validity in seconds. Defaults to 3600 (1 hour). | [optional] 
+**ttl** | **int** | Token validity in seconds. Defaults to 3600 (1 hour); at least 10, and at most the platform ceiling (&#x60;app.access-token.max-ttl-seconds&#x60;, 86400 by default). | [optional] 
 **issuer** | **str** | Optional label identifying the system that requested the token. | [optional] 
 **email** | **str** | Optional email of the end-user the token is issued for. | [optional] 
 **user_id** | **str** | Optional user identifier. | [optional] 
-**scope** | **List[str]** | Optional list of permission scopes to associate with the token. Pattern is DOMAIN:ACTION, where DOMAIN must be one of the values [doc|corpus|session|post|config] and ACTION one of the values [create|read|update|delete] | [optional] 
+**scope** | **List[str]** | Mandatory, non-empty list of permission scopes the token carries, each &#x60;DOMAIN:ACTION&#x60;. &#x60;GET /v1/auth/access-token/scopes&#x60; lists every valid entry. | 
 
 ## Example
 

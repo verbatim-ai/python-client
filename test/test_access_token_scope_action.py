@@ -15,53 +15,39 @@
 
 import unittest
 
-from verbatim_client.api.agent_api import AgentApi
+from verbatim_client.models.access_token_scope_action import AccessTokenScopeAction
 
+class TestAccessTokenScopeAction(unittest.TestCase):
+    """AccessTokenScopeAction unit test stubs"""
 
-class TestAgentApi(unittest.TestCase):
-    """AgentApi unit test stubs"""
-
-    def setUp(self) -> None:
-        self.api = AgentApi()
-
-    def tearDown(self) -> None:
+    def setUp(self):
         pass
 
-    def test_create4(self) -> None:
-        """Test case for create4
+    def tearDown(self):
+        pass
 
-        Create an agent
+    def make_instance(self, include_optional) -> AccessTokenScopeAction:
+        """Test AccessTokenScopeAction
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # uncomment below to create an instance of `AccessTokenScopeAction`
         """
-        pass
-
-    def test_delete5(self) -> None:
-        """Test case for delete5
-
-        Delete an agent
+        model = AccessTokenScopeAction()
+        if include_optional:
+            return AccessTokenScopeAction(
+                name = 'read',
+                methods = [GET]
+            )
+        else:
+            return AccessTokenScopeAction(
+        )
         """
-        pass
 
-    def test_get5(self) -> None:
-        """Test case for get5
-
-        Get an agent
-        """
-        pass
-
-    def test_list4(self) -> None:
-        """Test case for list4
-
-        List agents
-        """
-        pass
-
-    def test_update5(self) -> None:
-        """Test case for update5
-
-        Update an agent
-        """
-        pass
-
+    def testAccessTokenScopeAction(self):
+        """Test AccessTokenScopeAction"""
+        # inst_req_only = self.make_instance(include_optional=False)
+        # inst_req_and_optional = self.make_instance(include_optional=True)
 
 if __name__ == '__main__':
     unittest.main()

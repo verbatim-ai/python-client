@@ -18,23 +18,28 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class AccessTokenCreateRequest(BaseModel):
+class AccessTokenItem(BaseModel):
     """
-    AccessTokenCreateRequest
+    One access token as a listing shows it: every stored attribute, except that the token value is cut down to its first characters. The full value is only ever returned once, by the create call.
     """ # noqa: E501
-    ttl: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Token validity in seconds. Defaults to 3600 (1 hour); at least 10, and at most the platform ceiling (`app.access-token.max-ttl-seconds`, 86400 by default).", json_schema_extra={"examples": [3600]})
-    issuer: Optional[StrictStr] = Field(default=None, description="Optional label identifying the system that requested the token.", json_schema_extra={"examples": ["widget-frontend"]})
-    email: Optional[StrictStr] = Field(default=None, description="Optional email of the end-user the token is issued for.", json_schema_extra={"examples": ["user@example.com"]})
-    user_id: Optional[StrictStr] = Field(default=None, description="Optional user identifier.", alias="userId", json_schema_extra={"examples": ["usr_abc123"]})
-    scope: List[StrictStr] = Field(description="Mandatory, non-empty list of permission scopes the token carries, each `DOMAIN:ACTION`. `GET /v1/auth/access-token/scopes` lists every valid entry.", json_schema_extra={"examples": [["corpus:read", "doc:read"]]})
-    __properties: ClassVar[List[str]] = ["ttl", "issuer", "email", "userId", "scope"]
+    id: Optional[UUID] = Field(default=None, description="Id of the token. Pass it to `DELETE /v1/auth/access-token/id/{id}` to revoke the token.", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    token: Optional[StrictStr] = Field(default=None, description="First characters of the token value followed by `...` — enough to recognise a token, never enough to use it.", json_schema_extra={"examples": ["er12GggT..."]})
+    org_id: Optional[UUID] = Field(default=None, description="Organization the token belongs to.", alias="orgId", json_schema_extra={"examples": ["f47ac10b-58cc-4372-a567-0e02b2c3d479"]})
+    created_at: Optional[datetime] = Field(default=None, description="Creation timestamp (ISO-8601, UTC).", alias="createdAt", json_schema_extra={"examples": ["2026-07-07T10:00:00Z"]})
+    expires_at: Optional[datetime] = Field(default=None, description="Expiry timestamp (ISO-8601, UTC). An expired token stays listed until revoked, but no longer authenticates.", alias="expiresAt", json_schema_extra={"examples": ["2026-07-07T11:00:00Z"]})
+    issuer: Optional[StrictStr] = Field(default=None, description="Label of the system that requested the token, as given at creation.", json_schema_extra={"examples": ["widget-frontend"]})
+    email: Optional[StrictStr] = Field(default=None, description="Email of the end-user the token was issued for, as given at creation.", json_schema_extra={"examples": ["user@example.com"]})
+    user_id: Optional[StrictStr] = Field(default=None, description="User identifier the token was issued for, as given at creation.", alias="userId", json_schema_extra={"examples": ["usr_abc123"]})
+    scope: Optional[List[StrictStr]] = Field(default=None, description="Permission scopes the token carries.", json_schema_extra={"examples": [["corpus:read", "doc:create"]]})
+    __properties: ClassVar[List[str]] = ["id", "token", "orgId", "createdAt", "expiresAt", "issuer", "email", "userId", "scope"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -54,7 +59,7 @@ class AccessTokenCreateRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a JSON string"""
+        """Create an instance of AccessTokenItem from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,7 +84,7 @@ class AccessTokenCreateRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a dict"""
+        """Create an instance of AccessTokenItem from a dict"""
         if obj is None:
             return None
 
@@ -87,7 +92,11 @@ class AccessTokenCreateRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ttl": obj.get("ttl"),
+            "id": obj.get("id"),
+            "token": obj.get("token"),
+            "orgId": obj.get("orgId"),
+            "createdAt": obj.get("createdAt"),
+            "expiresAt": obj.get("expiresAt"),
             "issuer": obj.get("issuer"),
             "email": obj.get("email"),
             "userId": obj.get("userId"),

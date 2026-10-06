@@ -102,8 +102,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -176,8 +176,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -250,8 +250,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -385,8 +385,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -459,8 +459,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -533,8 +533,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -668,8 +668,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -742,8 +742,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -816,8 +816,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -951,8 +951,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1025,8 +1025,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1099,8 +1099,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1179,7 +1179,7 @@ class PostApi:
 
 
     @validate_call
-    def list4(
+    def list5(
         self,
         thread_id: Annotated[UUID, Field(description="ID of the thread.")],
         session_id: Optional[UUID] = None,
@@ -1235,7 +1235,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
@@ -1250,8 +1250,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1269,7 +1269,7 @@ class PostApi:
 
 
     @validate_call
-    def list4_with_http_info(
+    def list5_with_http_info(
         self,
         thread_id: Annotated[UUID, Field(description="ID of the thread.")],
         session_id: Optional[UUID] = None,
@@ -1325,7 +1325,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
@@ -1340,8 +1340,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1359,7 +1359,7 @@ class PostApi:
 
 
     @validate_call
-    def list4_without_preload_content(
+    def list5_without_preload_content(
         self,
         thread_id: Annotated[UUID, Field(description="ID of the thread.")],
         session_id: Optional[UUID] = None,
@@ -1415,7 +1415,7 @@ class PostApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list4_serialize(
+        _param = self._list5_serialize(
             thread_id=thread_id,
             session_id=session_id,
             page_size=page_size,
@@ -1430,8 +1430,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1444,7 +1444,7 @@ class PostApi:
         return response_data.response
 
 
-    def _list4_serialize(
+    def _list5_serialize(
         self,
         thread_id,
         session_id,
@@ -1591,8 +1591,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1669,8 +1669,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1747,8 +1747,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1904,8 +1904,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -1994,8 +1994,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",
@@ -2084,8 +2084,8 @@ class PostApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '500': "Error",
             '403': "Error",
-            '415': "Error",
             '404': "Error",
+            '415': "Error",
             '400': "Error",
             '409': "Error",
             '413': "Error",

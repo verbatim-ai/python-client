@@ -20,21 +20,20 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from verbatim_client.models.access_token_scope_action import AccessTokenScopeAction
+from verbatim_client.models.access_token_scope_domain import AccessTokenScopeDomain
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class AccessTokenCreateRequest(BaseModel):
+class AccessTokenScopesResponse(BaseModel):
     """
-    AccessTokenCreateRequest
+    Every scope an access token can be created with. A scope entry is `DOMAIN:ACTION`; any domain combines with any action.
     """ # noqa: E501
-    ttl: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Token validity in seconds. Defaults to 3600 (1 hour); at least 10, and at most the platform ceiling (`app.access-token.max-ttl-seconds`, 86400 by default).", json_schema_extra={"examples": [3600]})
-    issuer: Optional[StrictStr] = Field(default=None, description="Optional label identifying the system that requested the token.", json_schema_extra={"examples": ["widget-frontend"]})
-    email: Optional[StrictStr] = Field(default=None, description="Optional email of the end-user the token is issued for.", json_schema_extra={"examples": ["user@example.com"]})
-    user_id: Optional[StrictStr] = Field(default=None, description="Optional user identifier.", alias="userId", json_schema_extra={"examples": ["usr_abc123"]})
-    scope: List[StrictStr] = Field(description="Mandatory, non-empty list of permission scopes the token carries, each `DOMAIN:ACTION`. `GET /v1/auth/access-token/scopes` lists every valid entry.", json_schema_extra={"examples": [["corpus:read", "doc:read"]]})
-    __properties: ClassVar[List[str]] = ["ttl", "issuer", "email", "userId", "scope"]
+    domains: Optional[List[AccessTokenScopeDomain]] = Field(default=None, description="Domains a scope entry may name, each with the scopes it makes up.")
+    actions: Optional[List[AccessTokenScopeAction]] = Field(default=None, description="Actions a scope entry may ask for, each with the HTTP methods it opens.")
+    scopes: Optional[List[StrictStr]] = Field(default=None, description="Every valid scope entry, as accepted in the `scope` of `POST /v1/auth/access-token/`.", json_schema_extra={"examples": [["config:create", "config:read", "config:update", "config:delete"]]})
+    __properties: ClassVar[List[str]] = ["domains", "actions", "scopes"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -54,7 +53,7 @@ class AccessTokenCreateRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a JSON string"""
+        """Create an instance of AccessTokenScopesResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,11 +74,23 @@ class AccessTokenCreateRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in domains (list)
+        _items = []
+        if self.domains:
+            for _item_domains in self.domains:
+                _items.append(_item_domains.to_dict() if _item_domains is not None else None)
+            _dict['domains'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in actions (list)
+        _items = []
+        if self.actions:
+            for _item_actions in self.actions:
+                _items.append(_item_actions.to_dict() if _item_actions is not None else None)
+            _dict['actions'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AccessTokenCreateRequest from a dict"""
+        """Create an instance of AccessTokenScopesResponse from a dict"""
         if obj is None:
             return None
 
@@ -87,11 +98,9 @@ class AccessTokenCreateRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ttl": obj.get("ttl"),
-            "issuer": obj.get("issuer"),
-            "email": obj.get("email"),
-            "userId": obj.get("userId"),
-            "scope": obj.get("scope")
+            "domains": [AccessTokenScopeDomain.from_dict(_item) for _item in obj["domains"]] if obj.get("domains") is not None else None,
+            "actions": [AccessTokenScopeAction.from_dict(_item) for _item in obj["actions"]] if obj.get("actions") is not None else None,
+            "scopes": obj.get("scopes")
         })
         return _obj
 

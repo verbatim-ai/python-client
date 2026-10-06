@@ -16,6 +16,11 @@
 # import models into model package
 from verbatim_client.models.access_token_create_request import AccessTokenCreateRequest
 from verbatim_client.models.access_token_create_response import AccessTokenCreateResponse
+from verbatim_client.models.access_token_item import AccessTokenItem
+from verbatim_client.models.access_token_list_response import AccessTokenListResponse
+from verbatim_client.models.access_token_scope_action import AccessTokenScopeAction
+from verbatim_client.models.access_token_scope_domain import AccessTokenScopeDomain
+from verbatim_client.models.access_token_scopes_response import AccessTokenScopesResponse
 from verbatim_client.models.ack_response import AckResponse
 from verbatim_client.models.agent import Agent
 from verbatim_client.models.agent_create_request import AgentCreateRequest

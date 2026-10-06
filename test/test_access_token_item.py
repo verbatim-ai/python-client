@@ -15,53 +15,46 @@
 
 import unittest
 
-from verbatim_client.api.agent_api import AgentApi
+from verbatim_client.models.access_token_item import AccessTokenItem
 
+class TestAccessTokenItem(unittest.TestCase):
+    """AccessTokenItem unit test stubs"""
 
-class TestAgentApi(unittest.TestCase):
-    """AgentApi unit test stubs"""
-
-    def setUp(self) -> None:
-        self.api = AgentApi()
-
-    def tearDown(self) -> None:
+    def setUp(self):
         pass
 
-    def test_create4(self) -> None:
-        """Test case for create4
+    def tearDown(self):
+        pass
 
-        Create an agent
+    def make_instance(self, include_optional) -> AccessTokenItem:
+        """Test AccessTokenItem
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # uncomment below to create an instance of `AccessTokenItem`
         """
-        pass
-
-    def test_delete5(self) -> None:
-        """Test case for delete5
-
-        Delete an agent
+        model = AccessTokenItem()
+        if include_optional:
+            return AccessTokenItem(
+                id = '550e8400-e29b-41d4-a716-446655440000',
+                token = 'er12GggT...',
+                org_id = 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+                created_at = '2026-07-07T10:00:00Z',
+                expires_at = '2026-07-07T11:00:00Z',
+                issuer = 'widget-frontend',
+                email = 'user@example.com',
+                user_id = 'usr_abc123',
+                scope = [corpus:read, doc:create]
+            )
+        else:
+            return AccessTokenItem(
+        )
         """
-        pass
 
-    def test_get5(self) -> None:
-        """Test case for get5
-
-        Get an agent
-        """
-        pass
-
-    def test_list4(self) -> None:
-        """Test case for list4
-
-        List agents
-        """
-        pass
-
-    def test_update5(self) -> None:
-        """Test case for update5
-
-        Update an agent
-        """
-        pass
-
+    def testAccessTokenItem(self):
+        """Test AccessTokenItem"""
+        # inst_req_only = self.make_instance(include_optional=False)
+        # inst_req_and_optional = self.make_instance(include_optional=True)
 
 if __name__ == '__main__':
     unittest.main()

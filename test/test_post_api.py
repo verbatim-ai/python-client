@@ -55,8 +55,8 @@ class TestPostApi(unittest.TestCase):
         """
         pass
 
-    def test_list4(self) -> None:
-        """Test case for list4
+    def test_list5(self) -> None:
+        """Test case for list5
 
         List posts
         """

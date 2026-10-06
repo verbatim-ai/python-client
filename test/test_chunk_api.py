@@ -41,8 +41,8 @@ class TestChunkApi(unittest.TestCase):
         """
         pass
 
-    def test_list7(self) -> None:
-        """Test case for list7
+    def test_list8(self) -> None:
+        """Test case for list8
 
         List chunks
         """
