@@ -39,6 +39,7 @@ docs/DocumentDownloadUrl.md
 docs/DocumentInit.md
 docs/DocumentInitRequest.md
 docs/DocumentListResponse.md
+docs/DocumentMarkdownUrl.md
 docs/DocumentPreviewUrl.md
 docs/DocumentPreviewUrls.md
 docs/DocumentSearchResponse.md
@@ -108,6 +109,7 @@ test/test_document_download_url.py
 test/test_document_init.py
 test/test_document_init_request.py
 test/test_document_list_response.py
+test/test_document_markdown_url.py
 test/test_document_preview_url.py
 test/test_document_preview_urls.py
 test/test_document_search_response.py
@@ -181,6 +183,7 @@ verbatim_client/models/document_download_url.py
 verbatim_client/models/document_init.py
 verbatim_client/models/document_init_request.py
 verbatim_client/models/document_list_response.py
+verbatim_client/models/document_markdown_url.py
 verbatim_client/models/document_preview_url.py
 verbatim_client/models/document_preview_urls.py
 verbatim_client/models/document_search_response.py

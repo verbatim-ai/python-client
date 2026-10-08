@@ -66,6 +66,7 @@ __all__ = [
     "DocumentInit",
     "DocumentInitRequest",
     "DocumentListResponse",
+    "DocumentMarkdownUrl",
     "DocumentPreviewUrl",
     "DocumentPreviewUrls",
     "DocumentSearchResponse",
@@ -144,6 +145,7 @@ from verbatim_client.models.document_download_url import DocumentDownloadUrl as 
 from verbatim_client.models.document_init import DocumentInit as DocumentInit
 from verbatim_client.models.document_init_request import DocumentInitRequest as DocumentInitRequest
 from verbatim_client.models.document_list_response import DocumentListResponse as DocumentListResponse
+from verbatim_client.models.document_markdown_url import DocumentMarkdownUrl as DocumentMarkdownUrl
 from verbatim_client.models.document_preview_url import DocumentPreviewUrl as DocumentPreviewUrl
 from verbatim_client.models.document_preview_urls import DocumentPreviewUrls as DocumentPreviewUrls
 from verbatim_client.models.document_search_response import DocumentSearchResponse as DocumentSearchResponse

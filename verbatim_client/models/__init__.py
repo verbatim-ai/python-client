@@ -43,6 +43,7 @@ from verbatim_client.models.document_download_url import DocumentDownloadUrl
 from verbatim_client.models.document_init import DocumentInit
 from verbatim_client.models.document_init_request import DocumentInitRequest
 from verbatim_client.models.document_list_response import DocumentListResponse
+from verbatim_client.models.document_markdown_url import DocumentMarkdownUrl
 from verbatim_client.models.document_preview_url import DocumentPreviewUrl
 from verbatim_client.models.document_preview_urls import DocumentPreviewUrls
 from verbatim_client.models.document_search_response import DocumentSearchResponse
