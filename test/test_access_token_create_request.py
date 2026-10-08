@@ -38,8 +38,6 @@ class TestAccessTokenCreateRequest(unittest.TestCase):
             return AccessTokenCreateRequest(
                 ttl = 3600,
                 issuer = 'widget-frontend',
-                email = 'user@example.com',
-                user_id = 'usr_abc123',
                 scope = [corpus:read, doc:read]
             )
         else:

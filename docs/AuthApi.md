@@ -28,8 +28,10 @@ listing shows only its first characters, and no call returns it again.
 - `ttl` is in seconds: 3600 (1 hour) when omitted, at least 10, and no more than the
   ceiling the platform sets (`app.access-token.max-ttl-seconds`, 86400 — 24 hours — by
   default). A longer `ttl` is refused with a 400, not shortened.
-- `issuer`, `email` and `userId` are free labels stored with the token and shown in the
-  listing; `userId` and `email` are also what `GET /v1/auth/whoami` answers for it.
+- `issuer` is a free label stored with the token and shown in the listing.
+- the token's `userId` and `email` are not inputs: they are the caller's own, and
+  what `GET /v1/auth/whoami` answers for the token. A token minted by a root user
+  is a root token.
 
 Only reachable with a JWT: an access token cannot mint another.
 

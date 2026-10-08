@@ -31,10 +31,8 @@ class AccessTokenCreateRequest(BaseModel):
     """ # noqa: E501
     ttl: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Token validity in seconds. Defaults to 3600 (1 hour); at least 10, and at most the platform ceiling (`app.access-token.max-ttl-seconds`, 86400 by default).", json_schema_extra={"examples": [3600]})
     issuer: Optional[StrictStr] = Field(default=None, description="Optional label identifying the system that requested the token.", json_schema_extra={"examples": ["widget-frontend"]})
-    email: Optional[StrictStr] = Field(default=None, description="Optional email of the end-user the token is issued for.", json_schema_extra={"examples": ["user@example.com"]})
-    user_id: Optional[StrictStr] = Field(default=None, description="Optional user identifier.", alias="userId", json_schema_extra={"examples": ["usr_abc123"]})
     scope: List[StrictStr] = Field(description="Mandatory, non-empty list of permission scopes the token carries, each `DOMAIN:ACTION`. `GET /v1/auth/access-token/scopes` lists every valid entry.", json_schema_extra={"examples": [["corpus:read", "doc:read"]]})
-    __properties: ClassVar[List[str]] = ["ttl", "issuer", "email", "userId", "scope"]
+    __properties: ClassVar[List[str]] = ["ttl", "issuer", "scope"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,8 +87,6 @@ class AccessTokenCreateRequest(BaseModel):
         _obj = cls.model_validate({
             "ttl": obj.get("ttl"),
             "issuer": obj.get("issuer"),
-            "email": obj.get("email"),
-            "userId": obj.get("userId"),
             "scope": obj.get("scope")
         })
         return _obj
