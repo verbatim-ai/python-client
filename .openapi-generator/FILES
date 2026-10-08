@@ -44,6 +44,7 @@ docs/DocumentPreviewUrls.md
 docs/DocumentSearchResponse.md
 docs/DocumentStatus.md
 docs/DocumentUpdateRequest.md
+docs/DocumentUrlRequest.md
 docs/Error.md
 docs/Model.md
 docs/ModelListResponse.md
@@ -112,6 +113,7 @@ test/test_document_preview_urls.py
 test/test_document_search_response.py
 test/test_document_status.py
 test/test_document_update_request.py
+test/test_document_url_request.py
 test/test_error.py
 test/test_model.py
 test/test_model_list_response.py
@@ -184,6 +186,7 @@ verbatim_client/models/document_preview_urls.py
 verbatim_client/models/document_search_response.py
 verbatim_client/models/document_status.py
 verbatim_client/models/document_update_request.py
+verbatim_client/models/document_url_request.py
 verbatim_client/models/error.py
 verbatim_client/models/model.py
 verbatim_client/models/model_list_response.py

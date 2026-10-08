@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**delete2**](DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 [**download_url1**](DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
 [**get2**](DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
+[**import_url**](DocumentApi.md#import_url) | **POST** /v1/doc/url | Import a web page
 [**init_upload**](DocumentApi.md#init_upload) | **POST** /v1/doc/init | Initialize a direct-to-storage upload
 [**list6**](DocumentApi.md#list6) | **GET** /v1/doc/ | List documents
 [**list_supported_documents**](DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
@@ -536,6 +537,131 @@ Name | Type | Description  | Notes
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Document found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **import_url**
+> Document import_url(document_url_request)
+
+Import a web page
+
+Print a web page to PDF and add it to a corpus — the `init` → PUT → `commit` flow
+in one call, with the server producing the file. The page is loaded in a headless
+Chromium, as a browser would show it: scripts run, so pages rendered client-side
+import too.
+
+**The document is named by the page.** `filename` is the page's
+`<title>` with a `.pdf` extension (its address when the page has none), `lang` comes
+from its `<html lang>` (English when it declares none), `provider` is `web`, and
+`metadata.url` keeps the URL it was imported from.
+
+**The response is the committed document**, already `PENDING`: ingestion runs
+asynchronously, exactly as after `commit` — poll `GET /v1/doc/{id}/status`. The
+call itself is synchronous up to that point and takes as long as the page takes
+to load and print, usually a few seconds.
+
+**The URL must be `https`**, and credentials do not go in it: send them in
+`headers`.
+
+**The page is checked before it is printed**: one `GET`, redirects followed (at
+most 20), must end on an `https` URL answering HTTP `200` with HTML. Anything else is
+refused without printing — a dead link or an error status is a `400`, a URL
+answering something other than HTML (a PDF, an image, JSON) is a `415`.
+
+**`headers` reach the page's own origin only** — same scheme, host and port as
+`url`. Chromium does not send them to the stylesheets, scripts and images the
+page loads from elsewhere, nor to another origin a redirect leads to. They are
+used for this call and never stored.
+
+A page that passes the check but still fails to print is a `400` saying why. A
+PDF above the per-document size limit is a `409`.
+
+Scope: `doc:create`.
+
+
+### Example
+
+* Bearer (JWT) Authentication (JWT):
+* Api Key Authentication (AccessToken):
+
+```python
+import verbatim_client
+from verbatim_client.models.document import Document
+from verbatim_client.models.document_url_request import DocumentUrlRequest
+from verbatim_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.verbatim-ai.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = verbatim_client.Configuration(
+    host = "https://api.verbatim-ai.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): JWT
+configuration = verbatim_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Configure API key authorization: AccessToken
+configuration.api_key['AccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['AccessToken'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with verbatim_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = verbatim_client.DocumentApi(api_client)
+    document_url_request = {"corpusId":"550e8400-e29b-41d4-a716-446655440001","url":"https://www.verbatim-ai.com/blog/rag-in-production"} # DocumentUrlRequest | 
+
+    try:
+        # Import a web page
+        api_response = api_instance.import_url(document_url_request)
+        print("The response of DocumentApi->import_url:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DocumentApi->import_url: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **document_url_request** | [**DocumentUrlRequest**](DocumentUrlRequest.md)|  | 
+
+### Return type
+
+[**Document**](Document.md)
+
+### Authorization
+
+[JWT](../README.md#JWT), [AccessToken](../README.md#AccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**500** | Internal error. Check body to get more info |  -  |
+**403** | Not authorized. Access not granted for this request |  -  |
+**404** | The resource referenced by the request does not exist. |  -  |
+**415** | The URL answers something other than HTML. |  -  |
+**400** | Invalid request — &#x60;url&#x60; not &#x60;https&#x60;, &#x60;scale&#x60; out of range, an invalid header — or a page that could not be used: unresolvable host, unreachable, too slow, redirected more than 20 times or ending off &#x60;https&#x60;, answering anything but &#x60;200&#x60;, or failing to print. |  -  |
+**409** | The printed PDF is above the per-document size limit. |  -  |
+**413** | The request body exceeds the size accepted by the endpoint. |  -  |
+**202** | Page printed and committed; ingestion queued. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1075,12 +1201,12 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search2**
-> DocumentSearchResponse search2(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+> DocumentSearchResponse search2(corpus_id, q=q, tags=tags, tags_match=tags_match, meta=meta, meta_match=meta_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
 
 Search documents
 
-Find documents in a corpus by filename, tags, lifecycle status, content type,
-language, provider or ingestion date, sorted the way you need them.
+Find documents in a corpus by filename, tags, metadata, lifecycle status, content
+type, language, provider or ingestion date, sorted the way you need them.
 
 Every filter is optional and they **narrow together**: a request carrying none of
 them returns the whole corpus, one carrying several returns only the documents
@@ -1107,6 +1233,19 @@ Repeat the parameter for several tags (`tags=legal&tags=2026`). By default
 (`tagsMatch=ANY`) a document matches when it carries **at least one** of them,
 which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one
 of them, extra tags on the document being fine.
+
+### Metadata — `meta`, `metaMatch`
+
+Each `meta` is one `key:value` condition on the document's `metadata`, split at
+the **first** `:` — so a value may contain colons (`meta=source:https://…`) but a
+key may not. Repeat it for several conditions; by default (`metaMatch=ALL`) a
+document must satisfy **every** one of them, with `metaMatch=ANY` **at least
+one**.
+
+Keys are top-level and exact (case-sensitive). Values compare as text, exactly:
+`meta=year:2026` matches `"year": "2026"` and `"year": 2026` alike, and
+`meta=archived:true` a boolean `true`. A document without the key never matches
+its condition. At most 16 conditions, keys up to 128 characters, values up to 1024.
 
 ### Status — `status`
 
@@ -1157,6 +1296,9 @@ Documents whose `size` is not known yet sort last whatever the direction.
 * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the
   ingestion backlog, longest-waiting first
 * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags
+* `?corpusId=…&meta=team:legal&meta=year:2026` — metadata `team` is `legal` **and**
+  `year` is `2026`
+* `?corpusId=…&meta=team:legal&meta=team:hr&metaMatch=ANY` — either team
 * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`
   — last quarter's PDFs, biggest first
 * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`
@@ -1205,6 +1347,8 @@ with verbatim_client.ApiClient(configuration) as api_client:
     q = 'annual-report' # str | Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered. (optional)
     tags = ['legal'] # List[str] | Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored. (optional)
     tags_match = 'ANY' # str | How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`. (optional)
+    meta = ['team:legal'] # List[str] | Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered. (optional)
+    meta_match = 'ALL' # str | How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`. (optional)
     status = ['READY'] # List[str] | Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned. (optional)
     content_type = ['application/pdf'] # List[str] | MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered. (optional)
     lang = 'fr' # str | Exact ISO-639 language code of the document. (optional)
@@ -1220,7 +1364,7 @@ with verbatim_client.ApiClient(configuration) as api_client:
 
     try:
         # Search documents
-        api_response = api_instance.search2(corpus_id, q=q, tags=tags, tags_match=tags_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
+        api_response = api_instance.search2(corpus_id, q=q, tags=tags, tags_match=tags_match, meta=meta, meta_match=meta_match, status=status, content_type=content_type, lang=lang, provider=provider, created_after=created_after, created_before=created_before, min_size=min_size, max_size=max_size, sort=sort, order=order, page_size=page_size, page_index=page_index)
         print("The response of DocumentApi->search2:\n")
         pprint(api_response)
     except Exception as e:
@@ -1238,6 +1382,8 @@ Name | Type | Description  | Notes
  **q** | **str**| Filename pattern, case-insensitive and anchored at the start of the name: &#x60;annual&#x60; matches &#x60;Annual-Report-2025.pdf&#x60;, &#x60;report&#x60; does not. Add &#x60;*&#x60; anywhere to match elsewhere (&#x60;*report*&#x60;), at the cost of a scan over the corpus. &#x60;%&#x60; and &#x60;_&#x60; match themselves. Blank or omitted, filenames are not filtered. | [optional] 
  **tags** | [**List[str]**](str.md)| Tag filter. Repeat for multiple values: &#x60;tags&#x3D;legal&amp;tags&#x3D;2026&#x60;. When omitted, tags are ignored. | [optional] 
  **tags_match** | **str**| How &#x60;tags&#x60; combine: &#x60;ANY&#x60; keeps documents carrying at least one of them, &#x60;ALL&#x60; only those carrying every one. Ignored without &#x60;tags&#x60;. | [optional] 
+ **meta** | [**List[str]**](str.md)| Metadata condition &#x60;key:value&#x60;, split at the first &#x60;:&#x60;; the value compares as text, so &#x60;year:2026&#x60; matches a string or a number. Repeat for several: &#x60;meta&#x3D;team:legal&amp;meta&#x3D;year:2026&#x60;. When omitted, metadata is not filtered. | [optional] 
+ **meta_match** | **str**| How &#x60;meta&#x60; conditions combine: &#x60;ALL&#x60; (default) keeps documents satisfying every one, &#x60;ANY&#x60; those satisfying at least one. Ignored without &#x60;meta&#x60;. | [optional] 
  **status** | [**List[str]**](str.md)| Lifecycle filter. Repeat for several: &#x60;status&#x3D;PENDING&amp;status&#x3D;FAILED&#x60; matches either. When omitted, documents of all statuses are returned. | [optional] 
  **content_type** | [**List[str]**](str.md)| MIME type filter. Repeat for several: &#x60;contentType&#x3D;application/pdf&amp;contentType&#x3D;text/plain&#x60; matches either. Values are not checked against &#x60;GET /v1/doc/accept&#x60; — an unsupported one simply matches nothing. When omitted, content types are not filtered. | [optional] 
  **lang** | **str**| Exact ISO-639 language code of the document. | [optional] 
@@ -1272,7 +1418,7 @@ Name | Type | Description  | Notes
 **403** | Not authorized. Access not granted for this request |  -  |
 **404** | The resource referenced by the request does not exist. |  -  |
 **415** | Content type not accepted by the platform. See &#x60;GET /v1/doc/accept&#x60; for the list of supported types. |  -  |
-**400** | A filter or paging parameter is out of bounds, or the date window is empty. |  -  |
+**400** | A filter or paging parameter is out of bounds or malformed, or the date window is empty. |  -  |
 **409** | The request conflicts with the current state of the resource. |  -  |
 **413** | The request body exceeds the size accepted by the endpoint. |  -  |
 **200** | Page of matching documents. |  -  |

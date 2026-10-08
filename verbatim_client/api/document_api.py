@@ -32,6 +32,7 @@ from verbatim_client.models.document_preview_urls import DocumentPreviewUrls
 from verbatim_client.models.document_search_response import DocumentSearchResponse
 from verbatim_client.models.document_status import DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest
+from verbatim_client.models.document_url_request import DocumentUrlRequest
 
 from verbatim_client.api_client import ApiClient, RequestSerialized
 from verbatim_client.api_response import ApiResponse
@@ -1489,6 +1490,302 @@ class DocumentApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/doc/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def import_url(
+        self,
+        document_url_request: DocumentUrlRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Document:
+        """Import a web page
+
+        Print a web page to PDF and add it to a corpus — the `init` → PUT → `commit` flow in one call, with the server producing the file. The page is loaded in a headless Chromium, as a browser would show it: scripts run, so pages rendered client-side import too.  **The document is named by the page.** `filename` is the page's `<title>` with a `.pdf` extension (its address when the page has none), `lang` comes from its `<html lang>` (English when it declares none), `provider` is `web`, and `metadata.url` keeps the URL it was imported from.  **The response is the committed document**, already `PENDING`: ingestion runs asynchronously, exactly as after `commit` — poll `GET /v1/doc/{id}/status`. The call itself is synchronous up to that point and takes as long as the page takes to load and print, usually a few seconds.  **The URL must be `https`**, and credentials do not go in it: send them in `headers`.  **The page is checked before it is printed**: one `GET`, redirects followed (at most 20), must end on an `https` URL answering HTTP `200` with HTML. Anything else is refused without printing — a dead link or an error status is a `400`, a URL answering something other than HTML (a PDF, an image, JSON) is a `415`.  **`headers` reach the page's own origin only** — same scheme, host and port as `url`. Chromium does not send them to the stylesheets, scripts and images the page loads from elsewhere, nor to another origin a redirect leads to. They are used for this call and never stored.  A page that passes the check but still fails to print is a `400` saying why. A PDF above the per-document size limit is a `409`.  Scope: `doc:create`. 
+
+        :param document_url_request: (required)
+        :type document_url_request: DocumentUrlRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_url_serialize(
+            document_url_request=document_url_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': None,
+            '400': None,
+            '409': None,
+            '413': "Error",
+            '202': "Document",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def import_url_with_http_info(
+        self,
+        document_url_request: DocumentUrlRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[Document]:
+        """Import a web page
+
+        Print a web page to PDF and add it to a corpus — the `init` → PUT → `commit` flow in one call, with the server producing the file. The page is loaded in a headless Chromium, as a browser would show it: scripts run, so pages rendered client-side import too.  **The document is named by the page.** `filename` is the page's `<title>` with a `.pdf` extension (its address when the page has none), `lang` comes from its `<html lang>` (English when it declares none), `provider` is `web`, and `metadata.url` keeps the URL it was imported from.  **The response is the committed document**, already `PENDING`: ingestion runs asynchronously, exactly as after `commit` — poll `GET /v1/doc/{id}/status`. The call itself is synchronous up to that point and takes as long as the page takes to load and print, usually a few seconds.  **The URL must be `https`**, and credentials do not go in it: send them in `headers`.  **The page is checked before it is printed**: one `GET`, redirects followed (at most 20), must end on an `https` URL answering HTTP `200` with HTML. Anything else is refused without printing — a dead link or an error status is a `400`, a URL answering something other than HTML (a PDF, an image, JSON) is a `415`.  **`headers` reach the page's own origin only** — same scheme, host and port as `url`. Chromium does not send them to the stylesheets, scripts and images the page loads from elsewhere, nor to another origin a redirect leads to. They are used for this call and never stored.  A page that passes the check but still fails to print is a `400` saying why. A PDF above the per-document size limit is a `409`.  Scope: `doc:create`. 
+
+        :param document_url_request: (required)
+        :type document_url_request: DocumentUrlRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_url_serialize(
+            document_url_request=document_url_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': None,
+            '400': None,
+            '409': None,
+            '413': "Error",
+            '202': "Document",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def import_url_without_preload_content(
+        self,
+        document_url_request: DocumentUrlRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Import a web page
+
+        Print a web page to PDF and add it to a corpus — the `init` → PUT → `commit` flow in one call, with the server producing the file. The page is loaded in a headless Chromium, as a browser would show it: scripts run, so pages rendered client-side import too.  **The document is named by the page.** `filename` is the page's `<title>` with a `.pdf` extension (its address when the page has none), `lang` comes from its `<html lang>` (English when it declares none), `provider` is `web`, and `metadata.url` keeps the URL it was imported from.  **The response is the committed document**, already `PENDING`: ingestion runs asynchronously, exactly as after `commit` — poll `GET /v1/doc/{id}/status`. The call itself is synchronous up to that point and takes as long as the page takes to load and print, usually a few seconds.  **The URL must be `https`**, and credentials do not go in it: send them in `headers`.  **The page is checked before it is printed**: one `GET`, redirects followed (at most 20), must end on an `https` URL answering HTTP `200` with HTML. Anything else is refused without printing — a dead link or an error status is a `400`, a URL answering something other than HTML (a PDF, an image, JSON) is a `415`.  **`headers` reach the page's own origin only** — same scheme, host and port as `url`. Chromium does not send them to the stylesheets, scripts and images the page loads from elsewhere, nor to another origin a redirect leads to. They are used for this call and never stored.  A page that passes the check but still fails to print is a `400` saying why. A PDF above the per-document size limit is a `409`.  Scope: `doc:create`. 
+
+        :param document_url_request: (required)
+        :type document_url_request: DocumentUrlRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._import_url_serialize(
+            document_url_request=document_url_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '500': "Error",
+            '403': "Error",
+            '404': "Error",
+            '415': None,
+            '400': None,
+            '409': None,
+            '413': "Error",
+            '202': "Document",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _import_url_serialize(
+        self,
+        document_url_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if document_url_request is not None:
+            _body_params = document_url_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'JWT', 
+            'AccessToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/doc/url',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3013,6 +3310,8 @@ class DocumentApi:
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
         tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
         tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        meta: Annotated[Optional[List[StrictStr]], Field(description="Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.")] = None,
+        meta_match: Annotated[Optional[StrictStr], Field(description="How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.")] = None,
         status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
         content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
         lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
@@ -3040,7 +3339,7 @@ class DocumentApi:
     ) -> DocumentSearchResponse:
         """Search documents
 
-        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+        Find documents in a corpus by filename, tags, metadata, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Metadata — `meta`, `metaMatch`  Each `meta` is one `key:value` condition on the document's `metadata`, split at the **first** `:` — so a value may contain colons (`meta=source:https://…`) but a key may not. Repeat it for several conditions; by default (`metaMatch=ALL`) a document must satisfy **every** one of them, with `metaMatch=ANY` **at least one**.  Keys are top-level and exact (case-sensitive). Values compare as text, exactly: `meta=year:2026` matches `\"year\": \"2026\"` and `\"year\": 2026` alike, and `meta=archived:true` a boolean `true`. A document without the key never matches its condition. At most 16 conditions, keys up to 128 characters, values up to 1024.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&meta=team:legal&meta=year:2026` — metadata `team` is `legal` **and**   `year` is `2026` * `?corpusId=…&meta=team:legal&meta=team:hr&metaMatch=ANY` — either team * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
 
         :param corpus_id: ID of the corpus to search. (required)
         :type corpus_id: UUID
@@ -3050,6 +3349,10 @@ class DocumentApi:
         :type tags: List[str]
         :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
         :type tags_match: str
+        :param meta: Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.
+        :type meta: List[str]
+        :param meta_match: How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.
+        :type meta_match: str
         :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
         :type status: List[str]
         :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
@@ -3101,6 +3404,8 @@ class DocumentApi:
             q=q,
             tags=tags,
             tags_match=tags_match,
+            meta=meta,
+            meta_match=meta_match,
             status=status,
             content_type=content_type,
             lang=lang,
@@ -3147,6 +3452,8 @@ class DocumentApi:
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
         tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
         tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        meta: Annotated[Optional[List[StrictStr]], Field(description="Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.")] = None,
+        meta_match: Annotated[Optional[StrictStr], Field(description="How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.")] = None,
         status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
         content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
         lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
@@ -3174,7 +3481,7 @@ class DocumentApi:
     ) -> ApiResponse[DocumentSearchResponse]:
         """Search documents
 
-        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+        Find documents in a corpus by filename, tags, metadata, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Metadata — `meta`, `metaMatch`  Each `meta` is one `key:value` condition on the document's `metadata`, split at the **first** `:` — so a value may contain colons (`meta=source:https://…`) but a key may not. Repeat it for several conditions; by default (`metaMatch=ALL`) a document must satisfy **every** one of them, with `metaMatch=ANY` **at least one**.  Keys are top-level and exact (case-sensitive). Values compare as text, exactly: `meta=year:2026` matches `\"year\": \"2026\"` and `\"year\": 2026` alike, and `meta=archived:true` a boolean `true`. A document without the key never matches its condition. At most 16 conditions, keys up to 128 characters, values up to 1024.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&meta=team:legal&meta=year:2026` — metadata `team` is `legal` **and**   `year` is `2026` * `?corpusId=…&meta=team:legal&meta=team:hr&metaMatch=ANY` — either team * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
 
         :param corpus_id: ID of the corpus to search. (required)
         :type corpus_id: UUID
@@ -3184,6 +3491,10 @@ class DocumentApi:
         :type tags: List[str]
         :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
         :type tags_match: str
+        :param meta: Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.
+        :type meta: List[str]
+        :param meta_match: How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.
+        :type meta_match: str
         :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
         :type status: List[str]
         :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
@@ -3235,6 +3546,8 @@ class DocumentApi:
             q=q,
             tags=tags,
             tags_match=tags_match,
+            meta=meta,
+            meta_match=meta_match,
             status=status,
             content_type=content_type,
             lang=lang,
@@ -3281,6 +3594,8 @@ class DocumentApi:
         q: Annotated[Optional[StrictStr], Field(description="Filename pattern, case-insensitive and anchored at the start of the name: `annual` matches `Annual-Report-2025.pdf`, `report` does not. Add `*` anywhere to match elsewhere (`*report*`), at the cost of a scan over the corpus. `%` and `_` match themselves. Blank or omitted, filenames are not filtered.")] = None,
         tags: Annotated[Optional[List[StrictStr]], Field(description="Tag filter. Repeat for multiple values: `tags=legal&tags=2026`. When omitted, tags are ignored.")] = None,
         tags_match: Annotated[Optional[StrictStr], Field(description="How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.")] = None,
+        meta: Annotated[Optional[List[StrictStr]], Field(description="Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.")] = None,
+        meta_match: Annotated[Optional[StrictStr], Field(description="How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.")] = None,
         status: Annotated[Optional[List[StrictStr]], Field(description="Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.")] = None,
         content_type: Annotated[Optional[List[StrictStr]], Field(description="MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.")] = None,
         lang: Annotated[Optional[StrictStr], Field(description="Exact ISO-639 language code of the document.")] = None,
@@ -3308,7 +3623,7 @@ class DocumentApi:
     ) -> RESTResponseType:
         """Search documents
 
-        Find documents in a corpus by filename, tags, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
+        Find documents in a corpus by filename, tags, metadata, lifecycle status, content type, language, provider or ingestion date, sorted the way you need them.  Every filter is optional and they **narrow together**: a request carrying none of them returns the whole corpus, one carrying several returns only the documents matching all of them. For a plain corpus listing, `GET /v1/doc/` is the simpler endpoint — this one is for finding a document you cannot scroll to.  ### Filename — `q`  Case-insensitive, and **anchored at the start** of the filename: `q=annual` finds `Annual-Report-2025.pdf`, `q=report` does not. Put a `*` anywhere to match elsewhere — `q=*report` searches any position, `q=*report*` a substring, `q=2025-*.pdf` a name that starts with `2025-` and ends in `.pdf`.  The default is anchored because that is the shape the index can serve: an anchored pattern is a range scan, a leading `*` is a filter over the corpus. Both are correct, the first is cheaper — prefer it when your client knows how the filename begins.  `%` and `_` carry no special meaning here: they match themselves.  ### Tags — `tags`, `tagsMatch`  Repeat the parameter for several tags (`tags=legal&tags=2026`). By default (`tagsMatch=ANY`) a document matches when it carries **at least one** of them, which is what `GET /v1/doc/?tags=…` does; `tagsMatch=ALL` requires **every** one of them, extra tags on the document being fine.  ### Metadata — `meta`, `metaMatch`  Each `meta` is one `key:value` condition on the document's `metadata`, split at the **first** `:` — so a value may contain colons (`meta=source:https://…`) but a key may not. Repeat it for several conditions; by default (`metaMatch=ALL`) a document must satisfy **every** one of them, with `metaMatch=ANY` **at least one**.  Keys are top-level and exact (case-sensitive). Values compare as text, exactly: `meta=year:2026` matches `\"year\": \"2026\"` and `\"year\": 2026` alike, and `meta=archived:true` a boolean `true`. A document without the key never matches its condition. At most 16 conditions, keys up to 128 characters, values up to 1024.  ### Status — `status`  Repeatable as well, and any of the listed states matches: `status=PENDING&status=FAILED` returns everything that is not ingested yet or needs attention.  ### Content type — `contentType`  Repeatable too, and any of the listed types matches: `contentType=application/pdf&contentType=text/plain`. Values are taken as they come — nothing is checked against `GET /v1/doc/accept`, so a type the platform does not ingest is not an error, it simply matches no document.  ### Size — `minSize`, `maxSize`  A range on the stored size in bytes, **inclusive at both ends** and each bound independent: `minSize=1048576` alone is \"at least 1 MB\", `maxSize` alone \"at most\", and `minSize=maxSize=N` the documents of exactly that many bytes. `minSize` above `maxSize` is refused with `400` rather than answering an empty page.  A document only has a size once its upload is committed, so setting either bound also excludes everything still `AWAITING_UPLOAD` — the same documents `sort=SIZE` pushes to the end of the result.  ### Dates — `createdAfter`, `createdBefore`  A half-open window on the ingestion date: `createdAfter` is inclusive, `createdBefore` exclusive, so consecutive windows tile the timeline without returning a document twice. Supplying `createdAfter` at or after `createdBefore` is refused with `400` rather than answering an empty page.  ### Ordering and paging  `sort` defaults to `CREATED_AT` and `order` to `DESC` — newest first. The ordering is closed by the document id, so walking `pageIndex` never shows the same document twice nor skips one, even when many documents share a sort key. Documents whose `size` is not known yet sort last whatever the direction.  `total` counts every match across all pages, not just the ones returned here.  ### Examples  * `?corpusId=…&q=annual-report` — every document whose name starts with it * `?corpusId=…&q=*report*` — anywhere in the name, at the cost of a scan * `?corpusId=…&q=2025-*.pdf` — starts with `2025-`, ends in `.pdf` * `?corpusId=…&status=FAILED&status=PENDING&sort=UPDATED_AT&order=ASC` — the   ingestion backlog, longest-waiting first * `?corpusId=…&tags=legal&tags=2026&tagsMatch=ALL` — documents carrying both tags * `?corpusId=…&meta=team:legal&meta=year:2026` — metadata `team` is `legal` **and**   `year` is `2026` * `?corpusId=…&meta=team:legal&meta=team:hr&metaMatch=ANY` — either team * `?corpusId=…&contentType=application/pdf&createdAfter=2026-07-01T00:00:00Z&createdBefore=2026-10-01T00:00:00Z&sort=SIZE&order=DESC`   — last quarter's PDFs, biggest first * `?corpusId=…&contentType=application/pdf&contentType=text/plain&minSize=1048576`   — PDFs and plain text over 1 MB * `?corpusId=…&maxSize=0` — documents that were uploaded empty 
 
         :param corpus_id: ID of the corpus to search. (required)
         :type corpus_id: UUID
@@ -3318,6 +3633,10 @@ class DocumentApi:
         :type tags: List[str]
         :param tags_match: How `tags` combine: `ANY` keeps documents carrying at least one of them, `ALL` only those carrying every one. Ignored without `tags`.
         :type tags_match: str
+        :param meta: Metadata condition `key:value`, split at the first `:`; the value compares as text, so `year:2026` matches a string or a number. Repeat for several: `meta=team:legal&meta=year:2026`. When omitted, metadata is not filtered.
+        :type meta: List[str]
+        :param meta_match: How `meta` conditions combine: `ALL` (default) keeps documents satisfying every one, `ANY` those satisfying at least one. Ignored without `meta`.
+        :type meta_match: str
         :param status: Lifecycle filter. Repeat for several: `status=PENDING&status=FAILED` matches either. When omitted, documents of all statuses are returned.
         :type status: List[str]
         :param content_type: MIME type filter. Repeat for several: `contentType=application/pdf&contentType=text/plain` matches either. Values are not checked against `GET /v1/doc/accept` — an unsupported one simply matches nothing. When omitted, content types are not filtered.
@@ -3369,6 +3688,8 @@ class DocumentApi:
             q=q,
             tags=tags,
             tags_match=tags_match,
+            meta=meta,
+            meta_match=meta_match,
             status=status,
             content_type=content_type,
             lang=lang,
@@ -3410,6 +3731,8 @@ class DocumentApi:
         q,
         tags,
         tags_match,
+        meta,
+        meta_match,
         status,
         content_type,
         lang,
@@ -3432,6 +3755,7 @@ class DocumentApi:
 
         _collection_formats: Dict[str, str] = {
             'tags': 'multi',
+            'meta': 'multi',
             'status': 'multi',
             'contentType': 'multi',
         }
@@ -3462,6 +3786,14 @@ class DocumentApi:
         if tags_match is not None:
             
             _query_params.append(('tagsMatch', tags_match))
+            
+        if meta is not None:
+            
+            _query_params.append(('meta', meta))
+            
+        if meta_match is not None:
+            
+            _query_params.append(('metaMatch', meta_match))
             
         if status is not None:
             

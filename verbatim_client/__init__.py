@@ -71,6 +71,7 @@ __all__ = [
     "DocumentSearchResponse",
     "DocumentStatus",
     "DocumentUpdateRequest",
+    "DocumentUrlRequest",
     "Error",
     "Model",
     "ModelListResponse",
@@ -148,6 +149,7 @@ from verbatim_client.models.document_preview_urls import DocumentPreviewUrls as 
 from verbatim_client.models.document_search_response import DocumentSearchResponse as DocumentSearchResponse
 from verbatim_client.models.document_status import DocumentStatus as DocumentStatus
 from verbatim_client.models.document_update_request import DocumentUpdateRequest as DocumentUpdateRequest
+from verbatim_client.models.document_url_request import DocumentUrlRequest as DocumentUrlRequest
 from verbatim_client.models.error import Error as Error
 from verbatim_client.models.model import Model as Model
 from verbatim_client.models.model_list_response import ModelListResponse as ModelListResponse

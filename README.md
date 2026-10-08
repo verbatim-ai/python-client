@@ -155,6 +155,7 @@ Class | Method | HTTP request | Description
 *DocumentApi* | [**delete2**](docs/DocumentApi.md#delete2) | **DELETE** /v1/doc/{id} | Delete a document
 *DocumentApi* | [**download_url1**](docs/DocumentApi.md#download_url1) | **GET** /v1/doc/{id}/download-url | Get a presigned download URL
 *DocumentApi* | [**get2**](docs/DocumentApi.md#get2) | **GET** /v1/doc/{id} | Get a document
+*DocumentApi* | [**import_url**](docs/DocumentApi.md#import_url) | **POST** /v1/doc/url | Import a web page
 *DocumentApi* | [**init_upload**](docs/DocumentApi.md#init_upload) | **POST** /v1/doc/init | Initialize a direct-to-storage upload
 *DocumentApi* | [**list6**](docs/DocumentApi.md#list6) | **GET** /v1/doc/ | List documents
 *DocumentApi* | [**list_supported_documents**](docs/DocumentApi.md#list_supported_documents) | **GET** /v1/doc/accept | List accepted content types
@@ -224,6 +225,7 @@ Class | Method | HTTP request | Description
  - [DocumentSearchResponse](docs/DocumentSearchResponse.md)
  - [DocumentStatus](docs/DocumentStatus.md)
  - [DocumentUpdateRequest](docs/DocumentUpdateRequest.md)
+ - [DocumentUrlRequest](docs/DocumentUrlRequest.md)
  - [Error](docs/Error.md)
  - [Model](docs/Model.md)
  - [ModelListResponse](docs/ModelListResponse.md)

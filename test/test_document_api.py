@@ -62,6 +62,13 @@ class TestDocumentApi(unittest.TestCase):
         """
         pass
 
+    def test_import_url(self) -> None:
+        """Test case for import_url
+
+        Import a web page
+        """
+        pass
+
     def test_init_upload(self) -> None:
         """Test case for init_upload
 
