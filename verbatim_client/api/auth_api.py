@@ -360,7 +360,7 @@ class AuthApi:
     ) -> AccessTokenListResponse:
         """List access tokens
 
-        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Tokens minted by a platform administrator, impersonation tokens included, are not listed.  Only reachable with a JWT. 
 
         :param page_size: Number of items per page.
         :type page_size: int
@@ -438,7 +438,7 @@ class AuthApi:
     ) -> ApiResponse[AccessTokenListResponse]:
         """List access tokens
 
-        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Tokens minted by a platform administrator, impersonation tokens included, are not listed.  Only reachable with a JWT. 
 
         :param page_size: Number of items per page.
         :type page_size: int
@@ -516,7 +516,7 @@ class AuthApi:
     ) -> RESTResponseType:
         """List access tokens
 
-        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Only reachable with a JWT. 
+        List the access tokens of the caller's organization, newest first, with every attribute stored for them — **except the token value**, which is cut down to its first characters followed by `...`. The full value is only returned by the create call.  Expired tokens stay listed (compare `expiresAt` with the current time) until they are revoked. Use an item's `id` with `DELETE /v1/auth/access-token/id/{id}` to revoke it.  Tokens minted by a platform administrator, impersonation tokens included, are not listed.  Only reachable with a JWT. 
 
         :param page_size: Number of items per page.
         :type page_size: int
